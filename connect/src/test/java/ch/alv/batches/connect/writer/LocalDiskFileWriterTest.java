@@ -24,7 +24,7 @@ public class LocalDiskFileWriterTest {
     private LocalDiskFileWriter writer;
 
     @Before
-    public void init() {
+    public void init() throws IOException {
         writer = new LocalDiskFileWriter("/temp");
     }
 

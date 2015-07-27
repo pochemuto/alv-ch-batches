@@ -1,9 +1,7 @@
 package ch.alv.batches.partnerjobs;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * JPA entity for OSTE_ADMIN table entries.
@@ -43,7 +41,11 @@ public class PartnerJob {
     private String urlDetail;
 
     @Column(name = "ANMELDE_DATUM")
-    private String onlineSince;
+    @Temporal(TemporalType.DATE)
+    private Date onlineSince;
+
+    @Column(name = "SPRACHE")
+    private String language;
 
     public String getId() {
         return id;
@@ -117,11 +119,19 @@ public class PartnerJob {
         this.urlDetail = urlDetail;
     }
 
-    public String getOnlineSince() {
+    public Date getOnlineSince() {
         return onlineSince;
     }
 
-    public void setOnlineSince(String onlineSince) {
+    public void setOnlineSince(Date onlineSince) {
         this.onlineSince = onlineSince;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

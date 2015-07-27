@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: test
+  batch:
+    job:
+      #names: use job names if some shall run at system startup
+      enabled: false # means that no job will be started on system startup
+
+ch:
+  alv:
+    batch:
+      prospective:
+        url: http://localhost:8180/prospective_feed.xml
+        localFileName: prospective_feed_local.xml
+      downloadDirectory: temp/download
+      archiveDirectory: temp/archive
