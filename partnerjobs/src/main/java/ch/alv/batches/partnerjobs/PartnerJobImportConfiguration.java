@@ -1,6 +1,6 @@
 package ch.alv.batches.partnerjobs;
 
-import ch.alv.batches.partnerjobs.converter.ProspectiveXmlToAdminJobConverter;
+import ch.alv.batches.partnerjobs.converter.ProspectiveJobToAdminJobConverter;
 import ch.alv.batches.partnerjobs.jaxb.ProspectiveJob;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -87,7 +87,7 @@ public class PartnerJobImportConfiguration {
 
     @Bean(name = "prospectiveXmlToAdminJobConverter")
     public ItemProcessor<ProspectiveJob, PartnerJob> prospectiveXmlToAdminJobConverter() {
-        return new ProspectiveXmlToAdminJobConverter();
+        return new ProspectiveJobToAdminJobConverter();
     }
 
     @Bean(name = "adminJobJdbcWriter")

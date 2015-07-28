@@ -5,9 +5,8 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.batch.item.xml.StaxEventItemReader;
+import org.springframework.core.io.UrlResource;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -17,7 +16,9 @@ import java.nio.file.Files;
  *
  * @since: 1.0.0
  */
-public class FtpFileReader implements ItemReader<File> {
+public class FtpFileReader<T> extends StaxEventItemReader<T> implements ItemReader<T> {
+
+    private static final String TMP_FILE_PREFIX = "tmp_";
 
     private final String host;
     private final int port;
@@ -32,24 +33,28 @@ public class FtpFileReader implements ItemReader<File> {
     private FTPClient ftpClient;
 
     public FtpFileReader(String host, int port, String userName, String password, String remotePath, String fileName) {
+        super();
         this.host = host;
         this.port = port;
         this.userName = userName;
         this.password = password;
         this.remotePath = remotePath;
         this.fileName = fileName;
-
         String[] fileNameParts = fileName.split("\\.");
         fileSuffix = fileNameParts[fileNameParts.length-1];
         coreFileName = fileName.substring(0, fileName.length() - fileSuffix.length() - 1);
     }
 
     @Override
-    public File read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    public T read() throws Exception {
         connect();
         File file = downloadFile();
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        setResource(new UrlResource("file://" + file.getAbsolutePath()));
         disconnect();
-        return file;
+        return super.read();
     }
 
     private void connect() throws Exception {
@@ -68,7 +73,7 @@ public class FtpFileReader implements ItemReader<File> {
     }
 
     private File downloadFile() throws IOException {
-        File file = Files.createTempFile(coreFileName, "." + fileSuffix).toFile();
+        File file = Files.createTempFile(TMP_FILE_PREFIX, "_" + coreFileName + "." + fileSuffix).toFile();
         OutputStream outputStream = new FileOutputStream(file);
         InputStream inputStream = ftpClient.retrieveFileStream(remotePath);
         int read;

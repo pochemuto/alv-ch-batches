@@ -50,14 +50,14 @@ public class ProspectiveIntegrationTest {
     @Resource
     private DataSource dataSource;
 
-    private static Server server;
+    private Server server;
 
     private List<PartnerJob> jobs;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    @BeforeClass
-    public static void initServer() {
+    @Before
+    public void initTableAndJobObjects() throws ParseException, SQLException {
         server = new Server();
         SelectChannelConnector connector = new SelectChannelConnector();
         connector.setPort(8180);
@@ -72,10 +72,8 @@ public class ProspectiveIntegrationTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
-    @Before
-    public void initTableAndJobObjects() throws ParseException, SQLException {
+
         Connection con = null;
         PreparedStatement pstmt;
         con = dataSource.getConnection();
@@ -255,8 +253,8 @@ public class ProspectiveIntegrationTest {
         return job5;
     }
 
-    @AfterClass
-    public static void stopServer() throws Exception {
+    @After
+    public void stopServer() throws Exception {
         server.stop();
     }
 

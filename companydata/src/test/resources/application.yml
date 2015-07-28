@@ -1,6 +1,3 @@
-server:
-  port: 8080
-
 spring:
   profiles:
     active: test
@@ -12,5 +9,6 @@ spring:
 ch:
   alv:
     batch:
-      prospective:
-        url: http://localhost:8180/prospective_feed.xml
+      companydata:
+        avgfirmen:
+          url: ftp://ftpdev:ftpdev@localhost/AVAMPSTS.xml

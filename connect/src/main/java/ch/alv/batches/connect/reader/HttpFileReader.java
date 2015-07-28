@@ -52,7 +52,7 @@ public class HttpFileReader implements ItemReader<File> {
         CloseableHttpClient httpclient = HttpClients.createSystem();
         HttpGet httpGet = new HttpGet(url);
         CloseableHttpResponse response1 = httpclient.execute(httpGet);
-        File file = File.createTempFile(TMP_FILE_PREFIX + coreFileName, "." + fileSuffix);
+        File file = File.createTempFile(TMP_FILE_PREFIX, "_" + coreFileName + "." + fileSuffix);
         final FileOutputStream fis = new FileOutputStream(file);
         FileCopyUtils.copy(response1.getEntity().getContent(), fis);
         fis.flush();
