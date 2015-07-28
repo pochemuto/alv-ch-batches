@@ -7,11 +7,15 @@ import org.springframework.batch.item.ItemProcessor;
 import java.util.UUID;
 
 /**
- * Contains all logic that transforms a raw prospectiveJob object into its proper internal state as an AdminJob.
+ * Contains all logic that transforms a raw {@link ProspectiveJob} object into
+ * its proper internal state as an {@link PartnerJob}.
  *
  * @since: 1.0.0
  */
 public class ProspectiveXmlToAdminJobConverter implements ItemProcessor<ProspectiveJob, PartnerJob> {
+
+    private static final int DESC_MAX_LENGTH = 2000;
+
     @Override
     public PartnerJob process(ProspectiveJob prospectiveJob) throws Exception {
         PartnerJob adminJob = new PartnerJob();
@@ -21,8 +25,8 @@ public class ProspectiveXmlToAdminJobConverter implements ItemProcessor<Prospect
                 prospectiveJob.getTexte().getText3().trim() + " " +
                 prospectiveJob.getTexte().getText4().trim() + " " +
                 prospectiveJob.getTexte().getText5().trim());
-        if (adminJob.getDescription().length() > 2000) {
-            adminJob.setDescription(adminJob.getDescription().substring(0,1996) + "...");
+        if (adminJob.getDescription().length() > DESC_MAX_LENGTH) {
+            adminJob.setDescription(adminJob.getDescription().substring(0,DESC_MAX_LENGTH-4) + "...");
         }
         adminJob.setDescription(adminJob.getDescription().trim());
         adminJob.setId(UUID.randomUUID().toString());

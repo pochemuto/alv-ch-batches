@@ -1,7 +1,5 @@
-package ch.alv.batches.partnerjobs.partner.prospective;
+package ch.alv.batches.partnerjobs;
 
-import ch.alv.batches.partnerjobs.PartnerJob;
-import ch.alv.batches.partnerjobs.TestApplication;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -41,7 +39,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = TestApplication.class)
-public class ProspectiveXmlJobReaderTest {
+public class ProspectiveIntegrationTest {
 
     @Resource
     private Job importAdminJobsJob;
@@ -77,7 +75,34 @@ public class ProspectiveXmlJobReaderTest {
     }
 
     @Before
-    public void initJobs() throws ParseException {
+    public void initTableAndJobObjects() throws ParseException, SQLException {
+        Connection con = null;
+        PreparedStatement pstmt;
+        con = dataSource.getConnection();
+        con.setAutoCommit(true);
+
+        try {
+            pstmt = con.prepareStatement("SELECT 1 FROM OSTE_ADMIN LIMIT 1");
+            pstmt.execute();
+        } catch (Exception e){
+            pstmt = con.prepareStatement("CREATE TABLE OSTE_ADMIN (" +
+                    "ID VARCHAR(255), " +
+                    "BEZEICHNUNG VARCHAR(2000), " +
+                    "BESCHREIBUNG VARCHAR(2000), " +
+                    "BERUFSGRUPPE INTEGER, " +
+                    "UNT_NAME VARCHAR(255), " +
+                    "ARBEITSORT_PLZ VARCHAR(10), " +
+                    "PENSUM_VON INTEGER, " +
+                    "PENSUM_BIS INTEGER, " +
+                    "URL_DETAIL VARCHAR(2000), " +
+                    "ANMELDE_DATUM DATE, " +
+                    "SPRACHE VARCHAR(2))");
+            pstmt.execute();
+        } finally {
+            con.close();
+        }
+
+
         jobs = new ArrayList<>();
         jobs.add(initJob1());
         jobs.add(initJob2());
@@ -85,8 +110,6 @@ public class ProspectiveXmlJobReaderTest {
         jobs.add(initJob4());
         jobs.add(initJob5());
     }
-
-
 
     @Test
     public void runTest() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, IOException, SQLException {

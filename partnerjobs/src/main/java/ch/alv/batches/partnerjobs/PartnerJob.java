@@ -1,50 +1,34 @@
 package ch.alv.batches.partnerjobs;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /**
- * JPA entity for OSTE_ADMIN table entries.
+ * Abstract, internal representation of a job delivered by one of our partners.
  *
  * @since 1.0.0
  */
-@Entity
-@Table(name = "OSTE_ADMIN")
 public class PartnerJob {
 
-    @Id
-    @Column(name = "ID")
     private String id;
 
-    @Column(name = "BEZEICHNUNG")
     private String title;
 
-    @Column(name = "BESCHREIBUNG", length = 2000)
     private String description;
 
-    @Column(name = "BERUFSGRUPPE")
     private int jobGroup;
 
-    @Column(name = "UNT_NAME")
     private String companyName;
 
-    @Column(name = "ARBEITSORT_PLZ")
     private String jobLocation;
 
-    @Column(name = "PENSUM_VON")
     private int quotaFrom;
 
-    @Column(name = "PENSUM_BIS")
     private int quotaTo;
 
-    @Column(name = "URL_DETAIL")
     private String urlDetail;
 
-    @Column(name = "ANMELDE_DATUM")
-    @Temporal(TemporalType.DATE)
     private Date onlineSince;
 
-    @Column(name = "SPRACHE")
     private String language;
 
     public String getId() {

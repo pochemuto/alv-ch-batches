@@ -4,7 +4,10 @@ import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
- * TODO: put some useful comment.
+ * This class is a java representation of prospective's xml used to deliver
+ * joboffers of the federal administration. Originally it has been generated with
+ * help of the maven-jaxb plugin and then it has adopted to match convenience and
+ * spring batch needs.
  *
  * @since: 1.0.0
  */
