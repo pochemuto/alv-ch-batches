@@ -12,7 +12,7 @@ import java.util.UUID;
  *
  * @since: 1.0.0
  */
-public class ProspectiveXmlToAdminJobConverter implements ItemProcessor<ProspectiveJob, PartnerJob> {
+public class ProspectiveJobToAdminJobConverter implements ItemProcessor<ProspectiveJob, PartnerJob> {
 
     private static final int DESC_MAX_LENGTH = 2000;
 
