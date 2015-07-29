@@ -4,11 +4,11 @@ spring:
   batch:
     job:
       #names: use job names if some shall run at system startup
-      enabled: true # means that no job will be started on system startup
+      enabled: false # means that no job will be started on system startup
 
 ch:
   alv:
     batch:
       companydata:
         avgfirmen:
-          url: ftp://ftpdev:ftpdev@localhost/AVAMPSTS.xml
+          url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml

@@ -1,25 +1,22 @@
 package ch.alv.batches.companydata;
 
-import ch.alv.batches.companydata.converter.AvgFirmaToCompanyConverter;
-import ch.alv.batches.companydata.jaxb.AvgFirma;
-import ch.alv.batches.connect.reader.FtpFileReader;
+import ch.alv.batches.companydata.reader.FtpAvgFirmenStaxEventItemReader;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
-import org.springframework.batch.item.xml.StaxEventItemReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.support.EncodedResource;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
@@ -28,6 +25,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 
 /**
  * AutoConfig of the Company import job.
@@ -63,18 +61,17 @@ public class CompanyImportAutoConfiguration {
     @Bean(name = "avgFirmenXmlToDbImport")
     public Step avgFirmenXmlToDbImport() throws MalformedURLException, URISyntaxException {
         return stepBuilderFactory.get("avgFirmenXmlToDbImport")
-                .<AvgFirma, Company>chunk(10)
+                .<Company, Company>chunk(10)
                 .reader(avgFirmenXmlReader())
-                .processor(avgFirmaToCompanyConverter())
                 .writer(adminJobJdbcWriter())
                 .build();
     }
 
     @Bean(name = "avgFirmenXmlReader")
-    public ItemReader<AvgFirma> avgFirmenXmlReader() throws MalformedURLException, URISyntaxException {
-        StaxEventItemReader<AvgFirma> staxEventItemReader = new FtpFileReader<>("localhost", 21, "ftpdev", "ftpdev", "/AVAMPSTS.xml", "AVAMPSTS.xml");
-        staxEventItemReader.setFragmentRootElementName("betrieb");
-        staxEventItemReader.setResource(new ClassPathResource("AVAMPSTS.xml"));
+    public ItemReader<Company> avgFirmenXmlReader() throws MalformedURLException, URISyntaxException {
+        FtpAvgFirmenStaxEventItemReader staxEventItemReader = new FtpAvgFirmenStaxEventItemReader();
+        staxEventItemReader.setFragmentRootElementNames(new String[] { "Betrieb" });
+        staxEventItemReader.setResource(new EncodedResource(new UrlResource("ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml"), Charset.forName("UTF8")).getResource());
         staxEventItemReader.setUnmarshaller(avgFirmaUnmarshaller());
         return staxEventItemReader;
     }
@@ -86,17 +83,12 @@ public class CompanyImportAutoConfiguration {
         return jaxb2Marshaller;
     }
 
-    @Bean(name = "avgFirmaToCompanyConverter")
-    public ItemProcessor<AvgFirma, Company> avgFirmaToCompanyConverter() {
-        return new AvgFirmaToCompanyConverter();
-    }
-
     @Bean(name = "companyJdbcWriter")
     public ItemWriter<Company> adminJobJdbcWriter() {
         JdbcBatchItemWriter<Company> writer = new JdbcBatchItemWriter<>();
 
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        writer.setSql("INSERT INTO OSTE_ADMIN (ID, " +
+        writer.setSql("INSERT INTO AVG_FIRMEN (ID, " +
                 "BETID, " +
                 "EMAIL, " +
                 "KANTON, " +

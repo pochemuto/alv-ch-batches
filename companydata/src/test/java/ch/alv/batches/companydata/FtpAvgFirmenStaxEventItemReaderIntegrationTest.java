@@ -1,9 +1,8 @@
 package ch.alv.batches.companydata;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.apache.commons.lang.StringUtils;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockftpserver.fake.FakeFtpServer;
 import org.mockftpserver.fake.UserAccount;
@@ -41,7 +40,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CompanyImportTestApplication.class)
-public class AvgFirmenIntegrationTest {
+public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
 
     private static final String FILE_NAME = "AVAMPSTS";
     private static final String FILE_SUFFIX = ".xml";
@@ -57,15 +56,15 @@ public class AvgFirmenIntegrationTest {
 
     private List<Company> companies;
 
-    private File dataFile = new File("local_data.xml");
+    private static File dataFile = new File("local_data.xml");
 
-    private FakeFtpServer fakeFtpServer;
+    private static FakeFtpServer fakeFtpServer;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    @Before
-    public void initTableAndJobObjects() throws ParseException, SQLException, IOException {
-        FileUtils.copyInputStreamToFile(AvgFirmenIntegrationTest.class.getResourceAsStream("/" + FILE_NAME + FILE_SUFFIX), dataFile);
+    @BeforeClass
+    public static void init() throws IOException {
+        FileUtils.copyInputStreamToFile(FtpAvgFirmenStaxEventItemReaderIntegrationTest.class.getResourceAsStream("/" + FILE_NAME + FILE_SUFFIX), dataFile);
         fakeFtpServer = new FakeFtpServer();
         fakeFtpServer.setServerControlPort(8002);  // use any free port
 
@@ -76,6 +75,10 @@ public class AvgFirmenIntegrationTest {
         UserAccount userAccount = new UserAccount("ftpdev", "ftpdev", "/");
         fakeFtpServer.addUserAccount(userAccount);
         fakeFtpServer.start();
+    }
+
+    @Before
+    public void initTableAndJobObjects() throws ParseException, SQLException {
 
         Connection con = null;
         PreparedStatement pstmt;
@@ -87,7 +90,7 @@ public class AvgFirmenIntegrationTest {
             pstmt.execute();
         } catch (Exception e){
             pstmt = con.prepareStatement("CREATE TABLE AVG_FIRMEN (" +
-                    "ID VARCHAR(255), " +
+                    "ID INTEGER, " +
                     "BETID VARCHAR(255), " +
                     "EMAIL VARCHAR(255), " +
                     "KANTON VARCHAR(50), " +
@@ -112,37 +115,68 @@ public class AvgFirmenIntegrationTest {
     }
 
     private Company initCompany1() {
+
         Company company = new Company();
-
-
+        company.setId(5);
+        company.setCompanyId("5");
+        company.setEmail("info@aplan.ch");
+        company.setName("A-Plan GmbH");
+        company.setCity("Bad Zurzach");
+        company.setZip("5330");
+        company.setStreet("Amtshausplatz 1");
+        company.setPhone("0562506767");
         return company;
     }
 
     private Company initCompany2() {
         Company company = new Company();
-
-
+        company.setId(6);
+        company.setCompanyId("6");
+        company.setEmail("info@afpersonal.ch");
+        company.setName("AF Personal AG");
+        company.setCity("Bremgarten AG");
+        company.setZip("5620");
+        company.setStreet("Zürcherstrasse 29");
+        company.setPhone("0566317491");
         return company;
     }
 
     private Company initCompany3() {
         Company company = new Company();
-
-
+        company.setId(8);
+        company.setCompanyId("8");
+        company.setEmail("andreas.somogyi@aspmarketing.ch");
+        company.setName("ASP Marketing AG");
+        company.setCity("Seengen");
+        company.setZip("5707");
+        company.setStreet("Kesslergasse 22");
+        company.setPhone("0627775308");
         return company;
     }
 
     private Company initCompany4() {
         Company company = new Company();
-
-
+        company.setId(10);
+        company.setCompanyId("10");
+        company.setEmail("aarau@adecco.ch");
+        company.setName("Adecco human resources AG");
+        company.setCity("Aarau 1 Fächer");
+        company.setZip("5001");
+        company.setStreet("Bahnhofstrasse 10");
+        company.setPhone("0628347040");
         return company;
     }
 
     private Company initCompany5() {
         Company company = new Company();
-
-
+        company.setId(11);
+        company.setCompanyId("11");
+        company.setEmail("baden@adecco.ch");
+        company.setName("Adecco human resources AG");
+        company.setCity("Baden");
+        company.setZip("5400");
+        company.setStreet("Mellingerstrasse 6");
+        company.setPhone("0562002040");
         return company;
     }
 
@@ -157,13 +191,13 @@ public class AvgFirmenIntegrationTest {
         try {
             con = dataSource.getConnection();
             con.setAutoCommit(true);
-            pstmt = con.prepareStatement("SELECT * FROM AVG_FIRMEN ORDER BY ID");
+            pstmt = con.prepareStatement("SELECT * FROM AVG_FIRMEN ORDER BY AVG_FIRMEN.ID");
             ResultSet result = pstmt.executeQuery();
             int counter = 0;
-            while(result.next()) {
+            while(result.next() && counter < 5) {
                 Company currentCompany = companies.get(counter);
                 Assert.assertEquals(currentCompany.getId(), result.getInt("ID"));
-                Assert.assertEquals(currentCompany.getCompanyId(), result.getString("BETID"));
+
                 Assert.assertEquals(currentCompany.getEmail(), result.getString("EMAIL"));
                 Assert.assertEquals(currentCompany.getCanton(), result.getString("KANTON"));
                 Assert.assertEquals(currentCompany.getName(), result.getString("NAME"));
@@ -171,14 +205,31 @@ public class AvgFirmenIntegrationTest {
                 Assert.assertEquals(currentCompany.getCity(), result.getString("ORT"));
                 Assert.assertEquals(currentCompany.getZip(), result.getString("PLZ"));
                 Assert.assertEquals(currentCompany.getStreet(), result.getString("STRASSE"));
-                Assert.assertEquals(currentCompany.getPhone(), result.getDate("TELEFONNUMMER"));
-                Assert.assertEquals(currentCompany.getToDelete(), result.getString("TODELETE"));
+                Assert.assertEquals(currentCompany.getPhone(), result.getString("TELEFONNUMMER"));
+                if(StringUtils.isEmpty(result.getString("NAME2"))) {
+                    Assert.assertNull(result.getString("BETID"));
+                }
                 counter++;
             }
-            Assert.assertEquals(5, counter);
+
+            while (result.next()) {
+                if(StringUtils.isNotEmpty(result.getString("NAME2"))) {
+                    Assert.assertEquals("GS", result.getString("NAME2"));
+                    Assert.assertNotNull(result.getString("BETID"));
+                    break;
+                }
+            }
+
+            result.last();
+            Assert.assertEquals(6526, result.getRow());
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @AfterClass
+    public static void cleanup() {
+        fakeFtpServer.stop();
     }
 
 }

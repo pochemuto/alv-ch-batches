@@ -8,10 +8,7 @@
 
 package ch.alv.batches.companydata.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 /**
  * This class is a java representation of the AVAMPSTS xml used to deliver

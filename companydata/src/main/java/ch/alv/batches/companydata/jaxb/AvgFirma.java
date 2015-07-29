@@ -96,7 +96,7 @@ import java.util.List;
         "gStelle",
         "leiter"
 })
-@XmlRootElement(name = "betrieb")
+@XmlRootElement(name = "Betrieb")
 public class AvgFirma {
 
     @XmlElement(name = "Id", required = true)
