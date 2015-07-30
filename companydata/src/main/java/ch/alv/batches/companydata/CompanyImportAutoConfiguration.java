@@ -43,7 +43,7 @@ public class CompanyImportAutoConfiguration {
     private final RowMapper<Company> rowMapper = new CompanyRowMapper();
 
     @Bean(name = "importCompaniesJob")
-    public Job importAdminJobsJob(JobBuilderFactory jobs) throws IOException, URISyntaxException {
+    public Job importCompaniesJob(JobBuilderFactory jobs) throws IOException, URISyntaxException {
         return jobs.get("importCompaniesJob")
                 .incrementer(new RunIdIncrementer())
                 .preventRestart()

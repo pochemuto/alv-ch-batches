@@ -50,7 +50,7 @@ public class PartnerJobImportConfiguration {
     @Resource
     private StepBuilderFactory stepBuilderFactory;
 
-    @Bean(name = "importAdminJobsJob")
+    @Bean(name = "partnerJobsImportJob")
     public Job importAdminJobsJob(JobBuilderFactory jobs) throws IOException, URISyntaxException {
         return jobs.get("importAdminJobsJob")
                 .incrementer(new RunIdIncrementer())
