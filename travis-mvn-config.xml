@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <servers>
+        <server>
+            <id>third-party</id>
+            <username>${env.CI_DEPLOY_USERNAME}</username>
+            <password>${env.CI_DEPLOY_PASSWORD}</password>
+        </server>
+        <server>
+            <id>alvch-artifactoryonline-libs-snapshots</id>
+            <username>${env.CI_DEPLOY_USERNAME}</username>
+            <password>${env.CI_DEPLOY_PASSWORD}</password>
+        </server>
+        <server>
+            <id>alvch-artifactoryonline-libs-releases</id>
+            <username>${env.CI_DEPLOY_USERNAME}</username>
+            <password>${env.CI_DEPLOY_PASSWORD}</password>
+        </server>
+    </servers>
+
+    <profiles>
+        <profile>
+            <id>alv-ch</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>alvch-libs-releases</id>
+                    <name>ALV Switzerland Releases</name>
+                    <url>http://alvch.artifactoryonline.com/alvch/libs-releases</url>
+                </repository>
+                <repository>
+                    <snapshots />
+                    <id>alvch-libs-snapshots</id>
+                    <name>ALV Switzerland Snapshots</name>
+                    <url>http://alvch.artifactoryonline.com/alvch/libs-snapshots</url>
+                </repository>
+                <repository>
+                    <id>third-party</id>
+                    <name>third-party</name>
+                    <url>http://alvch.artifactoryonline.com/alvch/third-party</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
+</settings>
