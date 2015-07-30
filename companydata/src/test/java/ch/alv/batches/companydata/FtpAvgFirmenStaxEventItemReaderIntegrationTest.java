@@ -29,7 +29,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +59,6 @@ public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
 
     private static FakeFtpServer fakeFtpServer;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
     @BeforeClass
     public static void init() throws IOException {
         FileUtils.copyInputStreamToFile(FtpAvgFirmenStaxEventItemReaderIntegrationTest.class.getResourceAsStream("/" + FILE_NAME + FILE_SUFFIX), dataFile);
@@ -86,6 +83,25 @@ public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
         con.setAutoCommit(true);
 
         try {
+            pstmt = con.prepareStatement("SELECT 1 FROM STAGING_AVG_FIRMEN_IMPORT LIMIT 1");
+            pstmt.execute();
+        } catch (Exception e){
+            pstmt = con.prepareStatement("CREATE TABLE STAGING_AVG_FIRMEN_IMPORT (" +
+                    "ID INTEGER, " +
+                    "BETID VARCHAR(255), " +
+                    "EMAIL VARCHAR(255), " +
+                    "KANTON VARCHAR(50), " +
+                    "NAME VARCHAR(255), " +
+                    "NAME2 VARCHAR(255), " +
+                    "ORT VARCHAR(255), " +
+                    "PLZ VARCHAR(6), " +
+                    "STRASSE VARCHAR(255), " +
+                    "TELEFONNUMMER VARCHAR(50), " +
+                    "TODELETE DATE)");
+            pstmt.execute();
+        }
+
+        try {
             pstmt = con.prepareStatement("SELECT 1 FROM AVG_FIRMEN LIMIT 1");
             pstmt.execute();
         } catch (Exception e){
@@ -105,6 +121,7 @@ public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
         } finally {
             con.close();
         }
+
 
         companies = new ArrayList<>();
         companies.add(initCompany1());
@@ -191,13 +208,12 @@ public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
         try {
             con = dataSource.getConnection();
             con.setAutoCommit(true);
-            pstmt = con.prepareStatement("SELECT * FROM AVG_FIRMEN ORDER BY AVG_FIRMEN.ID");
+            pstmt = con.prepareStatement("SELECT * FROM FIRMEN_IMPORT ORDER BY ID");
             ResultSet result = pstmt.executeQuery();
             int counter = 0;
             while(result.next() && counter < 5) {
                 Company currentCompany = companies.get(counter);
                 Assert.assertEquals(currentCompany.getId(), result.getInt("ID"));
-
                 Assert.assertEquals(currentCompany.getEmail(), result.getString("EMAIL"));
                 Assert.assertEquals(currentCompany.getCanton(), result.getString("KANTON"));
                 Assert.assertEquals(currentCompany.getName(), result.getString("NAME"));
@@ -230,6 +246,7 @@ public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
     @AfterClass
     public static void cleanup() {
         fakeFtpServer.stop();
+        dataFile.deleteOnExit();
     }
 
 }
