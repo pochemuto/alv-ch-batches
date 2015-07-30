@@ -30,6 +30,7 @@
     <modules>
         <module>partnerjobs</module>
         <module>companydata</module>
+        <module>jobsearch</module>
     </modules>
 
     <dependencyManagement>
