@@ -1,6 +1,5 @@
 package ch.alv.batches.companydata;
 
-import ch.alv.batches.companydata.reader.CompanyRowMapper;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -9,7 +8,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -39,8 +37,6 @@ public class CompanyImportAutoConfiguration {
 
     @Resource(name = "markToDeleteCompaniesStep")
     private Step markToDeleteCompaniesStep;
-
-    private final RowMapper<Company> rowMapper = new CompanyRowMapper();
 
     @Bean(name = "importCompaniesJob")
     public Job importCompaniesJob(JobBuilderFactory jobs) throws IOException, URISyntaxException {
