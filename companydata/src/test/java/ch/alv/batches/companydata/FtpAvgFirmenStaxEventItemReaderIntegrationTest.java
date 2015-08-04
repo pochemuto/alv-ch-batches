@@ -41,11 +41,10 @@ import java.util.List;
 @SpringApplicationConfiguration(classes = CompanyImportTestApplication.class)
 public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
 
-    private static final String FILE_NAME = "AVAMPSTS";
-    private static final String FILE_SUFFIX = ".xml";
+    private static final String FILE_NAME = "AVAMPSTS.xml";
 
     @Resource
-    private Job importAdminJobsJob;
+    private Job importAvgCompaniesJob;
 
     @Resource
     private JobLauncher jobLauncher;
@@ -55,22 +54,19 @@ public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
 
     private List<Company> companies;
 
-    private static File dataFile = new File("local_data.xml");
-
     private static FakeFtpServer fakeFtpServer;
 
     @BeforeClass
     public static void init() throws IOException {
-        FileUtils.copyInputStreamToFile(FtpAvgFirmenStaxEventItemReaderIntegrationTest.class.getResourceAsStream("/" + FILE_NAME + FILE_SUFFIX), dataFile);
         fakeFtpServer = new FakeFtpServer();
         fakeFtpServer.setServerControlPort(8002);  // use any free port
 
         FileSystem fileSystem = new UnixFakeFileSystem();
-        fileSystem.add(new FileEntry("/AVAMPSTS.xml", FileUtils.readFileToString(dataFile)));
+        String fileContent = FileUtils.readFileToString(new File("src/test/resources/" + FILE_NAME));
+        fileSystem.add(new FileEntry("/" + FILE_NAME, fileContent));
         fakeFtpServer.setFileSystem(fileSystem);
 
-        UserAccount userAccount = new UserAccount("ftpdev", "ftpdev", "/");
-        fakeFtpServer.addUserAccount(userAccount);
+        fakeFtpServer.addUserAccount(new UserAccount("ftpdev", "ftpdev", "/"));
         fakeFtpServer.start();
     }
 
@@ -199,54 +195,50 @@ public class FtpAvgFirmenStaxEventItemReaderIntegrationTest {
 
     @Test
     public void runTest() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, IOException, SQLException {
-        Assert.assertNotNull(importAdminJobsJob);
-        JobExecution exec = jobLauncher.run(importAdminJobsJob, new JobParameters());
+        Assert.assertNotNull(importAvgCompaniesJob);
+        JobExecution exec = jobLauncher.run(importAvgCompaniesJob, new JobParameters());
         Assert.assertEquals("COMPLETED", exec.getExitStatus().getExitCode());
 
         Connection con;
         PreparedStatement pstmt;
-        try {
-            con = dataSource.getConnection();
-            con.setAutoCommit(true);
-            pstmt = con.prepareStatement("SELECT * FROM FIRMEN_IMPORT ORDER BY ID");
-            ResultSet result = pstmt.executeQuery();
-            int counter = 0;
-            while(result.next() && counter < 5) {
-                Company currentCompany = companies.get(counter);
-                Assert.assertEquals(currentCompany.getId(), result.getInt("ID"));
-                Assert.assertEquals(currentCompany.getEmail(), result.getString("EMAIL"));
-                Assert.assertEquals(currentCompany.getCanton(), result.getString("KANTON"));
-                Assert.assertEquals(currentCompany.getName(), result.getString("NAME"));
-                Assert.assertEquals(currentCompany.getName2(), result.getString("NAME2"));
-                Assert.assertEquals(currentCompany.getCity(), result.getString("ORT"));
-                Assert.assertEquals(currentCompany.getZip(), result.getString("PLZ"));
-                Assert.assertEquals(currentCompany.getStreet(), result.getString("STRASSE"));
-                Assert.assertEquals(currentCompany.getPhone(), result.getString("TELEFONNUMMER"));
-                if(StringUtils.isEmpty(result.getString("NAME2"))) {
-                    Assert.assertNull(result.getString("BETID"));
-                }
-                counter++;
-            }
 
-            while (result.next()) {
-                if(StringUtils.isNotEmpty(result.getString("NAME2"))) {
-                    Assert.assertEquals("GS", result.getString("NAME2"));
-                    Assert.assertNotNull(result.getString("BETID"));
-                    break;
-                }
+        con = dataSource.getConnection();
+        con.setAutoCommit(true);
+        pstmt = con.prepareStatement("SELECT * FROM AVG_FIRMEN ORDER BY ID");
+        ResultSet result = pstmt.executeQuery();
+        int counter = 0;
+        while (result.next() && counter < 5) {
+            Company currentCompany = companies.get(counter);
+            Assert.assertEquals(currentCompany.getId(), result.getInt("ID"));
+            Assert.assertEquals(currentCompany.getEmail(), result.getString("EMAIL"));
+            Assert.assertEquals(currentCompany.getCanton(), result.getString("KANTON"));
+            Assert.assertEquals(currentCompany.getName(), result.getString("NAME"));
+            Assert.assertEquals(currentCompany.getName2(), result.getString("NAME2"));
+            Assert.assertEquals(currentCompany.getCity(), result.getString("ORT"));
+            Assert.assertEquals(currentCompany.getZip(), result.getString("PLZ"));
+            Assert.assertEquals(currentCompany.getStreet(), result.getString("STRASSE"));
+            Assert.assertEquals(currentCompany.getPhone(), result.getString("TELEFONNUMMER"));
+            if (StringUtils.isEmpty(result.getString("NAME2"))) {
+                Assert.assertNull(result.getString("BETID"));
             }
-
-            result.last();
-            Assert.assertEquals(6526, result.getRow());
-        } catch (Exception e){
-            e.printStackTrace();
+            counter++;
         }
+
+        while (result.next()) {
+            if (StringUtils.isNotEmpty(result.getString("NAME2"))) {
+                Assert.assertEquals("GS", result.getString("NAME2"));
+                Assert.assertNotNull(result.getString("BETID"));
+                break;
+            }
+        }
+
+        result.last();
+        Assert.assertEquals(6526, result.getRow());
     }
 
     @AfterClass
     public static void cleanup() {
         fakeFtpServer.stop();
-        dataFile.deleteOnExit();
     }
 
 }
