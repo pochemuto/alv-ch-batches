@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="interface">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="jobs">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="number_of_jobs">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="en">
+                                        The number of job-elements listed below.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:integer">
+                                        <xs:minInclusive value="0" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="job" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="id" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    A unique ID allocated to this job.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="valid_from" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The first day of the publication of this job advertisement.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="valid_to" type="xs:date" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The last day of the publication of this job advertisement.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="work_location_zip" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The ZIP code of the city where the job has to be fulfilled (mainly).
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="work_location_city" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The name of the city where the job has to be fulfilled (mainly).
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="work_location_country">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The ISO 3166-1 ALPHA-2 code of the country in which the job has to be fulfilled (mainly).
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:length value="2" />
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="jobgroup_id" type="JobGroup">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The ID of the job group assigned to the job.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="quota_from" type="JobQuota">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The lower bound of the work quota.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="quota_to" type="JobQuota">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    The upper bound of the work quota.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="advertisement" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="en">
+                                                    A job may be advertised in multiple languages. Language dependent data is represented as advertisement element.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="language">
+                                                        <xs:annotation>
+                                                            <xs:documentation xml:lang="en">
+                                                                The language in which the current advertisement is written represented as ISO 639-1 code.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:length value="2" />
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="company_name" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation xml:lang="en">
+                                                                The (language dependent) name of company as it should be displayed on the search platform.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="title" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation xml:lang="en">
+                                                                The title of the job written in the given language.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="description" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation xml:lang="en">
+                                                                The description element contains the whole text of the advertisement. It is used to implement a full-text search.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="jobdetail_url" type="xs:anyURI">
+                                                        <xs:annotation>
+                                                            <xs:documentation xml:lang="en">
+                                                                The url that represents a detail view of this advertisement
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="JobQuota">
+        <xs:restriction base="xs:integer">
+            <xs:minExclusive value="0" />
+            <xs:maxInclusive value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="JobGroup">
+        <xs:restriction base="xs:integer">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Administration / Verwaltung / Management
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Administration / Gestion / Management
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Amministrazione / Gestione / Management
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Administration / Management
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Finanzwesen / Versicherungen / Recht
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Finances / Assurances / Droit
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Finanze / Assicurazioni / Diritto
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Financial System / Insurance / Jurisprudence
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Marketing / Tourismus / Medien
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Marketing / Tourisme / Médias
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Marketing / Turismo / Media
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Marketing / Turism / Media
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Informatik / Ingenieure
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Informatique / Ingénieurs
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Informatica / Ingegneria
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Computer Science / Engineers
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Industriehandwerk / Technik / Grafik
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Industrie / Technique / Arts Graphiques
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Artigianato Industriale / Tecnica / Grafica
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Industry / Technology / Graphic Arts
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Bauhandwerk
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Métiers Du Bâtiment
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Artigianato Edile
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Building / Construction
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Logistik / Transport
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Logistique / Transports
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Logistica / Trasporto
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Logistics / Transports
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Landwirtschaft / Gartenbau
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Agriculture / Horticulture
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Agricoltura / Orticoltura
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Agriculture / Horticulture
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Verkauf / Aussendienst
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Vente / Service Externe
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Vendita / Servizio Esterno
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sales / Representatives
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Gastronomie / Lebensmittel
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Gastronomie / Denrées Alimentaires
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Gastronomia / Derrate Alimentari
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Catering Trade / Food
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="11">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Reinigung / Unterhalt
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Nettoyage / Entretien
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Pulizia / Manutenzione
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Cleaning / Maintenance
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="12">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Soziales / Pädagogik / Geisteswissenschaft
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Social / Pédagogie / Sciences Humaines
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Socialità / Pedagogia / Scienze Umane
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Welfare / Education / Humanities
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="13">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Gesundheitswesen / Naturwissenschaft
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Santé / Sciences naturelles
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Sanità / Scienze naturali
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Healthcare / Natural Sciences
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="14">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">
+                        Kunst / Dienstleistung / Sonstige Berufe
+                    </xs:documentation>
+                    <xs:documentation xml:lang="fr">
+                        Art / Services / Autres Professions
+                    </xs:documentation>
+                    <xs:documentation xml:lang="it">
+                        Arte / Servizi / Altre Professioni
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Art / Services / Other Occupations
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
