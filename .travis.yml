@@ -16,11 +16,11 @@ install:
   - psql -U postgres -c 'create database travis_ci_test;'
   - psql -U postgres -d travis_ci_test < test/sql/master/company.sql
   - psql -U postgres -d travis_ci_test < test/sql/master/partnerjob.sql
-  - cp test/travis/application-companydata.yml master/company/src/test/resources/application.yml
+  - cp test/travis/application.yml master/company/src/test/resources/application.yml
+  - cp test/travis/application.yml master/partnerjob/src/test/resources/application.yml
 
 script:
-  - mvn clean cobertura:cobertura $MAVEN_SHARED_ARGS
-  - mvn coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report
 
   # Upload built Artifacts
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn deploy $MAVEN_SHARED_ARGS ; fi
