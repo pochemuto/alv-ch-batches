@@ -8,7 +8,7 @@
     <parent>
         <artifactId>batches</artifactId>
         <groupId>ch.alv.batches</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>companydata</artifactId>
@@ -16,6 +16,14 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-sql</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -38,4 +46,25 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <configuration>
+                    <generator>
+                        <name>org.jooq.util.JavaGenerator</name>
+                        <database>
+                            <name>org.jooq.util.postgres.PostgresDatabase</name>
+                            <includes>.*AVG_FIRMEN.*</includes>
+                        </database>
+                    </generator>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

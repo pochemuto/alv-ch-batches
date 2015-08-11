@@ -1,8 +1,8 @@
 package ch.alv.batches.companydata.reader;
 
-import ch.alv.batches.companydata.Company;
 import ch.alv.batches.companydata.jaxb.AvgFirma;
 import ch.alv.batches.companydata.jaxb.Avggstelle;
+import ch.alv.batches.jooq.tables.records.StagingAvgFirmenImportRecord;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.batch.item.NonTransientResourceException;
@@ -33,10 +33,10 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 /**
- * A custom StaxReader implementation that extracts AvgFirmen and nested Avggstellen as {@link Company} objects.
+ * A custom StaxReader implementation that extracts AvgFirmen and nested Avggstellen as {@link StagingAvgFirmenImportRecord} objects.
  */
-public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStreamItemReader<Company> implements
-        ResourceAwareItemReaderItemStream<Company>, InitializingBean {
+public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStreamItemReader<StagingAvgFirmenImportRecord> implements
+        ResourceAwareItemReaderItemStream<StagingAvgFirmenImportRecord>, InitializingBean {
 
     private static final Log logger = LogFactory.getLog(StaxEventItemReader.class);
 
@@ -56,7 +56,7 @@ public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStr
 
     private boolean strict = true;
 
-    private final Stack<Company> gsCompanies = new Stack<>();
+    private final Stack<StagingAvgFirmenImportRecord> gsCompanies = new Stack<>();
 
     public FtpAvgFirmenStaxEventItemReader() {
         setName(ClassUtils.getShortName(StaxEventItemReader.class));
@@ -196,8 +196,8 @@ public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStr
      * Move to next fragment and map it to item.
      */
     @Override
-    protected Company doRead() throws Exception {
-        Company company = null;
+    protected StagingAvgFirmenImportRecord doRead() throws Exception {
+        StagingAvgFirmenImportRecord company = null;
 
         if (!gsCompanies.empty()) {
             company = gsCompanies.pop();
@@ -221,27 +221,27 @@ public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStr
             fragmentReader.markStartFragment();
             try {
                 AvgFirma firma = (AvgFirma) unmarshaller.unmarshal(StaxUtils.getSource(fragmentReader));
-                company = new Company();
+                company = new StagingAvgFirmenImportRecord();
                 company.setId(Integer.valueOf(firma.getId().trim()));
                 company.setEmail(firma.getEmail().trim());
                 company.setName(firma.getBezeichnung());
-                company.setCity(firma.getOrt());
-                company.setZip(firma.getPLZ());
-                company.setStreet(firma.getStrasse());
-                company.setPhone(firma.getTelefonnummer());
+                company.setOrt(firma.getOrt());
+                company.setPlz(firma.getPLZ());
+                company.setStrasse(firma.getStrasse());
+                company.setTelefonnummer(firma.getTelefonnummer());
 
                 if (firma.getGStelle() != null) {
                     for (Avggstelle avgGs : firma.getGStelle()) {
-                        Company gsCompany = new Company();
+                        StagingAvgFirmenImportRecord gsCompany = new StagingAvgFirmenImportRecord();
                         gsCompany.setId(Integer.valueOf(avgGs.getId().trim()));
-                        gsCompany.setCompanyId("" + company.getId());
+                        gsCompany.setBetid("" + company.getId());
                         gsCompany.setName(firma.getBezeichnung());
                         gsCompany.setName2("GS");
                         gsCompany.setEmail(avgGs.getEmail());
-                        gsCompany.setPhone(avgGs.getTelefonnummer());
-                        gsCompany.setCity(avgGs.getOrt());
-                        gsCompany.setZip(avgGs.getPLZ());
-                        gsCompany.setStreet(avgGs.getStrasse());
+                        gsCompany.setTelefonnummer(avgGs.getTelefonnummer());
+                        gsCompany.setOrt(avgGs.getOrt());
+                        gsCompany.setPlz(avgGs.getPLZ());
+                        gsCompany.setStrasse(avgGs.getStrasse());
                         gsCompanies.push(gsCompany);
                     }
                 }

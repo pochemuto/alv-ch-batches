@@ -10,6 +10,8 @@
 
     <logger name="org.springframework.integration.expression.ExpressionUtils" level="ERROR" />
 
+    <!--<logger name="org.jooq" level="DEBUG" />-->
+
     <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>

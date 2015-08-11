@@ -9,9 +9,14 @@
         <artifactId>batches</artifactId>
         <groupId>ch.alv.batches</groupId>
         <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>jobsearch</artifactId>
-    <name>alv-ch-batches.jobsearch</name>
+    <artifactId>commons-util</artifactId>
+    <name>alv-ch-batches.commons-util</name>
+    <packaging>jar</packaging>
+
+    <dependencies>
+    </dependencies>
 
 </project>

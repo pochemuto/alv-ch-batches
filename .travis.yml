@@ -1,18 +1,19 @@
-# Use docker-based build environment (instead of openvz)
-sudo: false
-
 language: java
-jdk:
-  - oraclejdk8
+jdk: oraclejdk8
+
+addons:
+  postgresql: 9.4
 
 before_install:
   - mkdir /tmp/output
+  - ln -snf test/travis/maven-config.properties ./maven-config.properties
 
-# Build everything in 'script' phase
-install: /bin/true
+install:
+  - psql -U postgres -c 'create database travis_ci_test;'
+  - psql -U postgres < test/sql/companydata.sql
 
 script:
-  - mvn clean install --settings travis-mvn-config.xml
+  - mvn clean install --settings test/travis/maven-config.xml
 
   # Test Coverage
   - mvn coveralls:cobertura

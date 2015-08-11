@@ -32,11 +32,10 @@
  </Betrieb>
  <Betrieb>
   <Id>8</Id>
-  <Bezeichnung>ASP Marketing AG</Bezeichnung>
-  <Strasse>Kesslergasse 22</Strasse>
+  <Bezeichnung>ASP Marketing</Bezeichnung>
+  <Strasse>Kesslergasse 222</Strasse>
   <PLZ>5707</PLZ>
   <Ort>Seengen</Ort>
-  <Telefonnummer>0627775308</Telefonnummer>
   <Email>andreas.somogyi@aspmarketing.ch</Email>
   <Leiter>
    <Name>Dr.</Name>
@@ -84418,58 +84417,6 @@
   <Leiter>
    <Name>Lüthy</Name>
    <Vorname>Monika</Vorname>
-  </Leiter>
- </Betrieb>
- <Betrieb>
-  <Id>82188</Id>
-  <Bezeichnung>TimePersonal (Wohlen) GmbH</Bezeichnung>
-  <Strasse>Alte Bahnhofstrasse 1</Strasse>
-  <PLZ>5610</PLZ>
-  <Ort>Wohlen AG</Ort>
-  <Telefonnummer>0566108002</Telefonnummer>
-  <Email>info@timepersonal.ch</Email>
-  <Leiter>
-   <Name>Serio</Name>
-   <Vorname>Claudio</Vorname>
-  </Leiter>
- </Betrieb>
- <Betrieb>
-  <Id>82191</Id>
-  <Bezeichnung>Schlegel Consulting</Bezeichnung>
-  <Strasse>Mühlebühlweg 27</Strasse>
-  <PLZ>5616</PLZ>
-  <Ort>Meisterschwanden</Ort>
-  <Telefonnummer>0794723940</Telefonnummer>
-  <Email>mail@schlegelconsulting.ch</Email>
-  <Leiter>
-   <Name>Schlegel</Name>
-   <Vorname>Carmen</Vorname>
-  </Leiter>
- </Betrieb>
- <Betrieb>
-  <Id>82193</Id>
-  <Bezeichnung>giacomini personnel recruitment &amp; integration</Bezeichnung>
-  <Strasse>Frauenfelderstrasse 49</Strasse>
-  <PLZ>8370</PLZ>
-  <Ort>Sirnach</Ort>
-  <Telefonnummer>0719662200</Telefonnummer>
-  <Email>g-@giacomini-personnel.ch</Email>
-  <Leiter>
-   <Name>Giacomini</Name>
-   <Vorname>Claudia Martina</Vorname>
-  </Leiter>
- </Betrieb>
- <Betrieb>
-  <Id>82197</Id>
-  <Bezeichnung>Remec AG</Bezeichnung>
-  <Strasse>Bahnhofstrasse 69</Strasse>
-  <PLZ>6460</PLZ>
-  <Ort>Altdorf UR</Ort>
-  <Telefonnummer>0415003911</Telefonnummer>
-  <Email>marco.zgraggen@remec.ch</Email>
-  <Leiter>
-   <Name>Zgraggen</Name>
-   <Vorname>Marco</Vorname>
   </Leiter>
  </Betrieb>
 </avg>
