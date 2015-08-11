@@ -1,12 +1,13 @@
-package ch.alv.batches.companydata;
+package ch.alv.batches.company.to.master;
+
 
 import ch.alv.batches.commons.sql.JooqBatchWriter;
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
-import ch.alv.batches.companydata.reader.FtpAvgFirmenStaxEventItemReader;
+import ch.alv.batches.company.to.master.reader.FtpAvgFirmenStaxEventItemReader;
 import ch.alv.batches.jooq.tables.AvgFirmen;
 import ch.alv.batches.jooq.tables.AvgFirmenBatchStaging;
-import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
 import ch.alv.batches.jooq.tables.records.AvgFirmenBatchStagingRecord;
+import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
 import org.jooq.DSLContext;
 import org.jooq.UpdatableRecord;
 import org.springframework.batch.core.Job;
@@ -45,17 +46,17 @@ import java.util.stream.Collectors;
 @Configuration
 @ComponentScan("ch.alv.batches.commons")
 @EnableBatchProcessing
-public class CompanyImportAutoConfiguration {
+public class CompanyToMasterConfiguration {
 
     public final static String IMPORT_COMPANIES_JOB = "importCompaniesJob";
 
     @Resource
     private DSLContext jooq = null;
 
-    @Value("${ch.alv.batch.companydata.avgfirmen.url}")
+    @Value("${ch.alv.batch.master.company.avgfirmen.url}")
     private String avgFirmenUrl;
 
-    @Value("${ch.alv.batch.companydata.avgfirmen.chunkSize:100}")
+    @Value("${ch.alv.batch.master.company.avgfirmen.chunkSize:100}")
     private Integer avgFirmenChunkSize;
 
     @Resource

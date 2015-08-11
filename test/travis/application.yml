@@ -6,9 +6,9 @@ spring:
   datasource:
     initialize: false
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/vagrant
-    username: vagrant
-    password: vagrant
+    url: jdbc:postgresql://localhost:5432/travis_ci_test
+    username: postgres
+    password: 
 
   batch:
     job:
@@ -21,7 +21,8 @@ spring:
 ch:
   alv:
     batch:
-      companydata:
-        avgfirmen:
-          url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
-          #chunkSize: 50
+      master:
+        company:
+          avgfirmen:
+            url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
+            chunkSize: 500

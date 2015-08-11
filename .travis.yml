@@ -15,7 +15,7 @@ before_install:
 install:
   - psql -U postgres -c 'create database travis_ci_test;'
   - psql -U postgres -d travis_ci_test < test/sql/companydata.sql
-  - cp test/travis/application-companydata.yml companydata/src/test/resources/application.yml
+  - cp test/travis/application-companydata.yml master/company/src/test/resources/application.yml
 
 script:
   - mvn clean cobertura:cobertura $MAVEN_SHARED_ARGS

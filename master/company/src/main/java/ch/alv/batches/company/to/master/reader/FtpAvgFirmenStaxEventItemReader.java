@@ -1,7 +1,7 @@
-package ch.alv.batches.companydata.reader;
+package ch.alv.batches.company.to.master.reader;
 
-import ch.alv.batches.companydata.jaxb.AvgFirma;
-import ch.alv.batches.companydata.jaxb.Avggstelle;
+import ch.alv.batches.company.to.master.jaxb.AvgFirma;
+import ch.alv.batches.company.to.master.jaxb.Avggstelle;
 import ch.alv.batches.jooq.tables.records.AvgFirmenBatchStagingRecord;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

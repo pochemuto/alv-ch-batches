@@ -1,4 +1,4 @@
-package ch.alv.batches.companydata;
+package ch.alv.batches.company.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
 import ch.alv.batches.commons.util.SpringBatchTestHelper;
@@ -35,8 +35,8 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = CompanyImportTestApplication.class)
-public class CompanyImportIntegrationTest {
+@SpringApplicationConfiguration(classes = ch.alv.batches.company.to.master.CompanyToMasterTestApplication.class)
+public class CompanyToMasterIntegrationTest {
 
     private static final String DOWNLOAD_FILENAME = "/AVAMPSTS.xml";
     private static final String IMPORT_1 = "/AVAMPSTS-1.xml";
@@ -184,7 +184,7 @@ public class CompanyImportIntegrationTest {
 
         fakeFtpServer.getFileSystem().rename(IMPORT_1, DOWNLOAD_FILENAME);
 
-        Assert.assertEquals(springBatchHelper.runJob(importAvgCompaniesJob), ExitStatus.COMPLETED);
+        Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
         List<AvgFirmenRecord> fetchedCompanies = jooq.fetch(AvgFirmen.AVG_FIRMEN)
                 .sortAsc(AvgFirmen.AVG_FIRMEN.ID);
@@ -195,13 +195,13 @@ public class CompanyImportIntegrationTest {
             AvgFirmenRecord result = fetchedCompanies.remove(0);
             AvgFirmenRecord check = checkCompanies.remove(0);
 
-           Assert.assertEquals(result.compareTo(check), 0);
+           Assert.assertEquals(0, result.compareTo(check));
         }
 
         while (!fetchedCompanies.isEmpty()) {
             AvgFirmenRecord result = fetchedCompanies.remove(0);
             if (StringUtils.isNotEmpty(result.getName2())) {
-                Assert.assertEquals(result.getName2(), "GS");
+                Assert.assertEquals("GS", result.getName2());
                 Assert.assertNotNull(result.getBetid());
             }
         }
@@ -213,13 +213,13 @@ public class CompanyImportIntegrationTest {
         // Second Import
         //
 
-        Assert.assertEquals(springBatchHelper.runJob(importAvgCompaniesJob), ExitStatus.COMPLETED);
+        Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
         Map<Integer, AvgFirmenRecord> fetchedUpdatedCompanies = jooq.fetch(AvgFirmen.AVG_FIRMEN).intoMap(AvgFirmen.AVG_FIRMEN.ID);
 
-        Assert.assertEquals(fetchedUpdatedCompanies.get(5).getTodelete(), LocalDate.now().toDate());
-        Assert.assertEquals(fetchedUpdatedCompanies.get(6).getTodelete(), LocalDate.now().toDate());
-        Assert.assertEquals(fetchedUpdatedCompanies.get(8).compareTo(updatedAvgFirmenRecord3()), 0);
+        Assert.assertEquals(LocalDate.now().toDate(), fetchedUpdatedCompanies.get(5).getTodelete());
+        Assert.assertEquals(LocalDate.now().toDate(), fetchedUpdatedCompanies.get(6).getTodelete());
+        Assert.assertEquals(0, fetchedUpdatedCompanies.get(8).compareTo(updatedAvgFirmenRecord3()));
         Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82188));
         Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82191));
         Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82193));
@@ -240,7 +240,7 @@ public class CompanyImportIntegrationTest {
         fakeFtpServer.getFileSystem().rename(DOWNLOAD_FILENAME, IMPORT_2);
         fakeFtpServer.getFileSystem().rename(IMPORT_3, DOWNLOAD_FILENAME);
 
-        Assert.assertEquals(springBatchHelper.runJob(importAvgCompaniesJob), ExitStatus.COMPLETED);
+        Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
         // Ensure that todelete timestamp is not changed over time
         AvgFirmenRecord r5 = jooq.selectFrom(AvgFirmen.AVG_FIRMEN).where(AvgFirmen.AVG_FIRMEN.ID.equal(5)).fetchOne();

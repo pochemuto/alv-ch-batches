@@ -9,10 +9,11 @@
         <artifactId>batches</artifactId>
         <groupId>ch.alv.batches</groupId>
         <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>companydata</artifactId>
-    <name>alv-ch-batches.companydata</name>
+    <artifactId>company-to-master</artifactId>
+    <name>alv-ch-batches.company-to-master</name>
 
     <dependencies>
 

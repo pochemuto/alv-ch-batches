@@ -1,4 +1,5 @@
-package ch.alv.batches.companydata;
+package ch.alv.batches.company.to.master;
+
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
  * Controller to start the a
  */
 @Controller
-public class CompanyImportController {
+public class CompanyToMasterController {
 
 
     @Resource(name = "importCompaniesJob")

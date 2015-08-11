@@ -40,7 +40,7 @@
         <module>commons/util</module>
         <module>commons/sql</module>
         <module>partnerjobs</module>
-        <module>companydata</module>
+        <module>master/company</module>
         <module>jobsearch</module>
     </modules>
 
@@ -152,7 +152,7 @@
                             </goals>
                             <configuration>
                                 <files>
-                                    <file>${parent.relativePath}/../maven-config.properties</file>
+                                    <file>${parent.relativePath}/maven-config.properties</file>
                                 </files>
                             </configuration>
                         </execution>

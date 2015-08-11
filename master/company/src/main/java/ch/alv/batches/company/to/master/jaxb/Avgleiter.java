@@ -6,7 +6,7 @@
 //
 
 
-package ch.alv.batches.companydata.jaxb;
+package ch.alv.batches.company.to.master.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
