@@ -1,0 +1,27 @@
+spring:
+
+  profiles:
+    active: test
+
+  datasource:
+    initialize: false
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/travis_ci_test
+    username: postgres
+    password: 
+
+  batch:
+    job:
+      #names: use job names if some shall run at system startup
+      enabled: false # means that no job will be started on system startup
+    initializer:
+      # Spring Batch metadata tables are managed by the test suite itself
+      enabled: false
+
+ch:
+  alv:
+    batch:
+      companydata:
+        avgfirmen:
+          url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
+          chunkSize: 500

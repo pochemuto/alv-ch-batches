@@ -4,6 +4,10 @@ jdk: oraclejdk8
 addons:
   postgresql: 9.4
 
+env:
+  global:
+    - MAVEN_SHARED_ARGS="--settings test/travis/maven-config.xml"
+
 before_install:
   - mkdir /tmp/output
   - ln -snf test/travis/maven-config.properties ./maven-config.properties
@@ -11,15 +15,14 @@ before_install:
 install:
   - psql -U postgres -c 'create database travis_ci_test;'
   - psql -U postgres -d travis_ci_test < test/sql/companydata.sql
+  - cp test/travis/application-companydata.yml companydata/src/test/resources/application.yml
 
 script:
-  - mvn clean install --settings test/travis/maven-config.xml
+  - mvn clean cobertura:cobertura $MAVEN_SHARED_ARGS
+  - mvn coveralls:report
 
-  # Test Coverage
-  - mvn coveralls:cobertura
-
-  # Deploy artifacts
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn deploy --settings travis-mvn-config.xml ; fi
+  # Upload built Artifacts
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn deploy $MAVEN_SHARED_ARGS ; fi
 
   # Trick to avoid useless S3 cache updates
   - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick
