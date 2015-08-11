@@ -60,7 +60,7 @@
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
-                            <includes>.*AVG_FIRMEN.*</includes>
+                            <includes>^AVG_FIRMEN.*</includes>
                         </database>
                     </generator>
                 </configuration>

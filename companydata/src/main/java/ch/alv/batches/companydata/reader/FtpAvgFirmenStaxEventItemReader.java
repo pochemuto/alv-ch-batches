@@ -2,7 +2,7 @@ package ch.alv.batches.companydata.reader;
 
 import ch.alv.batches.companydata.jaxb.AvgFirma;
 import ch.alv.batches.companydata.jaxb.Avggstelle;
-import ch.alv.batches.jooq.tables.records.StagingAvgFirmenImportRecord;
+import ch.alv.batches.jooq.tables.records.AvgFirmenBatchStagingRecord;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.batch.item.NonTransientResourceException;
@@ -33,10 +33,10 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 /**
- * A custom StaxReader implementation that extracts AvgFirmen and nested Avggstellen as {@link StagingAvgFirmenImportRecord} objects.
+ * A custom StaxReader implementation that extracts AvgFirmen and nested Avggstellen as {@link AvgFirmenBatchStagingRecord} objects.
  */
-public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStreamItemReader<StagingAvgFirmenImportRecord> implements
-        ResourceAwareItemReaderItemStream<StagingAvgFirmenImportRecord>, InitializingBean {
+public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStreamItemReader<AvgFirmenBatchStagingRecord> implements
+        ResourceAwareItemReaderItemStream<AvgFirmenBatchStagingRecord>, InitializingBean {
 
     private static final Log logger = LogFactory.getLog(StaxEventItemReader.class);
 
@@ -56,7 +56,7 @@ public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStr
 
     private boolean strict = true;
 
-    private final Stack<StagingAvgFirmenImportRecord> gsCompanies = new Stack<>();
+    private final Stack<AvgFirmenBatchStagingRecord> gsCompanies = new Stack<>();
 
     public FtpAvgFirmenStaxEventItemReader() {
         setName(ClassUtils.getShortName(StaxEventItemReader.class));
@@ -196,8 +196,8 @@ public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStr
      * Move to next fragment and map it to item.
      */
     @Override
-    protected StagingAvgFirmenImportRecord doRead() throws Exception {
-        StagingAvgFirmenImportRecord company = null;
+    protected AvgFirmenBatchStagingRecord doRead() throws Exception {
+        AvgFirmenBatchStagingRecord company = null;
 
         if (!gsCompanies.empty()) {
             company = gsCompanies.pop();
@@ -221,7 +221,7 @@ public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStr
             fragmentReader.markStartFragment();
             try {
                 AvgFirma firma = (AvgFirma) unmarshaller.unmarshal(StaxUtils.getSource(fragmentReader));
-                company = new StagingAvgFirmenImportRecord();
+                company = new AvgFirmenBatchStagingRecord();
                 company.setId(Integer.valueOf(firma.getId().trim()));
                 company.setEmail(firma.getEmail().trim());
                 company.setName(firma.getBezeichnung());
@@ -232,7 +232,7 @@ public class FtpAvgFirmenStaxEventItemReader extends AbstractItemCountingItemStr
 
                 if (firma.getGStelle() != null) {
                     for (Avggstelle avgGs : firma.getGStelle()) {
-                        StagingAvgFirmenImportRecord gsCompany = new StagingAvgFirmenImportRecord();
+                        AvgFirmenBatchStagingRecord gsCompany = new AvgFirmenBatchStagingRecord();
                         gsCompany.setId(Integer.valueOf(avgGs.getId().trim()));
                         gsCompany.setBetid("" + company.getId());
                         gsCompany.setName(firma.getBezeichnung());

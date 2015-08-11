@@ -1,7 +1,7 @@
 
 BEGIN;
 
-CREATE TABLE STAGING_AVG_FIRMEN_IMPORT (ID INTEGER PRIMARY KEY,
+CREATE TABLE AVG_FIRMEN_BATCH_STAGING  (ID INTEGER PRIMARY KEY,
                                         BETID TEXT,
                                         EMAIL TEXT,
                                         KANTON VARCHAR(50),
@@ -13,7 +13,7 @@ CREATE TABLE STAGING_AVG_FIRMEN_IMPORT (ID INTEGER PRIMARY KEY,
                                         TELEFONNUMMER VARCHAR(50),
                                         TODELETE DATE);
 
-CREATE TABLE AVG_FIRMEN                 (ID INTEGER PRIMARY KEY,
+CREATE TABLE AVG_FIRMEN                (ID INTEGER PRIMARY KEY,
                                         BETID TEXT,
                                         EMAIL TEXT,
                                         KANTON VARCHAR(50),

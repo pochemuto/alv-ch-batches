@@ -4,9 +4,9 @@ import ch.alv.batches.commons.sql.JooqBatchWriter;
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
 import ch.alv.batches.companydata.reader.FtpAvgFirmenStaxEventItemReader;
 import ch.alv.batches.jooq.tables.AvgFirmen;
-import ch.alv.batches.jooq.tables.StagingAvgFirmenImport;
+import ch.alv.batches.jooq.tables.AvgFirmenBatchStaging;
 import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
-import ch.alv.batches.jooq.tables.records.StagingAvgFirmenImportRecord;
+import ch.alv.batches.jooq.tables.records.AvgFirmenBatchStagingRecord;
 import org.jooq.DSLContext;
 import org.jooq.UpdatableRecord;
 import org.springframework.batch.core.Job;
@@ -83,7 +83,7 @@ public class CompanyImportAutoConfiguration {
 
     private Step truncateStagingTableStep() {
         Tasklet t = (contribution, context) -> {
-            jooq.truncate(StagingAvgFirmenImport.STAGING_AVG_FIRMEN_IMPORT).execute();
+            jooq.truncate(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING).execute();
 
             return RepeatStatus.FINISHED;
         };
@@ -108,7 +108,7 @@ public class CompanyImportAutoConfiguration {
 
         // TODO Why not getting rid of chunk reading here (small dataset, xml file input) ?
         return steps.get("importXmlToStagingTableStep")
-                .<StagingAvgFirmenImportRecord, UpdatableRecord<?>>chunk(avgFirmenChunkSize)
+                .<AvgFirmenBatchStagingRecord, UpdatableRecord<?>>chunk(avgFirmenChunkSize)
                 .reader(staxEventItemReader)
                 .writer(new JooqBatchWriter(dataSource.getConnection()))
                 .build();
@@ -121,8 +121,8 @@ public class CompanyImportAutoConfiguration {
                     .where(AvgFirmen.AVG_FIRMEN.TODELETE.isNull()).fetch().intoMap(AvgFirmen.AVG_FIRMEN.ID);
 
             // Only update companies that effectively differ
-            Map<Integer, AvgFirmenRecord> companiesToUpdate = jooq.selectFrom(StagingAvgFirmenImport.STAGING_AVG_FIRMEN_IMPORT)
-                    .where(StagingAvgFirmenImport.STAGING_AVG_FIRMEN_IMPORT.ID.in(
+            Map<Integer, AvgFirmenRecord> companiesToUpdate = jooq.selectFrom(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING)
+                    .where(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING.ID.in(
                             jooq.select(AvgFirmen.AVG_FIRMEN.ID)
                                     .from(AvgFirmen.AVG_FIRMEN)
                                     .where(AvgFirmen.AVG_FIRMEN.TODELETE.isNull())))
@@ -150,8 +150,8 @@ public class CompanyImportAutoConfiguration {
     private Step createNewCompaniesStep() {
         Tasklet t = (contribution, context) -> {
 
-            List<AvgFirmenRecord> companiesToAdd = jooq.selectFrom(StagingAvgFirmenImport.STAGING_AVG_FIRMEN_IMPORT)
-                    .where(StagingAvgFirmenImport.STAGING_AVG_FIRMEN_IMPORT.ID.notIn(
+            List<AvgFirmenRecord> companiesToAdd = jooq.selectFrom(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING)
+                    .where(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING.ID.notIn(
                             jooq.select(AvgFirmen.AVG_FIRMEN.ID)
                                     .from(AvgFirmen.AVG_FIRMEN)))
                     .fetchInto(AvgFirmenRecord.class);
@@ -179,8 +179,8 @@ public class CompanyImportAutoConfiguration {
             jooq.update(AvgFirmen.AVG_FIRMEN)
                     .set(AvgFirmen.AVG_FIRMEN.TODELETE, now)
                     .where(AvgFirmen.AVG_FIRMEN.ID.notIn(
-                            jooq.select(StagingAvgFirmenImport.STAGING_AVG_FIRMEN_IMPORT.ID)
-                                    .from(StagingAvgFirmenImport.STAGING_AVG_FIRMEN_IMPORT)))
+                            jooq.select(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING.ID)
+                                    .from(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING)))
                     .and(AvgFirmen.AVG_FIRMEN.TODELETE.isNull())
                     .execute();
 
