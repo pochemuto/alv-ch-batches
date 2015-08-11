@@ -1,4 +1,4 @@
-package ch.alv.batches.partnerjobs.jaxb;
+package ch.alv.batches.partnerjob.to.master.jaxb;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;

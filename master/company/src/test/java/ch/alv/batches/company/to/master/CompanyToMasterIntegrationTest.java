@@ -2,7 +2,6 @@ package ch.alv.batches.company.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
 import ch.alv.batches.commons.util.SpringBatchTestHelper;
-import ch.alv.batches.jooq.tables.AvgFirmen;
 import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -34,8 +33,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static ch.alv.batches.jooq.tables.AvgFirmen.AVG_FIRMEN;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ch.alv.batches.company.to.master.CompanyToMasterTestApplication.class)
+@SpringApplicationConfiguration(classes = CompanyToMasterTestApplication.class)
 public class CompanyToMasterIntegrationTest {
 
     private static final String DOWNLOAD_FILENAME = "/AVAMPSTS.xml";
@@ -83,7 +84,7 @@ public class CompanyToMasterIntegrationTest {
         springBatchHelper.initializeSpringBatchPostgresqlSchema();
 
         // Test context must start with an empty target table
-        jooq.truncate(AvgFirmen.AVG_FIRMEN).execute();
+        jooq.truncate(AVG_FIRMEN).execute();
 
         checkCompanies = new ArrayList<>();
         checkCompanies.add(initAvgFirmenRecord1());
@@ -172,10 +173,6 @@ public class CompanyToMasterIntegrationTest {
             JobInstanceAlreadyCompleteException,
             SQLException {
 
-        // FIXME: not necessary, find a way to disable autocommit...
-//        Connection con = dataSource.getConnection();
-//        con.setAutoCommit(true);
-
         Assert.assertNotNull(importAvgCompaniesJob);
 
         //
@@ -186,8 +183,8 @@ public class CompanyToMasterIntegrationTest {
 
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
-        List<AvgFirmenRecord> fetchedCompanies = jooq.fetch(AvgFirmen.AVG_FIRMEN)
-                .sortAsc(AvgFirmen.AVG_FIRMEN.ID);
+        List<AvgFirmenRecord> fetchedCompanies = jooq.fetch(AVG_FIRMEN)
+                .sortAsc(AVG_FIRMEN.ID);
 
         Assert.assertEquals(6522, fetchedCompanies.size());
 
@@ -215,7 +212,7 @@ public class CompanyToMasterIntegrationTest {
 
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
-        Map<Integer, AvgFirmenRecord> fetchedUpdatedCompanies = jooq.fetch(AvgFirmen.AVG_FIRMEN).intoMap(AvgFirmen.AVG_FIRMEN.ID);
+        Map<Integer, AvgFirmenRecord> fetchedUpdatedCompanies = jooq.fetch(AVG_FIRMEN).intoMap(AVG_FIRMEN.ID);
 
         Assert.assertEquals(LocalDate.now().toDate(), fetchedUpdatedCompanies.get(5).getTodelete());
         Assert.assertEquals(LocalDate.now().toDate(), fetchedUpdatedCompanies.get(6).getTodelete());
@@ -231,7 +228,7 @@ public class CompanyToMasterIntegrationTest {
         //
 
         // Simulate that previous import was executed yesterday
-        Date yesterday = SqlDataTypesHelper.toSqlDate(LocalDate.now().minusDays(1).toDate());
+        Date yesterday = SqlDataTypesHelper.fromJavaUtilDate(LocalDate.now().minusDays(1).toDate());
         fetchedUpdatedCompanies.get(5).setTodelete(yesterday);
         fetchedUpdatedCompanies.get(5).store();
         fetchedUpdatedCompanies.get(6).setTodelete(yesterday);
@@ -243,11 +240,11 @@ public class CompanyToMasterIntegrationTest {
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
         // Ensure that todelete timestamp is not changed over time
-        AvgFirmenRecord r5 = jooq.selectFrom(AvgFirmen.AVG_FIRMEN).where(AvgFirmen.AVG_FIRMEN.ID.equal(5)).fetchOne();
+        AvgFirmenRecord r5 = jooq.selectFrom(AVG_FIRMEN).where(AVG_FIRMEN.ID.equal(5)).fetchOne();
         Assert.assertEquals(yesterday, r5.getTodelete());
 
         // Ensure that deleted companies cannot be revived, nor updated
-        AvgFirmenRecord r6 = jooq.selectFrom(AvgFirmen.AVG_FIRMEN).where(AvgFirmen.AVG_FIRMEN.ID.equal(6)).fetchOne();
+        AvgFirmenRecord r6 = jooq.selectFrom(AVG_FIRMEN).where(AVG_FIRMEN.ID.equal(6)).fetchOne();
         Assert.assertEquals(yesterday, r6.getTodelete());
         Assert.assertEquals("0566317491", r6.getTelefonnummer());
         Assert.assertEquals("AF Personal AG", r6.getName());
@@ -256,7 +253,7 @@ public class CompanyToMasterIntegrationTest {
 
     @After
     public void cleanDatabase() {
-        jooq.truncate(AvgFirmen.AVG_FIRMEN).execute();
+        jooq.truncate(AVG_FIRMEN).execute();
     }
 
     @AfterClass

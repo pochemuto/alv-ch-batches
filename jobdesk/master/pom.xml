@@ -9,9 +9,10 @@
         <artifactId>batches</artifactId>
         <groupId>ch.alv.batches</groupId>
         <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>jobsearch</artifactId>
-    <name>alv-ch-batches.jobsearch</name>
+    <artifactId>master-to-jobdesk</artifactId>
+    <name>alv-ch-batches.master-to-jobdesk</name>
 
 </project>

@@ -4,8 +4,6 @@ package ch.alv.batches.company.to.master;
 import ch.alv.batches.commons.sql.JooqBatchWriter;
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
 import ch.alv.batches.company.to.master.reader.FtpAvgFirmenStaxEventItemReader;
-import ch.alv.batches.jooq.tables.AvgFirmen;
-import ch.alv.batches.jooq.tables.AvgFirmenBatchStaging;
 import ch.alv.batches.jooq.tables.records.AvgFirmenBatchStagingRecord;
 import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
 import org.jooq.DSLContext;
@@ -27,13 +25,15 @@ import org.springframework.core.io.support.EncodedResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static ch.alv.batches.jooq.tables.AvgFirmen.AVG_FIRMEN;
+import static ch.alv.batches.jooq.tables.AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING;
 
 /**
  * AutoConfig of the Company import job.
@@ -50,9 +50,6 @@ public class CompanyToMasterConfiguration {
 
     public final static String IMPORT_COMPANIES_JOB = "importCompaniesJob";
 
-    @Resource
-    private DSLContext jooq = null;
-
     @Value("${ch.alv.batch.master.company.avgfirmen.url}")
     private String avgFirmenUrl;
 
@@ -60,7 +57,7 @@ public class CompanyToMasterConfiguration {
     private Integer avgFirmenChunkSize;
 
     @Resource
-    private DataSource dataSource;
+    private DSLContext jooq;
 
     @Resource
     private JobBuilderFactory jobs;
@@ -84,7 +81,7 @@ public class CompanyToMasterConfiguration {
 
     private Step truncateStagingTableStep() {
         Tasklet t = (contribution, context) -> {
-            jooq.truncate(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING).execute();
+            jooq.truncate(AVG_FIRMEN_BATCH_STAGING).execute();
 
             return RepeatStatus.FINISHED;
         };
@@ -96,7 +93,7 @@ public class CompanyToMasterConfiguration {
 
     private Step importXmlToStagingTableStep() throws MalformedURLException, SQLException {
 
-        final String SCAN_PACKAGES = "ch.alv.batches.companydata.jaxb";
+        final String SCAN_PACKAGES = "ch.alv.batches.company.to.master.jaxb";
         final String[] JAXB_FRAGMENT_ROOT_NAMES = new String[] { "Betrieb" };
 
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
@@ -111,28 +108,28 @@ public class CompanyToMasterConfiguration {
         return steps.get("importXmlToStagingTableStep")
                 .<AvgFirmenBatchStagingRecord, UpdatableRecord<?>>chunk(avgFirmenChunkSize)
                 .reader(staxEventItemReader)
-                .writer(new JooqBatchWriter(dataSource.getConnection()))
+                .writer(new JooqBatchWriter(jooq))
                 .build();
     }
 
     private Step updateExistingCompaniesStep() {
         Tasklet t = (contribution, context) -> {
 
-            Map<Integer, AvgFirmenRecord> existingValidCompanies = jooq.selectFrom(AvgFirmen.AVG_FIRMEN)
-                    .where(AvgFirmen.AVG_FIRMEN.TODELETE.isNull()).fetch().intoMap(AvgFirmen.AVG_FIRMEN.ID);
+            Map<Integer, AvgFirmenRecord> existingValidCompanies = jooq.selectFrom(AVG_FIRMEN)
+                    .where(AVG_FIRMEN.TODELETE.isNull()).fetch().intoMap(AVG_FIRMEN.ID);
 
             // Only update companies that effectively differ
-            Map<Integer, AvgFirmenRecord> companiesToUpdate = jooq.selectFrom(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING)
-                    .where(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING.ID.in(
-                            jooq.select(AvgFirmen.AVG_FIRMEN.ID)
-                                    .from(AvgFirmen.AVG_FIRMEN)
-                                    .where(AvgFirmen.AVG_FIRMEN.TODELETE.isNull())))
+            Map<Integer, AvgFirmenRecord> companiesToUpdate = jooq.selectFrom(AVG_FIRMEN_BATCH_STAGING)
+                    .where(AVG_FIRMEN_BATCH_STAGING.ID.in(
+                            jooq.select(AVG_FIRMEN.ID)
+                                    .from(AVG_FIRMEN)
+                                    .where(AVG_FIRMEN.TODELETE.isNull())))
                     .fetchInto(AvgFirmenRecord.class).stream().filter(c -> c.compareTo(existingValidCompanies.get(c.getId())) != 0)
                     .collect(Collectors.toMap(AvgFirmenRecord::getId,
                             c -> { AvgFirmenRecord x = c.copy(); x.setId(c.getId()); return x; }));
 
-            jooq.deleteFrom(AvgFirmen.AVG_FIRMEN)
-                    .where(AvgFirmen.AVG_FIRMEN.ID.in(companiesToUpdate.keySet()))
+            jooq.deleteFrom(AVG_FIRMEN)
+                    .where(AVG_FIRMEN.ID.in(companiesToUpdate.keySet()))
                     .execute();
 
             // TODO should we verify the returned sql statuses,
@@ -151,10 +148,10 @@ public class CompanyToMasterConfiguration {
     private Step createNewCompaniesStep() {
         Tasklet t = (contribution, context) -> {
 
-            List<AvgFirmenRecord> companiesToAdd = jooq.selectFrom(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING)
-                    .where(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING.ID.notIn(
-                            jooq.select(AvgFirmen.AVG_FIRMEN.ID)
-                                    .from(AvgFirmen.AVG_FIRMEN)))
+            List<AvgFirmenRecord> companiesToAdd = jooq.selectFrom(AVG_FIRMEN_BATCH_STAGING)
+                    .where(AVG_FIRMEN_BATCH_STAGING.ID.notIn(
+                            jooq.select(AVG_FIRMEN.ID)
+                                    .from(AVG_FIRMEN)))
                     .fetchInto(AvgFirmenRecord.class);
 
             // TODO: check with jOOQ community if there is a way to get rid of this step...
@@ -177,12 +174,12 @@ public class CompanyToMasterConfiguration {
 
             java.sql.Date now = SqlDataTypesHelper.now();
 
-            jooq.update(AvgFirmen.AVG_FIRMEN)
-                    .set(AvgFirmen.AVG_FIRMEN.TODELETE, now)
-                    .where(AvgFirmen.AVG_FIRMEN.ID.notIn(
-                            jooq.select(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING.ID)
-                                    .from(AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING)))
-                    .and(AvgFirmen.AVG_FIRMEN.TODELETE.isNull())
+            jooq.update(AVG_FIRMEN)
+                    .set(AVG_FIRMEN.TODELETE, now)
+                    .where(AVG_FIRMEN.ID.notIn(
+                            jooq.select(AVG_FIRMEN_BATCH_STAGING.ID)
+                                    .from(AVG_FIRMEN_BATCH_STAGING)))
+                    .and(AVG_FIRMEN.TODELETE.isNull())
                     .execute();
 
             return RepeatStatus.FINISHED;

@@ -39,9 +39,11 @@
     <modules>
         <module>commons/util</module>
         <module>commons/sql</module>
-        <module>partnerjobs</module>
+
+        <module>jobdesk/master</module>
+
         <module>master/company</module>
-        <module>jobsearch</module>
+        <module>master/partnerjob</module>
     </modules>
 
     <dependencies>
