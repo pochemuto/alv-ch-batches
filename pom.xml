@@ -248,6 +248,7 @@
                     <instrumentation>
                         <excludes>
                             <exclude>**/jaxb/**</exclude>
+                            <exclude>ch/alv/batches/jooq/**</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>
