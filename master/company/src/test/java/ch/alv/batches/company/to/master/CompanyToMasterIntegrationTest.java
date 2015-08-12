@@ -1,7 +1,7 @@
 package ch.alv.batches.company.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
-import ch.alv.batches.commons.util.SpringBatchTestHelper;
+import ch.alv.batches.commons.test.SpringBatchTestHelper;
 import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;

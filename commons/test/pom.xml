@@ -12,11 +12,12 @@
         <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>commons-util</artifactId>
-    <name>alv-ch-batches.commons-util</name>
+    <artifactId>commons-test</artifactId>
+    <name>alv-ch-batches.commons-test</name>
     <packaging>jar</packaging>
 
     <dependencies>
+
     </dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-package ch.alv.batches.commons.util;
+package ch.alv.batches.commons.test;
 
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;

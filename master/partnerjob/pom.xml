@@ -16,10 +16,7 @@
     <name>alv-ch-batches.partnerjob-to-master</name>
 
     <dependencies>
-        <dependency>
-            <groupId>ch.alv.batches</groupId>
-            <artifactId>commons-util</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-sql</artifactId>
@@ -36,6 +33,10 @@
 
         <!-- test dependencies -->
 
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-test</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>

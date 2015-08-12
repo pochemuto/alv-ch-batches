@@ -1,7 +1,7 @@
 package ch.alv.batches.partnerjob.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
-import ch.alv.batches.commons.util.SpringBatchTestHelper;
+import ch.alv.batches.commons.test.SpringBatchTestHelper;
 import ch.alv.batches.jooq.tables.records.OsteAdminRecord;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;

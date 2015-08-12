@@ -37,8 +37,8 @@
     </properties>
 
     <modules>
-        <module>commons/util</module>
         <module>commons/sql</module>
+        <module>commons/test</module>
 
         <module>jobdesk/master</module>
 
@@ -97,7 +97,7 @@
 
             <dependency>
                 <groupId>ch.alv.batches</groupId>
-                <artifactId>commons-util</artifactId>
+                <artifactId>commons-sql</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -116,6 +116,12 @@
 
             <!-- test dependencies -->
 
+            <dependency>
+                <groupId>ch.alv.batches</groupId>
+                <artifactId>commons-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -154,7 +160,7 @@
                             </goals>
                             <configuration>
                                 <files>
-                                    <file>${parent.relativePath}/maven-config.properties</file>
+                                    <file>${project.parent.relativePath}/maven-config.properties</file>
                                 </files>
                             </configuration>
                         </execution>

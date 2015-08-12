@@ -19,10 +19,6 @@
 
         <dependency>
             <groupId>ch.alv.batches</groupId>
-            <artifactId>commons-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.alv.batches</groupId>
             <artifactId>commons-sql</artifactId>
         </dependency>
 
@@ -37,6 +33,10 @@
 
         <!-- test dependencies -->
 
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-test</artifactId>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
