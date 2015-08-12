@@ -22,12 +22,11 @@ install:
 script:
   - mvn clean cobertura:cobertura coveralls:report
 
-  # Trick to avoid useless S3 cache updates
-  - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick
-
-after_success:
   # Rebuild without Cobertura Instrumentation and Upload the built Artifacts
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
+
+  # Trick to avoid useless S3 cache updates
+  - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick
 
 cache:
   directories:
