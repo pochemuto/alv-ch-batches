@@ -100,11 +100,6 @@
                 <artifactId>commons-sql</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>ch.alv.batches</groupId>
-                <artifactId>commons-sql</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- external dependencies -->
 
