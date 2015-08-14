@@ -91,7 +91,7 @@ REFERENCES JOB
 ON DELETE CASCADE;
 
 -- check naming
-CREATE TABLE AUX_BFS_ISCO08 ( ID INTEGER PRIMARY KEY,
+CREATE TABLE CODE_BFS_ISCO08 ( ID INTEGER PRIMARY KEY,
                               BFS_CODE VARCHAR(8),
                               ISCO_08_CODE VARCHAR(4),
                               ISCO_08_GROUP_1 VARCHAR(1),
