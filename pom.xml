@@ -39,9 +39,7 @@
     <modules>
         <module>commons/sql</module>
         <module>commons/test</module>
-
         <module>jobdesk/master</module>
-
         <module>master/company</module>
         <module>master/partnerjob</module>
     </modules>
@@ -95,11 +93,6 @@
 
             <!-- shared modules -->
 
-            <dependency>
-                <groupId>ch.alv.batches</groupId>
-                <artifactId>commons-sql</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>ch.alv.batches</groupId>
                 <artifactId>commons-sql</artifactId>

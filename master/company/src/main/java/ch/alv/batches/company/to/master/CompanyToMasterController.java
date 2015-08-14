@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 
 /**
- * Controller to start the a
+ * Controller to start the a company import job
  */
 @Controller
 public class CompanyToMasterController {
