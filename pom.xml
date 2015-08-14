@@ -39,9 +39,7 @@
     <modules>
         <module>commons/sql</module>
         <module>commons/test</module>
-
         <module>jobdesk/master</module>
-
         <module>master/company</module>
         <module>master/partnerjob</module>
     </modules>

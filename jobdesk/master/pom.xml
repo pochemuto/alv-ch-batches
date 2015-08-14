@@ -15,4 +15,47 @@
     <artifactId>master-to-jobdesk</artifactId>
     <name>alv-ch-batches.master-to-jobdesk</name>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-sql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- test dependencies -->
+
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-test</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <configuration>
+                    <generator>
+                        <name>org.jooq.util.JavaGenerator</name>
+                        <database>
+                            <name>org.jooq.util.postgres.PostgresDatabase</name>
+                            <includes>^OSTE_ADMIN.*</includes>
+                        </database>
+                    </generator>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
