@@ -25,7 +25,7 @@ ch:
         company:
           avgfirmen:
             url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
-            chunkSize: 500
+            chunkSize: 10
 
         partnerjob:
           prospective:

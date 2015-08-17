@@ -186,7 +186,7 @@ public class CompanyToMasterIntegrationTest {
         List<AvgFirmenRecord> fetchedCompanies = jooq.fetch(AVG_FIRMEN)
                 .sortAsc(AVG_FIRMEN.ID);
 
-        Assert.assertEquals(6522, fetchedCompanies.size());
+        Assert.assertEquals(66, fetchedCompanies.size());
 
         while (!fetchedCompanies.isEmpty() && !checkCompanies.isEmpty()) {
             AvgFirmenRecord result = fetchedCompanies.remove(0);
@@ -221,7 +221,7 @@ public class CompanyToMasterIntegrationTest {
         Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82191));
         Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82193));
 
-        Assert.assertEquals(6525, fetchedUpdatedCompanies.size());
+        Assert.assertEquals(69, fetchedUpdatedCompanies.size());
 
         //
         // Third Import

@@ -8,6 +8,9 @@
         </encoder>
     </appender>
 
+
+    <logger name="ch.alv.batches" level="DEBUG" />
+
     <logger name="org.springframework.integration.expression.ExpressionUtils" level="ERROR" />
 
     <!--<logger name="org.jooq" level="DEBUG" />-->
