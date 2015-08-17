@@ -1,0 +1,34 @@
+logging:
+  path: /tmp/spring-batch-boom
+
+server:
+  port: 8999
+
+spring:
+
+  datasource:
+    initialize: true
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/vagrant
+    username: vagrant
+    password: vagrant
+    defaultAutoCommit: false
+
+  batch:
+
+    metrics:
+      enabled: true
+
+    initializer:
+      enabled: true
+
+ch:
+  alv:
+    batch:
+      master:
+        company:
+          avgfirmen:
+            url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
+        partnerjob:
+          prospective:
+            url: http://localhost:8000/prospective_feed.xml

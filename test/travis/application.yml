@@ -12,7 +12,6 @@ spring:
 
   batch:
     job:
-      #names: use job names if some shall run at system startup
       enabled: false # means that no job will be started on system startup
     initializer:
       # Spring Batch metadata tables are managed by the test suite itself

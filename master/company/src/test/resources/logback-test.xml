@@ -12,6 +12,9 @@
 
     <!--<logger name="org.jooq" level="DEBUG" />-->
 
+    <!-- skip invalid warnings, see https://jira.spring.io/browse/BATCH-2161 -->
+    <logger name="org.springframework.context.annotation.ConfigurationClassEnhancer" level="ERROR" />
+
     <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>

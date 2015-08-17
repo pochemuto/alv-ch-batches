@@ -26,3 +26,4 @@ ch:
           avgfirmen:
             url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
             #chunkSize: 50
+            #autocommitEnabled: no

@@ -17,18 +17,18 @@
 
     <dependencies>
 
+        <!-- shared modules -->
+
         <dependency>
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-sql</artifactId>
         </dependency>
 
+        <!-- external dependencies -->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -60,6 +60,9 @@
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
                             <includes>^OSTE_ADMIN.*</includes>
                         </database>
+                        <target>
+                            <packageName>ch.alv.batches.partnerjob.to.master.jooq</packageName>
+                        </target>
                     </generator>
                 </configuration>
             </plugin>

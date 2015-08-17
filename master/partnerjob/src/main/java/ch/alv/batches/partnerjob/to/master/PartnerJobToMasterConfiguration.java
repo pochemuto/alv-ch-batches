@@ -1,9 +1,9 @@
 package ch.alv.batches.partnerjob.to.master;
 
 import ch.alv.batches.commons.sql.JooqBatchWriter;
-import ch.alv.batches.jooq.tables.records.OsteAdminRecord;
 import ch.alv.batches.partnerjob.to.master.converter.ProspectiveJobToAdminJobConverter;
 import ch.alv.batches.partnerjob.to.master.jaxb.ProspectiveJob;
+import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OsteAdminRecord;
 import org.jooq.DSLContext;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -27,7 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 
-import static ch.alv.batches.jooq.tables.OsteAdmin.OSTE_ADMIN;
+import static ch.alv.batches.partnerjob.to.master.jooq.tables.OsteAdmin.OSTE_ADMIN;
 
 /**
  * AutoConfig of the OsteAdminRecord import job.
