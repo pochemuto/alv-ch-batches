@@ -1,6 +1,7 @@
 package ch.alv.batches.company.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
+import ch.alv.batches.commons.test.SpringBatchTestApplication;
 import ch.alv.batches.commons.test.SpringBatchTestHelper;
 import ch.alv.batches.company.to.master.jooq.tables.records.AvgFirmenRecord;
 import org.apache.commons.io.FileUtils;
@@ -36,7 +37,7 @@ import java.util.Map;
 import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmen.AVG_FIRMEN;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = CompanyToMasterTestApplication.class)
+@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
 public class CompanyToMasterIntegrationTest {
 
     private static final String DOWNLOAD_FILENAME = "/AVAMPSTS.xml";

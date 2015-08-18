@@ -16,6 +16,7 @@ install:
   - psql -U postgres -c 'create database travis_ci_test;'
   - psql -U postgres -d travis_ci_test < test/sql/master/company.sql
   - psql -U postgres -d travis_ci_test < test/sql/master/partnerjob.sql
+  - cp test/travis/application.yml commons/sql/src/test/resources/application.yml
   - cp test/travis/application.yml master/company/src/test/resources/application.yml
   - cp test/travis/application.yml master/partnerjob/src/test/resources/application.yml
   - cp test/travis/application.yml integration/boom/src/test/resources/application.yml

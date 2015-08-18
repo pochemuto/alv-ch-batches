@@ -1,6 +1,7 @@
 package ch.alv.batches.partnerjob.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
+import ch.alv.batches.commons.test.SpringBatchTestApplication;
 import ch.alv.batches.commons.test.SpringBatchTestHelper;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OsteAdminRecord;
 import org.eclipse.jetty.server.Handler;
@@ -31,7 +32,7 @@ import java.util.List;
 import static ch.alv.batches.partnerjob.to.master.jooq.tables.OsteAdmin.OSTE_ADMIN;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = PartnerJobToMasterTestApplication.class)
+@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
 public class ProspectiveIntegrationTest {
 
     @Resource
