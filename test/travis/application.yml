@@ -1,3 +1,6 @@
+server:
+  port: 8999
+
 spring:
 
   profiles:
@@ -8,7 +11,8 @@ spring:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/travis_ci_test
     username: postgres
-    password: 
+    password:
+    defaultAutoCommit: false
 
   batch:
     job:

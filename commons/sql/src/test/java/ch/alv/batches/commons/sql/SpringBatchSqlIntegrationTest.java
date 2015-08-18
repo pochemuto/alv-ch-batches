@@ -59,7 +59,6 @@ public class SpringBatchSqlIntegrationTest {
     public void testRunJobWithoutAutoCommit() throws Exception {
 
         JooqBatchWriter writer = new JooqBatchWriter(jooq);
-        writer.setAutoCommit(false);
         Job j = dummyJobs.buildDummyJob("jooqBatchWriterTest", 20, new TestJooqRecordReader(100), writer);
 
         // Validate Insertions

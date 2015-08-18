@@ -22,7 +22,7 @@ install:
   - cp test/travis/application.yml integration/boom/src/test/resources/application.yml
 
 script:
-  - mvn clean cobertura:cobertura coveralls:report
+  - mvn --fail-fast clean cobertura:cobertura coveralls:report
 
   # Rebuild without Cobertura Instrumentation and Upload the built Artifacts
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
