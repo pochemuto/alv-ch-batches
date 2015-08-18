@@ -1,5 +1,3 @@
-logging:
-  path: /tmp/spring-batch-boom
 
 server:
   port: 8999
@@ -12,7 +10,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/vagrant
     username: vagrant
     password: vagrant
-    defaultAutoCommit: false
+    defaultAutoCommit: true
 
   batch:
 

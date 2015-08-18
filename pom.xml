@@ -283,6 +283,9 @@
                         <excludes>
                             <exclude>**/jaxb/**</exclude>
                             <exclude>ch/alv/batches/**/jooq/**</exclude>
+
+                            <!-- Spring Boot Boiler Plates -->
+                            <exclude>ch/alv/batches/**/*Application.class</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>

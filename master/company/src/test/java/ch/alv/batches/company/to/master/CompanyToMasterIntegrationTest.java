@@ -181,7 +181,6 @@ public class CompanyToMasterIntegrationTest {
         //
 
         fakeFtpServer.getFileSystem().rename(IMPORT_1, DOWNLOAD_FILENAME);
-
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
         List<AvgFirmenRecord> fetchedCompanies = jooq.fetch(AVG_FIRMEN)
