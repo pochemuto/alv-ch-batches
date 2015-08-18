@@ -47,7 +47,6 @@ public class SpringBatchSqlIntegrationTest {
         String createTable = "DROP TABLE IF EXISTS TEST_JOOQ; CREATE TABLE TEST_JOOQ (ID INTEGER PRIMARY KEY, VAL1 TEXT)";
         Connection c = dataSource.getConnection();
         c.createStatement().execute(createTable);
-        c.commit();
     }
 
     @After
@@ -59,6 +58,7 @@ public class SpringBatchSqlIntegrationTest {
     public void testRunJobWithoutAutoCommit() throws Exception {
 
         JooqBatchWriter writer = new JooqBatchWriter(jooq);
+        writer.setAutoCommit(false);
         Job j = dummyJobs.buildDummyJob("jooqBatchWriterTest", 20, new TestJooqRecordReader(100), writer);
 
         // Validate Insertions
@@ -73,7 +73,6 @@ public class SpringBatchSqlIntegrationTest {
     public void testRunJobWithAutoCommit() throws Exception {
 
         JooqBatchWriter writer = new JooqBatchWriter(jooq);
-        writer.setAutoCommit(true);
         Job j = dummyJobs.buildDummyJob("jooqBatchWriterTest", 50, new TestJooqRecordReader(100), writer);
 
         // Validate Insertions

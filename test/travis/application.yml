@@ -12,7 +12,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/travis_ci_test
     username: postgres
     password:
-    defaultAutoCommit: false
+    defaultAutoCommit: true
 
   batch:
     job:
