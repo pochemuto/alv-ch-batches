@@ -23,7 +23,8 @@ script:
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
 
   # Trick to avoid useless S3 cache updates
-  - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick
+  # (force this step to always return 0, as it might fail for some unkown reasons, so far...)
+  - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
 
 cache:
   directories:
