@@ -9,10 +9,12 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+@Component
 public class SpringBatchTestHelper {
 
     @Value("classpath:org/springframework/batch/core/schema-drop-postgresql.sql")

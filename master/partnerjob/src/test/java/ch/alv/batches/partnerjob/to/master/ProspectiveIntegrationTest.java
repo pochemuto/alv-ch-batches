@@ -1,8 +1,9 @@
 package ch.alv.batches.partnerjob.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
+import ch.alv.batches.commons.test.SpringBatchTestApplication;
 import ch.alv.batches.commons.test.SpringBatchTestHelper;
-import ch.alv.batches.jooq.tables.records.OsteAdminRecord;
+import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OsteAdminRecord;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -13,7 +14,9 @@ import org.joda.time.LocalDate;
 import org.jooq.DSLContext;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.springframework.batch.core.*;
+import org.springframework.batch.core.ExitStatus;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
@@ -26,10 +29,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ch.alv.batches.jooq.tables.OsteAdmin.OSTE_ADMIN;
+import static ch.alv.batches.partnerjob.to.master.jooq.tables.OsteAdmin.OSTE_ADMIN;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = PartnerJobToMasterTestApplication.class)
+@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
 public class ProspectiveIntegrationTest {
 
     @Resource

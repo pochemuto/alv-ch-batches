@@ -12,6 +12,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/vagrant
     username: vagrant
     password: vagrant
+    defaultAutoCommit: true
 
   batch:
     job:

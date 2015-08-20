@@ -1,0 +1,16 @@
+spring:
+
+  datasource:
+    initialize: true
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/vagrant
+    username: vagrant
+    password: vagrant
+    defaultAutoCommit: true
+
+  batch:
+    job:
+      enabled: false # means that no job will be started on system startup
+    initializer:
+      # Spring Batch metadata tables are managed by the test suite itself
+      enabled: false

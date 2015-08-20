@@ -17,15 +17,15 @@
 
     <dependencies>
 
+        <!-- shared modules -->
+
         <dependency>
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-sql</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+        <!-- external dependencies -->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
@@ -64,6 +64,9 @@
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
                             <includes>^AVG_FIRMEN.*</includes>
                         </database>
+                        <target>
+                            <packageName>ch.alv.batches.company.to.master.jooq</packageName>
+                        </target>
                     </generator>
                 </configuration>
             </plugin>
