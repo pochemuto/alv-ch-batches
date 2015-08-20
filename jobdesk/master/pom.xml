@@ -27,6 +27,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+        </dependency>
+
         <!-- test dependencies -->
 
         <dependency>
@@ -50,7 +55,7 @@
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
-                            <includes>^OSTE_ADMIN.*</includes>
+                            <includes>JOB.*|LOCATION.*|JOB_LOCATION.*|JOB_LANGUAGE.*|CODE_BFS_ISCO08.*</includes>
                         </database>
                     </generator>
                 </configuration>

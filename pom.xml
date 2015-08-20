@@ -21,6 +21,7 @@
     <properties>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
+        <elasticsearch.version>1.7.1</elasticsearch.version>
         <h2.version>1.4.187</h2.version>
         <java.version>1.8</java.version>
         <jetty.version>7.6.17.v20150415</jetty.version>
@@ -106,6 +107,11 @@
                 <artifactId>spring-oxm</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
 
             <!-- test dependencies -->
 
@@ -172,10 +178,10 @@
                     </executions>
                     <configuration>
                         <jdbc>
-                            <driver>${build-db.jdbc.driver}</driver>
-                            <url>${build-db.jdbc.url}</url>
-                            <user>${build-db.jdbc.username}</user>
-                            <password>${build-db.jdbc.password}</password>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://localhost:5432/vagrant</url>
+                            <user>vagrant</user>
+                            <password>vagrant</password>
                         </jdbc>
                         <generator>
                             <name>org.jooq.util.JavaGenerator</name>

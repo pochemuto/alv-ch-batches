@@ -92,11 +92,17 @@ ON DELETE CASCADE;
 
 -- check naming
 CREATE TABLE CODE_BFS_ISCO08 ( ID INTEGER PRIMARY KEY,
-                              BFS_CODE VARCHAR(8),
-                              ISCO_08_CODE VARCHAR(4),
-                              ISCO_08_GROUP_1 VARCHAR(1),
-                              ISCO_08_GROUP_2 VARCHAR(2),
-                              ISCO_08_GROUP_3 VARCHAR(3),
-                              PROFESSION_ID VARCHAR(20));
+                               BFS_CODE INTEGER,
+                               ISCO_08_CODE INTEGER,
+                               ISCO_08_GROUP_1 INTEGER,
+                               ISCO_08_GROUP_2 INTEGER,
+                               ISCO_08_GROUP_3 INTEGER,
+                               PROFESSION_ID TEXT);
+
+CREATE TABLE SEARCH_REGIONS ( ID INTEGER PRIMARY KEY,
+                               BFS_CODE INTEGER,
+                               ZIP INTEGER,
+                               REGION TEXT,
+                               CANTON TEXT);
 
 COMMIT;
