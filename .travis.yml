@@ -12,9 +12,6 @@ env:
     - TEST_DB_PASSWORD=
     - MAVEN_DEPLOY_ARGS="--settings test/travis/maven-config.xml -DskipTests=true"
 
-before_install:
-  - mkdir /tmp/output
-
 install:
   - ./test/travis/build-test-database.sh
   - ./replace-db-settings.sh
