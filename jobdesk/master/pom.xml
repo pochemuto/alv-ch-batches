@@ -57,6 +57,9 @@
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
                             <includes>JOB.*|LOCATION.*|JOB_LOCATION.*|JOB_LANGUAGE.*|CODE_BFS_ISCO08.*</includes>
                         </database>
+                        <target>
+                            <packageName>ch.alv.batches.master.to.jobdesk.jooq</packageName>
+                        </target>
                     </generator>
                 </configuration>
             </plugin>
