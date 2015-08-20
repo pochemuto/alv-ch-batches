@@ -3,7 +3,6 @@ BEGIN;
 
 CREATE TABLE JOB (          ID INTEGER PRIMARY KEY,
                             JOB_ID TEXT,
-                            FINGERPRINT TEXT,
                             JOB_ID_AVAM TEXT,
                             JOB_ID_EGOV TEXT,
                             URL TEXT,
@@ -83,7 +82,7 @@ CREATE TABLE JOB_LANGUAGE ( ID INTEGER PRIMARY KEY,
                             LANGUAGE_ID INTEGER,
                             SKILL_TYPE SMALLINT, -- oral or written
                             SKILL_LEVEL SMALLINT,
-                            CONSTRAINT JOB_LANGUAGE_UNIQUENESS_CONSTRAINT UNIQUE (JOB_ID, LANGUAGE_ID, SKILL_TYPE));
+  CONSTRAINT JOB_LANGUAGE_UNIQUENESS_CONSTRAINT UNIQUE (JOB_ID, LANGUAGE_ID, SKILL_TYPE));
 
 ALTER TABLE JOB_LANGUAGE
 ADD CONSTRAINT JOB_LANGUAGE_JOB_ID_FK
@@ -92,12 +91,18 @@ REFERENCES JOB
 ON DELETE CASCADE;
 
 -- check naming
-CREATE TABLE AUX_BFS_ISCO08 ( ID INTEGER PRIMARY KEY,
-                              BFS_CODE VARCHAR(8),
-                              ISCO_08_CODE VARCHAR(4),
-                              ISCO_08_GROUP_1 VARCHAR(1),
-                              ISCO_08_GROUP_2 VARCHAR(2),
-                              ISCO_08_GROUP_3 VARCHAR(3),
-                              PROFESSION_ID VARCHAR(20));
+CREATE TABLE CODE_BFS_ISCO08 ( ID INTEGER PRIMARY KEY,
+                               BFS_CODE INTEGER,
+                               ISCO_08_CODE INTEGER,
+                               ISCO_08_GROUP_1 INTEGER,
+                               ISCO_08_GROUP_2 INTEGER,
+                               ISCO_08_GROUP_3 INTEGER,
+                               PROFESSION_ID TEXT);
+
+CREATE TABLE SEARCH_REGIONS ( ID INTEGER PRIMARY KEY,
+                              BFS_CODE INTEGER,
+                              ZIP INTEGER,
+                              REGION TEXT,
+                              CANTON TEXT);
 
 COMMIT;
