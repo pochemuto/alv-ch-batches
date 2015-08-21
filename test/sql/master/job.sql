@@ -82,7 +82,7 @@ CREATE TABLE JOB_LANGUAGE ( ID INTEGER PRIMARY KEY,
                             LANGUAGE_ID INTEGER,
                             SKILL_TYPE SMALLINT, -- oral or written
                             SKILL_LEVEL SMALLINT,
-                            CONSTRAINT JOB_LANGUAGE_UNIQUENESS_CONSTRAINT UNIQUE (JOB_ID, LANGUAGE_ID, SKILL_TYPE));
+  CONSTRAINT JOB_LANGUAGE_UNIQUENESS_CONSTRAINT UNIQUE (JOB_ID, LANGUAGE_ID, SKILL_TYPE));
 
 ALTER TABLE JOB_LANGUAGE
 ADD CONSTRAINT JOB_LANGUAGE_JOB_ID_FK
@@ -100,9 +100,9 @@ CREATE TABLE CODE_BFS_ISCO08 ( ID INTEGER PRIMARY KEY,
                                PROFESSION_ID TEXT);
 
 CREATE TABLE SEARCH_REGIONS ( ID INTEGER PRIMARY KEY,
-                               BFS_CODE INTEGER,
-                               ZIP INTEGER,
-                               REGION TEXT,
-                               CANTON TEXT);
+                              BFS_CODE INTEGER,
+                              ZIP INTEGER,
+                              REGION TEXT,
+                              CANTON TEXT);
 
 COMMIT;

@@ -1,8 +1,9 @@
 package ch.alv.batches.company.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
+import ch.alv.batches.commons.test.SpringBatchTestApplication;
 import ch.alv.batches.commons.test.SpringBatchTestHelper;
-import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
+import ch.alv.batches.company.to.master.jooq.tables.records.AvgFirmenRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
@@ -33,10 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static ch.alv.batches.jooq.tables.AvgFirmen.AVG_FIRMEN;
+import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmen.AVG_FIRMEN;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = CompanyToMasterTestApplication.class)
+@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
 public class CompanyToMasterIntegrationTest {
 
     private static final String DOWNLOAD_FILENAME = "/AVAMPSTS.xml";
@@ -180,13 +181,12 @@ public class CompanyToMasterIntegrationTest {
         //
 
         fakeFtpServer.getFileSystem().rename(IMPORT_1, DOWNLOAD_FILENAME);
-
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
         List<AvgFirmenRecord> fetchedCompanies = jooq.fetch(AVG_FIRMEN)
                 .sortAsc(AVG_FIRMEN.ID);
 
-        Assert.assertEquals(6522, fetchedCompanies.size());
+        Assert.assertEquals(66, fetchedCompanies.size());
 
         while (!fetchedCompanies.isEmpty() && !checkCompanies.isEmpty()) {
             AvgFirmenRecord result = fetchedCompanies.remove(0);
@@ -221,7 +221,7 @@ public class CompanyToMasterIntegrationTest {
         Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82191));
         Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82193));
 
-        Assert.assertEquals(6525, fetchedUpdatedCompanies.size());
+        Assert.assertEquals(69, fetchedUpdatedCompanies.size());
 
         //
         // Third Import

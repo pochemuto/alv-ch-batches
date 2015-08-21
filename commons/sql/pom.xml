@@ -17,10 +17,16 @@
     <packaging>jar</packaging>
 
     <dependencies>
+
+        <!-- spring boot starters -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
+
+        <!-- external dependencies -->
+
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
@@ -36,6 +42,39 @@
             <artifactId>jooq-codegen</artifactId>
             <version>${jooq.version}</version>
         </dependency>
+
+        <!-- test dependencies -->
+
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-test</artifactId>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>properties-maven-plugin</artifactId>-->
+            <!--</plugin>-->
+            <!--<plugin>-->
+                <!--<groupId>org.jooq</groupId>-->
+                <!--<artifactId>jooq-codegen-maven</artifactId>-->
+                <!--<configuration>-->
+                    <!--<generator>-->
+                        <!--<name>org.jooq.util.JavaGenerator</name>-->
+                        <!--<database>-->
+                            <!--<name>org.jooq.util.postgres.PostgresDatabase</name>-->
+                            <!--<includes>^TEST_.*</includes>-->
+                        <!--</database>-->
+                        <!--<target>-->
+                            <!--<directory>src/main/java</directory>-->
+                            <!--<packageName>ch.alv.batches.commons.sql.jooq</packageName>-->
+                        <!--</target>-->
+                    <!--</generator>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    </build>
 </project>

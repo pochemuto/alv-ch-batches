@@ -1,0 +1,32 @@
+
+server:
+  port: 8999
+
+spring:
+
+  datasource:
+    initialize: true
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/alvch_db_name
+    username: alvch_db_username
+    password: alvch_db_password
+    defaultAutoCommit: true
+
+  batch:
+
+    metrics:
+      enabled: true
+
+    initializer:
+      enabled: true
+
+ch:
+  alv:
+    batch:
+      master:
+        company:
+          avgfirmen:
+            url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
+        partnerjob:
+          prospective:
+            url: http://localhost:8000/prospective_feed.xml

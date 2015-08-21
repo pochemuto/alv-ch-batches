@@ -3,9 +3,9 @@ package ch.alv.batches.company.to.master;
 
 import ch.alv.batches.commons.sql.JooqBatchWriter;
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
+import ch.alv.batches.company.to.master.jooq.tables.records.AvgFirmenBatchStagingRecord;
+import ch.alv.batches.company.to.master.jooq.tables.records.AvgFirmenRecord;
 import ch.alv.batches.company.to.master.reader.FtpAvgFirmenStaxEventItemReader;
-import ch.alv.batches.jooq.tables.records.AvgFirmenBatchStagingRecord;
-import ch.alv.batches.jooq.tables.records.AvgFirmenRecord;
 import org.jooq.DSLContext;
 import org.jooq.UpdatableRecord;
 import org.springframework.batch.core.Job;
@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static ch.alv.batches.jooq.tables.AvgFirmen.AVG_FIRMEN;
-import static ch.alv.batches.jooq.tables.AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING;
+import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmen.AVG_FIRMEN;
+import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING;
 
 /**
  * AutoConfig of the Company import job.

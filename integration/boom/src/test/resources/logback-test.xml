@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>[%p] %c - %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ch.alv.batches" level="INFO" />
+
+    <logger name="org.springframework.integration.expression.ExpressionUtils" level="ERROR" />
+
+    <!-- skip invalid warnings, see https://jira.spring.io/browse/BATCH-2161 -->
+    <logger name="org.springframework.context.annotation.ConfigurationClassEnhancer" level="ERROR" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

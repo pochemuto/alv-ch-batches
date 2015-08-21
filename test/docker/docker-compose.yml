@@ -1,0 +1,18 @@
+---
+
+master_db:
+
+  ports:
+    - 127.0.0.1:5432:5432
+
+  image: postgres:9.4
+
+  volumes:
+    - docker-compose-data/db/etc/postgresql:/etc/postgresql
+    - docker-compose-data/db/var/log/postgresql:/var/log/postgresql
+    - docker-compose-data/db/var/lib/postgresql:/var/lib/postgresql
+
+  environment:
+    POSTGRES_DB:         alvch_db_name
+    POSTGRES_USER:       alvch_db_username
+    POSTGRES_PASSWORD:   alvch_db_password

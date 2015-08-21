@@ -2,7 +2,7 @@ package ch.alv.batches.company.to.master.reader;
 
 import ch.alv.batches.company.to.master.jaxb.AvgFirma;
 import ch.alv.batches.company.to.master.jaxb.Avggstelle;
-import ch.alv.batches.jooq.tables.records.AvgFirmenBatchStagingRecord;
+import ch.alv.batches.company.to.master.jooq.tables.records.AvgFirmenBatchStagingRecord;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.batch.item.NonTransientResourceException;

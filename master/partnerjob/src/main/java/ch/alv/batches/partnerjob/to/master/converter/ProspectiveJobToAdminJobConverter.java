@@ -1,7 +1,7 @@
 package ch.alv.batches.partnerjob.to.master.converter;
 
-import ch.alv.batches.jooq.tables.records.OsteAdminRecord;
 import ch.alv.batches.partnerjob.to.master.jaxb.ProspectiveJob;
+import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OsteAdminRecord;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.UUID;

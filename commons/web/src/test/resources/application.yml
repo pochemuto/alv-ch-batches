@@ -1,0 +1,23 @@
+server:
+  port: 8999
+
+spring:
+
+  batch:
+
+    metrics:
+      enabled: true
+
+    initializer:
+      enabled: true
+
+    web:
+      operations:
+        base:       /batch/operations
+      monitoring:
+        base:       /batch/monitoring
+
+# Not working anymore since spring-boot-starter-batch-web v1.3 ?
+#    config:
+#      package:
+#        javaconfig: ch.alv.batches.boom.commons.web

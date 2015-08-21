@@ -2,12 +2,17 @@ package ch.alv.batches.commons.sql;
 
 import org.jooq.DSLContext;
 import org.jooq.UpdatableRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class JooqBatchWriter implements ItemWriter<UpdatableRecord<?>> {
+
+    final static Logger logger = LoggerFactory.getLogger(JooqBatchWriter.class);
 
     protected Connection connection = null;
     protected DSLContext jooq = null;
@@ -17,8 +22,13 @@ public class JooqBatchWriter implements ItemWriter<UpdatableRecord<?>> {
         this.connection = jooq.configuration().connectionProvider().acquire();
     }
 
+    public void setAutoCommit(boolean enableAutoCommit) throws SQLException {
+        this.connection.setAutoCommit(enableAutoCommit);
+    }
+
     @Override
     public void write(List<? extends UpdatableRecord<?>> items) throws Exception {
+        logger.info("Store " + items.size() + " records.");
         jooq.batchStore(items).execute();
         if (!connection.getAutoCommit()) {
             connection.commit();

@@ -6,9 +6,10 @@ spring:
   datasource:
     initialize: false
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/vagrant
-    username: vagrant
-    password: vagrant
+    url: jdbc:postgresql://localhost:5432/alvch_db_name
+    username: alvch_db_username
+    password: alvch_db_password
+    defaultAutoCommit: true
 
   batch:
     job:
@@ -25,4 +26,5 @@ ch:
         company:
           avgfirmen:
             url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
-            #chunkSize: 50
+            chunkSize: 20
+            #autocommitEnabled: no
