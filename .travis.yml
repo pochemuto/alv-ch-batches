@@ -1,4 +1,5 @@
 language: java
+
 jdk: oraclejdk8
 
 addons:
@@ -6,20 +7,14 @@ addons:
 
 env:
   global:
+    - TEST_DB_NAME=travis_ci_test
+    - TEST_DB_USERNAME=postgres
+    - TEST_DB_PASSWORD=
     - MAVEN_DEPLOY_ARGS="--settings test/travis/maven-config.xml -DskipTests=true"
 
-before_install:
-  - mkdir /tmp/output
-  - ln -snf test/travis/maven-config.properties ./maven-config.properties
-
 install:
-  - psql -U postgres -c 'create database travis_ci_test;'
-  - psql -U postgres -d travis_ci_test < test/sql/master/company.sql
-  - psql -U postgres -d travis_ci_test < test/sql/master/partnerjob.sql
-  - cp test/travis/application.yml commons/sql/src/test/resources/application.yml
-  - cp test/travis/application.yml master/company/src/test/resources/application.yml
-  - cp test/travis/application.yml master/partnerjob/src/test/resources/application.yml
-  - cp test/travis/application.yml integration/boom/src/test/resources/application.yml
+  - ./test/travis/build-test-database.sh
+  - ./replace-db-settings.sh
 
 script:
   - mvn clean cobertura:cobertura coveralls:report
@@ -28,7 +23,8 @@ script:
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
 
   # Trick to avoid useless S3 cache updates
-  - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick
+  # (force this step to always return 0, as it might fail for some unkown reasons, so far...)
+  - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
 
 cache:
   directories:
