@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 
-import static ch.alv.batches.jooq.Tables.JOB;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB;
 
 /**
  * Main configuration of the master-to-jobdesk module

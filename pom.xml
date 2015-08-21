@@ -213,9 +213,9 @@
                     <configuration>
                         <jdbc>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/vagrant</url>
-                            <user>vagrant</user>
-                            <password>vagrant</password>
+                            <url>jdbc:postgresql://localhost:5432/alvch_db_name</url>
+                            <user>alvch_db_username</user>
+                            <password>alvch_db_password</password>
                         </jdbc>
                         <generator>
                             <name>org.jooq.util.JavaGenerator</name>
