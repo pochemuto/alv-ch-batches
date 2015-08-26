@@ -1,25 +1,14 @@
 package ch.alv.batches.master.to.jobdesk;
 
 
-import org.jooq.DSLContext;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.beans.factory.annotation.Value;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.springframework.batch.core.configuration.support.ApplicationContextFactory;
+import org.springframework.batch.core.configuration.support.GenericApplicationContextFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.Resource;
-import java.net.MalformedURLException;
-import java.sql.SQLException;
-
-import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB;
 
 /**
  * Main configuration of the master-to-jobdesk module
@@ -27,50 +16,41 @@ import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB;
  * @since 1.0.0
  */
 @Configuration
-@ComponentScan("ch.alv.batches")
-@EnableBatchProcessing
 public class MasterToJobdeskConfiguration {
 
-    public final static String JOB_NAME = "loadJobdeskIndex";
+    public final static String JOB_NAME_JOBS_CREATE_FULL_INDEX = "createFullJobIndexJob";
+    public final static String STEP_NAME_JOBS_CREATE_FULL_INDEX = "createFullJobIndexStep";
 
-    public static final String STEP_NAME = "loadJobdeskIndexStep";
+    public final static String JOB_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexJob";
+    public final static String STEP_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexStep";
 
-    @Value("${ch.alv.batches.master.jobdesk.es.index:jobdesk}")
-    private String indexName;
+    public static final String JOB_RECORD_JDBC_ITEM_READER = "jobRecordJdbcItemReader";
+    public static final String JOB_RECORD_TO_JOBDESK_JOB_CONVERTER = "jobRecordToJobdeskJobConverter";
+    public static final String JOBDESK_JOB_ELASTICSEARCH_ITEM_WRITER = "jobdeskJobElasticSearchItemWriter";
 
-    @Value("${ch.alv.batches.master.jobdesk.es.type.job:job}")
-    private String typeName;
 
-    @Resource
-    private DSLContext jooq;
 
-    @Resource
-    private JobBuilderFactory jobs;
+    public static final String LOCATION_RECORD_JDBC_ITEM_READER = "locationRecordJdbcItemReader";
+    public static final String LOCATION_RECORD_TO_JOBDESK_LOCATION_CONVERTER = "locationRecordToJobdeskLocationConverter";
+    public static final String JOBDESK_LOCATION_ELASTICSEARCH_ITEM_WRITER = "jobdeskLocationElasticSearchItemWriter";
 
-    @Resource
-    private StepBuilderFactory steps;
-
-    @Bean(name = JOB_NAME)
-    public Job loadJobdeskIndexJob() throws MalformedURLException, SQLException {
-        return jobs.get(JOB_NAME)
-                .incrementer(new RunIdIncrementer())
-                .preventRestart()
-                .flow(loadJobdeskIndexStep())
-                .end()
-                .build();
+    @Bean
+    public ApplicationContextFactory someJobs() {
+        return new GenericApplicationContextFactory(CreateFullJobIndexJobConfiguration.class);
     }
 
-    private Step loadJobdeskIndexStep() {
-        Tasklet t = (contribution, context) -> {
-            jooq.truncate(JOB).execute();
-            return RepeatStatus.FINISHED;
-        };
-
-        return steps.get(STEP_NAME)
-                .tasklet(t)
-                .build();
+    @Bean
+    public ApplicationContextFactory someMoreJobs() {
+        return new GenericApplicationContextFactory(CreateFullLocationIndexJobConfiguration.class);
     }
 
+    @Bean(name = "elasticsearchClient")
+    public Client elasticsearchClient() {
+        final ImmutableSettings.Builder settings = ImmutableSettings.settingsBuilder();
+        TransportClient transportClient = new TransportClient(settings);
+        transportClient = transportClient.addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+        return transportClient;
+    }
 
 
 }

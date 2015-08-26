@@ -34,7 +34,7 @@ CREATE TABLE JOB (          ID INTEGER PRIMARY KEY,
                             COMPANY_PO_NUMBER TEXT,
                             COMPANY_PO_ZIP INTEGER,
                             COMPANY_PO_CITY INTEGER,
-                            COMPANY_PHONE INTEGER,
+                            COMPANY_PHONE TEXT,
                             COMPANY_EMAIL TEXT,
                             COMPANY_URL TEXT,
                             CONTACT_GENDER SMALLINT,
@@ -79,9 +79,9 @@ ON DELETE CASCADE;
 CREATE TABLE JOB_LANGUAGE ( ID INTEGER PRIMARY KEY,
                             JOB_ID INTEGER,
                             LANGUAGE_ID INTEGER,
-                            SKILL_TYPE SMALLINT, -- oral or written
-                            SKILL_LEVEL SMALLINT,
-  CONSTRAINT JOB_LANGUAGE_UNIQUENESS_CONSTRAINT UNIQUE (JOB_ID, LANGUAGE_ID, SKILL_TYPE));
+                            SKILL_SPOKEN SMALLINT,
+                            SKILL_WRITTEN SMALLINT,
+  CONSTRAINT JOB_LANGUAGE_UNIQUENESS_CONSTRAINT UNIQUE (JOB_ID, LANGUAGE_ID));
 
 ALTER TABLE JOB_LANGUAGE
 ADD CONSTRAINT JOB_LANGUAGE_JOB_ID_FK

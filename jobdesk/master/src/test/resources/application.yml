@@ -18,3 +18,16 @@ spring:
       # Spring Batch metadata tables are managed by the test suite itself
       enabled: false
 
+ch:
+  alv:
+    batches:
+      master:
+        jobdesk:
+          esIndexName: jobdesk
+          job:
+            esType: jobs
+            chunkSize: 500
+          location:
+            esType: locations
+            chunkSize: 500
+
