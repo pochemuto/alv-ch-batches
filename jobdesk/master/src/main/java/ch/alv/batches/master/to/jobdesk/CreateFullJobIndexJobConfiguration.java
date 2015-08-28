@@ -46,7 +46,7 @@ public class CreateFullJobIndexJobConfiguration {
     @Value("${ch.alv.batches.master.jobdesk.esIndexName:jobdesk}")
     private String indexName;
 
-    @Value("${ch.alv.batches.master.jobdesk.job.esType:job}")
+    @Value("${ch.alv.batches.master.jobdesk.job.esType:jobs}")
     private String typeName;
 
     @Value("${ch.alv.batches.master.jobdesk.job.chunkSize:250}")

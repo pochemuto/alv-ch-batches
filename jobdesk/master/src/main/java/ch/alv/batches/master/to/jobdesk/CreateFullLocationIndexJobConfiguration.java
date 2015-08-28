@@ -45,7 +45,7 @@ public class CreateFullLocationIndexJobConfiguration {
     @Value("${ch.alv.batches.master.jobdesk.esIndexName:jobdesk}")
     private String indexName;
 
-    @Value("${ch.alv.batches.master.jobdesk.location.esType:job}")
+    @Value("${ch.alv.batches.master.jobdesk.location.esType:locations}")
     private String typeName;
 
     @Value("${ch.alv.batches.master.jobdesk.location.chunkSize:250}")

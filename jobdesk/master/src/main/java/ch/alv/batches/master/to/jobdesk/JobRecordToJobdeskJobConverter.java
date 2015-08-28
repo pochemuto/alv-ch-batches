@@ -1,5 +1,7 @@
 package ch.alv.batches.master.to.jobdesk;
 
+
+
 import ch.alv.batches.master.to.jobdesk.jooq.tables.records.JobRecord;
 import ch.alv.batches.master.to.jobdesk.model.*;
 import org.jooq.DSLContext;
@@ -16,6 +18,7 @@ import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB_LANGUAGE;
 import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB_LOCATION;
 import static ch.alv.batches.master.to.jobdesk.jooq.Tables.LOCATION;
 
+
 /**
  * Converts a master job (represented by the {@link JobRecord} class) into its
  * Jobdesk specific {@link JobdeskJob} representation.
@@ -25,14 +28,6 @@ import static ch.alv.batches.master.to.jobdesk.jooq.Tables.LOCATION;
 public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, JobdeskJob> {
 
     private static final List<String> INTERNAL_SOURCES = Collections.singletonList("AVAM");
-
-    private static final String JOB_LOCATION_COLUMN_LABEL_ZIP = "ZIP";
-    private static final String JOB_LOCATION_COLUMN_LABEL_LAT = "LAT";
-    private static final String JOB_LOCATION_COLUMN_LABEL_LON = "LON";
-
-    private static final String JOB_LANGUAGE_COLUMN_LABEL_LANGUAGE_ID = "LANGUAGE_ID";
-    private static final String JOB_LANGUAGE_COLUMN_LABEL_SKILL_SPOKEN = "SKILL_SPOKEN";
-    private static final String JOB_LANGUAGE_COLUMN_LABEL_SKILL_WRITTEN = "SKILL_WRITTEN";
 
     @Resource
     private JdbcTemplate jdbcTemplate;
@@ -45,6 +40,7 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
         JobdeskJob out = new JobdeskJob();
         mapSimpleData(in, out);
         mapComplexData(in, out);
+
         return out;
     }
 
@@ -96,8 +92,8 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
                         .where(JOB_LOCATION.JOB_ID.eq(in.getId())).getSQL().replace("?", in.getId().toString()),
                 (resultSet, i) -> {
                     JobdeskLocation location = new JobdeskLocation();
-                    location.setZip(resultSet.getString(JOB_LOCATION_COLUMN_LABEL_ZIP));
-                    location.setCoords(new JobdeskLocationCoordinate(resultSet.getDouble(JOB_LOCATION_COLUMN_LABEL_LAT), resultSet.getDouble(JOB_LOCATION_COLUMN_LABEL_LON)));
+                    location.setZip(resultSet.getString(LOCATION.ZIP.getName()));
+                    location.setCoords(new JobdeskLocationCoordinate(resultSet.getDouble(LOCATION.LAT.getName()), resultSet.getDouble(LOCATION.LON.getName())));
                     return location;
                 }));
     }
@@ -146,9 +142,9 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
     private void retrieveAndSetLanguages(JobRecord in, JobdeskJob out) throws SQLException {
         out.setLanguages(jdbcTemplate.query(jooq.select().from(JOB_LANGUAGE).where(JOB_LANGUAGE.JOB_ID.eq(in.getId())).getSQL().replace("?", in.getId().toString()), (resultSet, i) -> {
             return new JobdeskLanguage(
-                    resultSet.getInt(JOB_LANGUAGE_COLUMN_LABEL_LANGUAGE_ID),
-                    resultSet.getInt(JOB_LANGUAGE_COLUMN_LABEL_SKILL_SPOKEN),
-                    resultSet.getInt(JOB_LANGUAGE_COLUMN_LABEL_SKILL_WRITTEN)
+                    resultSet.getInt(JOB_LANGUAGE.LANGUAGE_ID.getName()),
+                    resultSet.getInt(JOB_LANGUAGE.SKILL_SPOKEN.getName()),
+                    resultSet.getInt(JOB_LANGUAGE.SKILL_WRITTEN.getName())
             );
         }));
     }

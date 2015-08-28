@@ -1,6 +1,5 @@
 package ch.alv.batches.master.to.jobdesk;
 
-import ch.alv.batches.commons.test.SpringBatchTestHelper;
 import ch.alv.batches.master.to.jobdesk.model.JobdeskLocation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -34,9 +33,6 @@ public class MasterToJobdeskLocationIndexTest {
 
     @Resource(name = MasterToJobdeskConfiguration.JOB_NAME_LOCATIONS_CREATE_FULL_INDEX)
     private Job fullLocationIndexJob;
-
-    @Resource
-    SpringBatchTestHelper springBatchHelper;
 
     @Resource
     private Client client;

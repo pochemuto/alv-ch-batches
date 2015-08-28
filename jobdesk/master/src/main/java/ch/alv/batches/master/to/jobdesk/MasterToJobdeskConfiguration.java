@@ -20,31 +20,27 @@ public class MasterToJobdeskConfiguration {
 
     public final static String JOB_NAME_JOBS_CREATE_FULL_INDEX = "createFullJobIndexJob";
     public final static String STEP_NAME_JOBS_CREATE_FULL_INDEX = "createFullJobIndexStep";
-
-    public final static String JOB_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexJob";
-    public final static String STEP_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexStep";
-
     public static final String JOB_RECORD_JDBC_ITEM_READER = "jobRecordJdbcItemReader";
     public static final String JOB_RECORD_TO_JOBDESK_JOB_CONVERTER = "jobRecordToJobdeskJobConverter";
     public static final String JOBDESK_JOB_ELASTICSEARCH_ITEM_WRITER = "jobdeskJobElasticSearchItemWriter";
 
-
-
+    public final static String JOB_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexJob";
+    public final static String STEP_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexStep";
     public static final String LOCATION_RECORD_JDBC_ITEM_READER = "locationRecordJdbcItemReader";
     public static final String LOCATION_RECORD_TO_JOBDESK_LOCATION_CONVERTER = "locationRecordToJobdeskLocationConverter";
     public static final String JOBDESK_LOCATION_ELASTICSEARCH_ITEM_WRITER = "jobdeskLocationElasticSearchItemWriter";
 
     @Bean
-    public ApplicationContextFactory someJobs() {
+    public ApplicationContextFactory createFullJobIndexJob() {
         return new GenericApplicationContextFactory(CreateFullJobIndexJobConfiguration.class);
     }
 
     @Bean
-    public ApplicationContextFactory someMoreJobs() {
+    public ApplicationContextFactory createFullLocationIndexJob() {
         return new GenericApplicationContextFactory(CreateFullLocationIndexJobConfiguration.class);
     }
 
-    @Bean(name = "elasticsearchClient")
+    @Bean
     public Client elasticsearchClient() {
         final ImmutableSettings.Builder settings = ImmutableSettings.settingsBuilder();
         TransportClient transportClient = new TransportClient(settings);
