@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.JobParametersNotFoundException;
@@ -31,9 +30,6 @@ import java.io.IOException;
 @SpringApplicationConfiguration(classes = MasterToJobdeskTestApplication.class)
 public class MasterToJobdeskLocationIndexTest {
 
-    @Resource(name = MasterToJobdeskConfiguration.JOB_NAME_LOCATIONS_CREATE_FULL_INDEX)
-    private Job fullLocationIndexJob;
-
     @Resource
     private Client client;
 
@@ -44,248 +40,25 @@ public class MasterToJobdeskLocationIndexTest {
     public void init() {
         try {
             client.admin().indices().deleteMapping(new DeleteMappingRequest("jobdesk").types("locations")).actionGet();
-            client.admin().indices().preparePutMapping("jobdesk").setSource("\"jobs\": {\n" +
+            client.admin().indices().preparePutMapping("jobdesk").setSource("\"locations\":{\n" +
                     "      \"properties\": {\n" +
-                    "        \"fingerprint\": {\n" +
-                    "          \"type\": \"string\"\n" +
-                    "        },\n" +
-                    "        \"identifier\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\": {\n" +
-                    "            \"avam\": {\n" +
-                    "              \"type\":\"string\"\n" +
-                    "            },\n" +
-                    "            \"egov\": {\n" +
-                    "              \"type\":\"string\"\n" +
-                    "            }\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"url\": {\n" +
+                    "        \"name\": {\n" +
                     "          \"type\":\"string\"\n" +
                     "        },\n" +
-                    "        \"title\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\": {\n" +
-                    "            \"de\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"fr\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"it\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"en\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            }\n" +
-                    "          }\n" +
+                    "        \"zip\": {\n" +
+                    "          \"type\":\"string\"\n" +
                     "        },\n" +
-                    "        \"description\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\": {\n" +
-                    "            \"de\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"fr\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"it\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"en\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            }\n" +
-                    "          }\n" +
+                    "        \"zipAdditionalNumber\": {\n" +
+                    "          \"type\":\"string\"\n" +
                     "        },\n" +
-                    "        \"isco\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\": {\n" +
-                    "            \"majorGroup\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"groupLevel2\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"groupLevel3\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"groupLevel4\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            }\n" +
-                    "          }\n" +
+                    "        \"municipalityName\": {\n" +
+                    "          \"type\":\"string\"\n" +
                     "        },\n" +
-                    "        \"locations\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\":{\n" +
-                    "            \"location\": {\n" +
-                    "              \"type\":\"nested\",\n" +
-                    "              \"properties\": {\n" +
-                    "                \"coords\": {\n" +
-                    "                  \"type\": \"geo_point\"\n" +
-                    "                },\n" +
-                    "                \"zip\": {\n" +
-                    "                  \"type\": \"integer\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            },\n" +
-                    "            \"remarks\": {\n" +
-                    "              \"type\": \"object\",\n" +
-                    "              \"properties\": {\n" +
-                    "                \"de\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                },\n" +
-                    "                \"fr\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                },\n" +
-                    "                \"it\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                },\n" +
-                    "                \"en\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            }\n" +
-                    "          }\n" +
+                    "        \"canton\": {\n" +
+                    "          \"type\":\"string\"\n" +
                     "        },\n" +
-                    "        \"fulltime\": {\n" +
-                    "          \"type\": \"boolean\"\n" +
-                    "        },\n" +
-                    "        \"external\": {\n" +
-                    "          \"type\": \"boolean\"\n" +
-                    "        },\n" +
-                    "        \"source\": {\n" +
-                    "          \"type\": \"string\"\n" +
-                    "        },\n" +
-                    "        \"onlineSince\": {\n" +
-                    "          \"type\": \"integer\"\n" +
-                    "        },\n" +
-                    "        \"quotaFrom\": {\n" +
-                    "          \"type\": \"short\"\n" +
-                    "        },\n" +
-                    "        \"quotaTo\": {\n" +
-                    "          \"type\": \"short\"\n" +
-                    "        },\n" +
-                    "        \"availableNow\": {\n" +
-                    "          \"type\":\"boolean\"\n" +
-                    "        },\n" +
-                    "        \"permanentJob\": {\n" +
-                    "          \"type\":\"boolean\"\n" +
-                    "        },\n" +
-                    "        \"startDate\": {\n" +
-                    "          \"type\": \"string\"\n" +
-                    "        },\n" +
-                    "        \"endDate\": {\n" +
-                    "          \"type\": \"string\"\n" +
-                    "        },\n" +
-                    "        \"languages\": {\n" +
-                    "          \"properties\": {\n" +
-                    "            \"languageCode\": {\n" +
-                    "              \"type\": \"short\"\n" +
-                    "            },\n" +
-                    "            \"writtenCode\": {\n" +
-                    "              \"type\": \"short\"\n" +
-                    "            },\n" +
-                    "            \"spokenCode\": {\n" +
-                    "              \"type\": \"short\"\n" +
-                    "            }\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"application\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\": {\n" +
-                    "            \"written\": {\n" +
-                    "              \"type\": \"boolean\"\n" +
-                    "            },\n" +
-                    "            \"electronical\": {\n" +
-                    "              \"type\": \"boolean\"\n" +
-                    "            },\n" +
-                    "            \"electronicalAddress\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"phone\": {\n" +
-                    "              \"type\": \"boolean\"\n" +
-                    "            },\n" +
-                    "            \"phoneNumber\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"personal\": {\n" +
-                    "              \"type\": \"boolean\"\n" +
-                    "            }\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"company\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\": {\n" +
-                    "            \"name\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"address\": {\n" +
-                    "              \"type\":\"object\",\n" +
-                    "              \"properties\": {\n" +
-                    "                \"street\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                },\n" +
-                    "                \"streetAppendix\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                },\n" +
-                    "                \"zip\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                },\n" +
-                    "                \"location\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                },\n" +
-                    "                \"country\": {\n" +
-                    "                  \"type\": \"string\"\n" +
-                    "                }\n" +
-                    "              }\n" +
-                    "            },\n" +
-                    "            \"phone\": {\n" +
-                    "              \"type\":\"string\"\n" +
-                    "            },\n" +
-                    "            \"eMail\": {\n" +
-                    "              \"type\":\"string\"\n" +
-                    "            },\n" +
-                    "            \"url\": {\n" +
-                    "              \"type\":\"string\"\n" +
-                    "            }\n" +
-                    "          },\n" +
-                    "          \"poAddress\": {\n" +
-                    "            \"type\":\"object\",\n" +
-                    "            \"properties\": {\n" +
-                    "              \"poBox\": {\n" +
-                    "                \"type\": \"string\"\n" +
-                    "              },\n" +
-                    "              \"zip\": {\n" +
-                    "                \"type\": \"string\"\n" +
-                    "              },\n" +
-                    "              \"location\": {\n" +
-                    "                \"type\": \"string\"\n" +
-                    "              },\n" +
-                    "              \"country\": {\n" +
-                    "                \"type\": \"string\"\n" +
-                    "              }\n" +
-                    "            }\n" +
-                    "          }\n" +
-                    "        },\n" +
-                    "        \"contact\": {\n" +
-                    "          \"type\":\"object\",\n" +
-                    "          \"properties\": {\n" +
-                    "            \"gender\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"firstName\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"lastName\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"phone\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            },\n" +
-                    "            \"eMail\": {\n" +
-                    "              \"type\": \"string\"\n" +
-                    "            }\n" +
-                    "          }\n" +
+                    "        \"coords\": {\n" +
+                    "          \"type\": \"geo_point\"\n" +
                     "        }\n" +
                     "      }\n" +
                     "    }").execute();

@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MasterToJobdeskConfiguration {
 
-    public final static String JOB_NAME_JOBS_CREATE_FULL_INDEX = "createFullJobIndexJob";
-    public final static String STEP_NAME_JOBS_CREATE_FULL_INDEX = "createFullJobIndexStep";
+    public final static String JOB_NAME_JOBS_CREATE_FULL_INDEX = "createFullVacanciesIndexJob";
+    public final static String STEP_NAME_JOBS_CREATE_FULL_INDEX = "createFullVacanciesIndexStep";
     public static final String JOB_RECORD_JDBC_ITEM_READER = "jobRecordJdbcItemReader";
     public static final String JOB_RECORD_TO_JOBDESK_JOB_CONVERTER = "jobRecordToJobdeskJobConverter";
     public static final String JOBDESK_JOB_ELASTICSEARCH_ITEM_WRITER = "jobdeskJobElasticSearchItemWriter";
