@@ -1,8 +1,8 @@
 package ch.alv.batches.company.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
-import ch.alv.batches.commons.test.SpringBatchTestApplication;
-import ch.alv.batches.commons.test.SpringBatchTestHelper;
+import ch.alv.batches.commons.test.SimpleTestApplication;
+import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
 import ch.alv.batches.company.to.master.jooq.tables.records.AvgFirmenRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +21,7 @@ import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -37,7 +38,8 @@ import java.util.Map;
 import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmen.AVG_FIRMEN;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
+@SpringApplicationConfiguration(classes = SimpleTestApplication.class)
+@IntegrationTest
 public class CompanyToMasterIntegrationTest {
 
     private static final String DOWNLOAD_FILENAME = "/AVAMPSTS.xml";
@@ -49,7 +51,7 @@ public class CompanyToMasterIntegrationTest {
     private Job importAvgCompaniesJob;
 
     @Resource
-    SpringBatchTestHelper springBatchHelper;
+    private SpringBatchTestHelper springBatchHelper;
 
     @Resource
     private DSLContext jooq;
@@ -81,8 +83,6 @@ public class CompanyToMasterIntegrationTest {
 
     @Before
     public void initTestObjects() throws ParseException, SQLException {
-
-        springBatchHelper.initializeSpringBatchPostgresqlSchema();
 
         // Test context must start with an empty target table
         jooq.truncate(AVG_FIRMEN).execute();
@@ -192,7 +192,7 @@ public class CompanyToMasterIntegrationTest {
             AvgFirmenRecord result = fetchedCompanies.remove(0);
             AvgFirmenRecord check = checkCompanies.remove(0);
 
-           Assert.assertEquals(0, result.compareTo(check));
+            Assert.assertEquals(0, result.compareTo(check));
         }
 
         while (!fetchedCompanies.isEmpty()) {

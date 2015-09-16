@@ -1,4 +1,4 @@
-package ch.alv.batches.commons.test;
+package ch.alv.batches.commons.test.springbatch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +41,7 @@ public class SpringBatchTestDummyJobFactory {
         return jobs.get(jobName)
                 .incrementer(new RunIdIncrementer())
                 .preventRestart()
-                .flow(jobStep)
-                .end()
+                .start(jobStep)
                 .build();
     }
 

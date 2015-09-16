@@ -9,16 +9,11 @@ import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.client.Client;
-import org.jooq.DSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -28,61 +23,34 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 
-import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB;
+import static ch.alv.batches.master.to.jobdesk.jooq.tables.Job.JOB;
 
-/**
- * Created by stibe on 26.08.15.
- */
 @Configuration
-public class CreateFullJobIndexJobConfiguration {
+public class VacanciesToJobdeskConfiguration extends MasterToJobdeskConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(CreateFullJobIndexJobConfiguration.class);
+    public final static String ELASTICSEARCH_TYPE = "job";
+    public final static String BATCH_JOB_LOAD_VACANCIES = "loadAllVacanciesIntoJobdeskJob";
+    public final static String BATCH_STEP_LOAD_VACANCIES = "loadAllVacanciesIntoJobdeskStep";
 
-    @Value("${ch.alv.batches.master.jobdesk.esIndexName:jobdesk}")
-    private String indexName;
+    private static final Logger log = LoggerFactory.getLogger(VacanciesToJobdeskConfiguration.class);
 
-    @Value("${ch.alv.batches.master.jobdesk.job.esType:jobs}")
-    private String typeName;
-
-    @Value("${ch.alv.batches.master.jobdesk.job.chunkSize:250}")
+    @Value("${ch.alv.batches.chunkSizes.job:250}")
     private int chunkSize;
 
-    @Resource
-    private DSLContext jooq;
-
-    @Resource
-    private DataSource dataSource;
-
-    @Resource
-    private Client elasticsearchClient;
-
-    @Resource
-    private StepBuilderFactory stepsBuilder;
-
-    @Resource
-    private JobBuilderFactory jobsBuilder;
-
-    @Resource
-    private JobRepository repo;
-
-    @Bean(name = MasterToJobdeskConfiguration.JOB_NAME_JOBS_CREATE_FULL_INDEX)
+    @Bean(name = BATCH_JOB_LOAD_VACANCIES)
     public Job createFullJobIndexJob() throws MalformedURLException, SQLException {
-        return jobsBuilder.get(MasterToJobdeskConfiguration.JOB_NAME_JOBS_CREATE_FULL_INDEX)
-                .repository(repo)
+        return jobs.get(BATCH_JOB_LOAD_VACANCIES)
                 .incrementer(new RunIdIncrementer())
                 .preventRestart()
                 .start(createFullJobdeskJobIndexStep())
                 .build();
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.STEP_NAME_JOBS_CREATE_FULL_INDEX)
-    public Step createFullJobdeskJobIndexStep() {
-        return stepsBuilder.get(MasterToJobdeskConfiguration.STEP_NAME_JOBS_CREATE_FULL_INDEX)
+    private Step createFullJobdeskJobIndexStep() {
+        return steps.get(BATCH_STEP_LOAD_VACANCIES)
                 .<JobRecord, JobdeskJob>chunk(chunkSize)
                 .reader(jobRecordJdbcItemReader())
                 .processor(jobRecordToJobdeskJobConverter())
@@ -90,28 +58,26 @@ public class CreateFullJobIndexJobConfiguration {
                 .build();
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.JOB_RECORD_JDBC_ITEM_READER)
-    public ItemReader<JobRecord> jobRecordJdbcItemReader() {
+    private ItemReader<JobRecord> jobRecordJdbcItemReader() {
         JdbcCursorItemReader<JobRecord> reader = new JdbcCursorItemReader<>();
         reader.setSql(jooq.selectFrom(JOB).getSQL());
         reader.setRowMapper(new BeanPropertyRowMapper<>(JobRecord.class));
-        reader.setDataSource(dataSource);
+        reader.setDataSource(alvchMasterDataSource);
         return reader;
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.JOB_RECORD_TO_JOBDESK_JOB_CONVERTER)
-    public ItemProcessor<JobRecord, JobdeskJob> jobRecordToJobdeskJobConverter() {
+    private ItemProcessor<JobRecord, JobdeskJob> jobRecordToJobdeskJobConverter() {
         return new JobRecordToJobdeskJobConverter();
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.JOBDESK_JOB_ELASTICSEARCH_ITEM_WRITER)
-    public ItemWriter<JobdeskJob> jobdeskJobElasticSearchItemWriter() {
+    private ItemWriter<JobdeskJob> jobdeskJobElasticSearchItemWriter() {
         return list -> {
             BulkRequestBuilder bulkRequest = elasticsearchClient.prepareBulk();
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             list.forEach(job -> {
                 try {
-                    bulkRequest.add(elasticsearchClient.prepareIndex(indexName, typeName, job.getJobId()).setSource(ow.writeValueAsString(job)));
+                    bulkRequest.add(elasticsearchClient.prepareIndex(elasticsearchIndexName, ELASTICSEARCH_TYPE,
+                            job.getJobId()).setSource(ow.writeValueAsString(job)));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

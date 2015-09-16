@@ -9,14 +9,10 @@ import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.client.Client;
-import org.jooq.DSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
@@ -27,57 +23,33 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 import static ch.alv.batches.master.to.jobdesk.jooq.tables.Location.LOCATION;
 
-/**
- * Created by stibe on 26.08.15.
- */
 @Configuration
-public class CreateFullLocationIndexJobConfiguration {
+public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(MasterToJobdeskConfiguration.class);
+    public final static String ELASTICSEARCH_TYPE = "location";
+    public final static String BATCH_JOB_LOAD_LOCATIONS = "loadAllLocationsIntoJobdeskJob";
+    public final static String BATCH_STEP_LOAD_LOCATIONS = "loadAllLocationsIntoJobdeskStep";
 
-    @Value("${ch.alv.batches.master.jobdesk.esIndexName:jobdesk}")
-    private String indexName;
+    private static final Logger log = LoggerFactory.getLogger(LocationsToJobdeskConfiguration.class);
 
-    @Value("${ch.alv.batches.master.jobdesk.location.esType:locations}")
-    private String typeName;
-
-    @Value("${ch.alv.batches.master.jobdesk.location.chunkSize:250}")
+    @Value("${ch.alv.batches.chunkSizes.location:250}")
     private int chunkSize;
 
-    @Resource
-    private DSLContext jooq;
-
-    @Resource
-    private DataSource dataSource;
-
-    @Resource
-    private Client elasticsearchClient;
-
-    @Resource
-    private StepBuilderFactory stepsBuilder;
-
-    @Resource
-    private JobBuilderFactory jobsBuilder;
-
-    @Bean(name = MasterToJobdeskConfiguration.JOB_NAME_LOCATIONS_CREATE_FULL_INDEX)
-    public Job createFullLocationIndexJob() throws MalformedURLException, SQLException {
-        return jobsBuilder.get(MasterToJobdeskConfiguration.JOB_NAME_LOCATIONS_CREATE_FULL_INDEX)
+    @Bean(name = BATCH_JOB_LOAD_LOCATIONS)
+    public Job createFullLocationIndexJob() throws SQLException {
+        return jobs.get(BATCH_JOB_LOAD_LOCATIONS)
                 .incrementer(new RunIdIncrementer())
                 .preventRestart()
                 .start(createFullLocationIndexStep())
                 .build();
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.STEP_NAME_LOCATIONS_CREATE_FULL_INDEX)
-    public Step createFullLocationIndexStep() {
-        return stepsBuilder.get(MasterToJobdeskConfiguration.STEP_NAME_LOCATIONS_CREATE_FULL_INDEX)
+    private Step createFullLocationIndexStep() {
+        return steps.get(BATCH_STEP_LOAD_LOCATIONS)
                 .<LocationRecord, JobdeskLocation>chunk(chunkSize)
                 .reader(locationRecordJdbcItemReader())
                 .processor(locationRecordToJobdeskLocationConverter())
@@ -85,28 +57,25 @@ public class CreateFullLocationIndexJobConfiguration {
                 .build();
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.LOCATION_RECORD_JDBC_ITEM_READER)
-    public ItemReader<LocationRecord> locationRecordJdbcItemReader() {
+    private ItemReader<LocationRecord> locationRecordJdbcItemReader() {
         JdbcCursorItemReader<LocationRecord> reader = new JdbcCursorItemReader<>();
         reader.setSql(jooq.selectFrom(LOCATION).getSQL());
         reader.setRowMapper(new BeanPropertyRowMapper<>(LocationRecord.class));
-        reader.setDataSource(dataSource);
+        reader.setDataSource(alvchMasterDataSource);
         return reader;
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.LOCATION_RECORD_TO_JOBDESK_LOCATION_CONVERTER)
-    public ItemProcessor<LocationRecord, JobdeskLocation> locationRecordToJobdeskLocationConverter() {
+    private ItemProcessor<LocationRecord, JobdeskLocation> locationRecordToJobdeskLocationConverter() {
         return new LocationRecordToJobdeskLocationConverter();
     }
 
-    @Bean(name = MasterToJobdeskConfiguration.JOBDESK_LOCATION_ELASTICSEARCH_ITEM_WRITER)
-    public ItemWriter<JobdeskLocation> jobdeskLocationElasticSearchItemWriter() {
+    private ItemWriter<JobdeskLocation> jobdeskLocationElasticSearchItemWriter() {
         return list -> {
             BulkRequestBuilder bulkRequest = elasticsearchClient.prepareBulk();
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             list.forEach(location -> {
                 try {
-                    bulkRequest.add(elasticsearchClient.prepareIndex(indexName, typeName, location.getZip()).setSource(ow.writeValueAsString(location)));
+                    bulkRequest.add(elasticsearchClient.prepareIndex(elasticsearchIndexName, ELASTICSEARCH_TYPE, location.getZip()).setSource(ow.writeValueAsString(location)));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

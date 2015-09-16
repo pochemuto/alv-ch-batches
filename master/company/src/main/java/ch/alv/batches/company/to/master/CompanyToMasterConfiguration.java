@@ -10,7 +10,6 @@ import org.jooq.DSLContext;
 import org.jooq.UpdatableRecord;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -45,15 +44,14 @@ import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmenBatchStaging
  */
 @Configuration
 @ComponentScan("ch.alv.batches.commons")
-@EnableBatchProcessing
 public class CompanyToMasterConfiguration {
 
     public final static String IMPORT_COMPANIES_JOB = "importCompaniesJob";
 
-    @Value("${ch.alv.batch.master.company.avgfirmen.url}")
+    @Value("${ch.alv.company.avgfirmen.url}")
     private String avgFirmenUrl;
 
-    @Value("${ch.alv.batch.master.company.avgfirmen.chunkSize:100}")
+    @Value("${ch.alv.batches.chunkSizes.avgfirmen:100}")
     private Integer avgFirmenChunkSize;
 
     @Resource

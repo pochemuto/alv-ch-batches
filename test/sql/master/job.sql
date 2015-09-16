@@ -1,7 +1,8 @@
 
 BEGIN;
 
-CREATE TABLE JOB (          ID INTEGER PRIMARY KEY,
+-- unique constraints,... -- big serial??
+CREATE TABLE JOB (          ID SERIAL PRIMARY KEY,
                             JOB_ID TEXT,
                             JOB_ID_AVAM TEXT,
                             JOB_ID_EGOV TEXT,
@@ -22,18 +23,19 @@ CREATE TABLE JOB (          ID INTEGER PRIMARY KEY,
                             LOCATION_REMARKS_FR TEXT,
                             LOCATION_REMARKS_IT TEXT,
                             LOCATION_REMARKS_EN TEXT,
-                            APPLICATION_WRITTEN BIT,
-                            APPLICATION_ELECTRONICAL BIT,
-                            APPLICATION_PHONE BIT,
-                            APPLICATION_PERSONAL BIT,
+                            LOCATION_ID INTEGER,
+                            APPLICATION_WRITTEN BOOLEAN,
+                            APPLICATION_ELECTRONICAL BOOLEAN,
+                            APPLICATION_PHONE BOOLEAN,
+                            APPLICATION_PERSONAL BOOLEAN,
                             COMPANY_NAME TEXT,
                             COMPANY_ADDRESS TEXT,
                             COMPANY_COUNTRY TEXT,
                             COMPANY_ZIP TEXT,
                             COMPANY_CITY TEXT,
                             COMPANY_PO_NUMBER TEXT,
-                            COMPANY_PO_ZIP INTEGER,
-                            COMPANY_PO_CITY INTEGER,
+                            COMPANY_PO_ZIP TEXT,
+                            COMPANY_PO_CITY TEXT,
                             COMPANY_PHONE TEXT,
                             COMPANY_EMAIL TEXT,
                             COMPANY_URL TEXT,
@@ -59,7 +61,8 @@ CREATE TABLE LOCATION (     ID INTEGER PRIMARY KEY,
                             LON DOUBLE PRECISION,
                             BFS_NUMBER INTEGER,
                             AVAM_SEARCH_REGION VARCHAR(4));
-
+-- JOB_ID 2 meanings!
+-- MULTI-Field primary key instead ?
 CREATE TABLE JOB_LOCATION ( ID INTEGER PRIMARY KEY,
                             JOB_ID INTEGER,
                             LOCATION_ID INTEGER);
@@ -73,7 +76,7 @@ ON DELETE CASCADE;
 ALTER TABLE JOB_LOCATION
 ADD CONSTRAINT JOB_LOCATION_LOCATION_ID_FK
 FOREIGN KEY (LOCATION_ID)
-REFERENCES JOB
+REFERENCES LOCATION
 ON DELETE CASCADE;
 
 CREATE TABLE JOB_LANGUAGE ( ID INTEGER PRIMARY KEY,

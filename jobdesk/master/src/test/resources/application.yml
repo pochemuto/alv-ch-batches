@@ -1,33 +1,17 @@
+---
 spring:
-
   profiles:
+    # project convention: shared settings are defined config/application-test.yml
     active: test
-
-  datasource:
-    initialize: false
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/alvch_db_name
-    username: alvch_db_username
-    password: alvch_db_password
-
-  batch:
-    job:
-      #names: use job names if some shall run at system startup
-      enabled: false # means that no job will be started on system startup
-    initializer:
-      # Spring Batch metadata tables are managed by the test suite itself
-      enabled: false
 
 ch:
   alv:
-    batches:
-      master:
-        jobdesk:
-          esIndexName: jobdesk
-          job:
-            esType: jobs
-            chunkSize: 500
-          location:
-            esType: locations
-            chunkSize: 500
 
+    batches:
+      chunkSizes:
+        job:      1000
+        location:  500
+
+    jobdesk:
+      elasticsearch:
+        index: test_jobdesk

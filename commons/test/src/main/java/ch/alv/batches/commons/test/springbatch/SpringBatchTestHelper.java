@@ -1,4 +1,4 @@
-package ch.alv.batches.commons.test;
+package ch.alv.batches.commons.test.springbatch;
 
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
@@ -7,8 +7,6 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -32,12 +30,16 @@ public class SpringBatchTestHelper {
     private JobParametersIncrementer idIncrementer = new RunIdIncrementer();
     private JobParameters jobParameters = new JobParameters();
 
-    public void initializeSpringBatchPostgresqlSchema() {
-        final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(dropSpringBatchSchemaScript);
-        populator.addScript(createSpringBatchSchemaScript);
-        DatabasePopulatorUtils.execute(populator, dataSource);
-    }
+    // The method below can be used when SpringBatch metadata tables are not stored
+    // in a separate In-Memory database, but for instance stored in the main JDBC
+    // datasource used to store application data.
+
+//    public void initializeSpringBatchPostgresqlSchema() {
+//        final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+//        populator.addScript(dropSpringBatchSchemaScript);
+//        populator.addScript(createSpringBatchSchemaScript);
+//        DatabasePopulatorUtils.execute(populator, dataSource);
+//    }
 
     public ExitStatus runJob(Job job) throws
             JobExecutionAlreadyRunningException,

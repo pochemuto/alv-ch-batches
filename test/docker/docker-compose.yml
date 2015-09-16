@@ -1,18 +1,61 @@
 ---
 
+legacy_db:
+
+  ports:
+    - 1521:5432
+
+  image: postgres:9.4
+  # alexeiled/docker-oracle-xe-11g
+  
+  # wnameless/oracle-xe-11g
+#ENV ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+#ENV ORACLE_SID=xe
+#ENV TNS_ADMIN=$ORACLE_HOME/network/admin
+#ENV SQLPLUS=$ORACLE_HOME/bin/sqlplus
+#RUN service oracle-xe start && su -c "$SQLPLUS '/ as sysdba' @create.sql" oracle 
+# more details at https://hub.docker.com/r/wnameless/oracle-xe-11g/
+
+  # OR (slim) https://hub.docker.com/r/sath89/oracle-xe-11g/
+  # or (opensource) https://hub.docker.com/r/ukhomeofficedigital/oracle-xe-11g/
+  #    https://github.com/UKHomeOffice/docker-oracle-database-express-edition-11g
+
+  volumes:
+    - ./docker-compose-data/legacy_db/etc/postgresql:/etc/postgresql
+    - ./docker-compose-data/legacy_db/var/log/postgresql:/var/log/postgresql
+    - ./docker-compose-data/legacy_db/var/lib/postgresql:/var/lib/postgresql
+
+  environment:
+    POSTGRES_DB:         web1
+    POSTGRES_USER:       egov
+    POSTGRES_PASSWORD:   egov
+
 master_db:
 
   ports:
-    - 127.0.0.1:5432:5432
+    - 5432:5432
 
   image: postgres:9.4
 
   volumes:
-    - docker-compose-data/db/etc/postgresql:/etc/postgresql
-    - docker-compose-data/db/var/log/postgresql:/var/log/postgresql
-    - docker-compose-data/db/var/lib/postgresql:/var/lib/postgresql
+    - ./docker-compose-data/master_db/etc/postgresql:/etc/postgresql
+    - ./docker-compose-data/master_db/var/log/postgresql:/var/log/postgresql
+    - ./docker-compose-data/master_db/var/lib/postgresql:/var/lib/postgresql
 
   environment:
     POSTGRES_DB:         alvch_db_name
     POSTGRES_USER:       alvch_db_username
     POSTGRES_PASSWORD:   alvch_db_password
+
+jobdesk_es:
+
+  image: elasticsearch:1.7
+
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+
+  volumes:
+     - ./docker-compose-data/jobdesk_es/usr/share/elasticsearch/data:/usr/share/elasticsearch/data
+     - ./docker-compose-data/jobdesk_es/usr/share/elasticsearch/config:/usr/share/elasticsearch/config
+

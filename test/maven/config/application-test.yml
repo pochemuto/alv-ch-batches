@@ -1,0 +1,56 @@
+---
+spring:
+
+  main:
+    show-banner: false
+
+  batch:
+    job:
+      enabled: false # means that no job will be started on system startup
+    metrics:
+      enabled: true
+    initializer:
+      enabled: true
+
+ch:
+  alv:
+
+    batches:
+      chunkSizes:
+        default:  100 # fixme
+
+    master:
+      database:
+        driverClassName: org.postgresql.Driver
+        host: localhost
+        port: 5432
+        name: alvch_db_name
+        url: jdbc:postgresql://${ch.alv.master.database.host}:${ch.alv.master.database.port}/${ch.alv.master.database.name}
+        username: alvch_db_username
+        password: alvch_db_password
+        defaultAutoCommit: true # TODO switch to false by default?
+
+    jobdesk:
+      elasticsearch:
+        host: localhost
+        # TODO override ports...
+
+logging:
+
+  level:
+    root:  WARN
+
+    ch:
+      alv: INFO
+
+    # FIXME: why are there so many unwanted DEBUG console output..?
+    org:
+      springframework:
+        context:
+          annotation:
+            # Skip invalid warnings, see https://jira.spring.io/browse/BATCH-2161
+            ConfigurationClassEnhancer: ERROR
+        integration:
+          expression:
+            ExpressionUtils: ERROR
+        security: WARN

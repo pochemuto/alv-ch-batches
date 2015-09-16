@@ -1,7 +1,8 @@
-server:
-  port: 8999
-
+---
 spring:
+  profiles:
+    # project convention: shared settings are defined config/application-test.yml
+    active: test
 
   batch:
 
@@ -21,3 +22,6 @@ spring:
 #    config:
 #      package:
 #        javaconfig: ch.alv.batches.boom.commons.web
+
+server:
+  port: 8999

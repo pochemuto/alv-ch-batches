@@ -1,32 +1,39 @@
-
-server:
-  port: 8999
-
+---
 spring:
+  profiles:
+    # project convention: shared settings are defined config/application-test.yml
+    active: test
 
+  # Persist the Spring Batch metadata tables in the DBMS used for the master database
   datasource:
-    initialize: true
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/alvch_db_name
-    username: alvch_db_username
-    password: alvch_db_password
-    defaultAutoCommit: true
+    driverClassName: ${ch.alv.master.database.driverClassName}
+    url: ${ch.alv.master.database.url}
+    username: ${ch.alv.master.database.username}
+    password: ${ch.alv.master.database.password}
+    defaultAutoCommit: ${ch.alv.master.database.defaultAutoCommit}
 
   batch:
-
     metrics:
       enabled: true
-
+    job:
+      enabled: false
     initializer:
       enabled: true
 
 ch:
   alv:
-    batch:
-      master:
-        company:
-          avgfirmen:
-            url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
-        partnerjob:
-          prospective:
-            url: http://localhost:8000/prospective_feed.xml
+
+    company:
+      avgfirmen:
+        url: ftp://user:pw@anyhost:2015/AVAMPSTS.xml
+
+    partnerjob:
+      prospective:
+        url: http://your.partner.xyz/jobs-feed.xml
+
+    jobdesk:
+      elasticsearch:
+        host: localhost # somewhere.online
+
+server:
+  port: 8999

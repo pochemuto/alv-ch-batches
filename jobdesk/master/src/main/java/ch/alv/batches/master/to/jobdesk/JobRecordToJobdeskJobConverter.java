@@ -51,14 +51,14 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
     private void mapComplexData(JobRecord in, JobdeskJob out) throws SQLException {
         setTitle(in, out);
         setDescription(in, out);
-        retrieveAndSetJobLocations(in, out);
+        // FIXME retrieveAndSetJobLocations(in, out);
         setApplication(in, out);
         setCompany(in, out);
         setContact(in, out);
-        retrieveAndSetLanguages(in, out);
+        // FIXME retrieveAndSetLanguages(in, out);
         setFulltimeFlag(in, out);
         setExternalFlag(in, out);
-        setISCOCodes(in, out);
+        // FIXME setISCOCodes(in, out);
     }
 
     private void setTitle(JobRecord in, JobdeskJob out) {
@@ -100,10 +100,10 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
 
     private void setApplication(JobRecord in, JobdeskJob out) {
         out.setApplication(new JobdeskJobApplication(
-                Boolean.valueOf(in.getApplicationWritten()),
-                Boolean.valueOf(in.getApplicationElectronical()),
-                Boolean.valueOf(in.getApplicationPhone()),
-                Boolean.valueOf(in.getApplicationPersonal()),
+                in.getApplicationWritten(),
+                in.getApplicationElectronical(),
+                in.getApplicationPhone(),
+                in.getApplicationPersonal(),
                 in.getContactPhone(),
                 in.getContactEmail()));
     }

@@ -1,31 +1,15 @@
-server:
-  port: 8080
-
+---
 spring:
-
   profiles:
+    # project convention: shared settings are defined config/application-test.yml
     active: test
 
-  datasource:
-    initialize: false
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/alvch_db_name
-    username: alvch_db_username
-    password: alvch_db_password
-    defaultAutoCommit: true
-
-  batch:
-    job:
-      #names: use job names if some shall run at system startup
-      enabled: false # means that no job will be started on system startup
-    initializer:
-      # Spring Batch metadata tables are managed by the test suite itself
-      enabled: false
 ch:
   alv:
-    batch:
-      master:
-        partnerjob:
-          prospective:
-            url: http://localhost:8180/prospective_feed.xml
-            #chunkSize: 200
+    batches:
+      chunkSizes:
+        prospective: 20
+
+    partnerjob:
+      prospective:
+        url: http://localhost:8180/prospective_feed.xml

@@ -5,53 +5,53 @@ package ch.alv.batches.master.to.jobdesk.model;
  */
 public class JobdeskISCOCode {
 
-    private int majorGroup;
+    private Integer majorGroup;
 
-    private int groupLevel2;
+    private Integer groupLevel2;
 
-    private int groupLevel3;
+    private Integer groupLevel3;
 
-    private int groupLevel4;
+    private Integer groupLevel4;
 
     public JobdeskISCOCode() {
     }
 
-    public JobdeskISCOCode(int majorGroup, int groupLevel2, int groupLevel3, int groupLevel4) {
+    public JobdeskISCOCode(Integer majorGroup, Integer groupLevel2, Integer groupLevel3, Integer groupLevel4) {
         this.majorGroup = majorGroup;
         this.groupLevel2 = groupLevel2;
         this.groupLevel3 = groupLevel3;
         this.groupLevel4 = groupLevel4;
     }
 
-    public int getMajorGroup() {
+    public Integer getMajorGroup() {
         return majorGroup;
     }
 
-    public void setMajorGroup(int majorGroup) {
+    public void setMajorGroup(Integer majorGroup) {
         this.majorGroup = majorGroup;
     }
 
-    public int getGroupLevel2() {
+    public Integer getGroupLevel2() {
         return groupLevel2;
     }
 
-    public void setGroupLevel2(int groupLevel2) {
+    public void setGroupLevel2(Integer groupLevel2) {
         this.groupLevel2 = groupLevel2;
     }
 
-    public int getGroupLevel3() {
+    public Integer getGroupLevel3() {
         return groupLevel3;
     }
 
-    public void setGroupLevel3(int groupLevel3) {
+    public void setGroupLevel3(Integer groupLevel3) {
         this.groupLevel3 = groupLevel3;
     }
 
-    public int getGroupLevel4() {
+    public Integer getGroupLevel4() {
         return groupLevel4;
     }
 
-    public void setGroupLevel4(int groupLevel4) {
+    public void setGroupLevel4(Integer groupLevel4) {
         this.groupLevel4 = groupLevel4;
     }
 }

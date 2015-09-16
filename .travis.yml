@@ -5,6 +5,10 @@ jdk: oraclejdk8
 addons:
   postgresql: 9.4
 
+services:
+  - postgresql
+  - elasticsearch
+
 env:
   global:
     - TEST_DB_NAME=travis_ci_test
@@ -15,6 +19,7 @@ env:
 install:
   - ./test/travis/build-test-database.sh
   - ./replace-db-settings.sh
+  - ./test/elasticsearch/create-index.sh
 
 script:
   - mvn clean cobertura:cobertura coveralls:report

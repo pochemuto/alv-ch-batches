@@ -1,52 +1,34 @@
 package ch.alv.batches.master.to.jobdesk;
 
-
 import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.springframework.batch.core.configuration.support.ApplicationContextFactory;
-import org.springframework.batch.core.configuration.support.GenericApplicationContextFactory;
-import org.springframework.context.annotation.Bean;
+import org.jooq.DSLContext;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Main configuration of the master-to-jobdesk module
- *
- * @since 1.0.0
- */
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 @Configuration
 public class MasterToJobdeskConfiguration {
 
-    public final static String JOB_NAME_JOBS_CREATE_FULL_INDEX = "createFullVacanciesIndexJob";
-    public final static String STEP_NAME_JOBS_CREATE_FULL_INDEX = "createFullVacanciesIndexStep";
-    public static final String JOB_RECORD_JDBC_ITEM_READER = "jobRecordJdbcItemReader";
-    public static final String JOB_RECORD_TO_JOBDESK_JOB_CONVERTER = "jobRecordToJobdeskJobConverter";
-    public static final String JOBDESK_JOB_ELASTICSEARCH_ITEM_WRITER = "jobdeskJobElasticSearchItemWriter";
+    @Value("${ch.alv.jobdesk.elasticsearch.index:jobdesk}")
+    protected String elasticsearchIndexName;
 
-    public final static String JOB_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexJob";
-    public final static String STEP_NAME_LOCATIONS_CREATE_FULL_INDEX = "createFullLocationIndexStep";
-    public static final String LOCATION_RECORD_JDBC_ITEM_READER = "locationRecordJdbcItemReader";
-    public static final String LOCATION_RECORD_TO_JOBDESK_LOCATION_CONVERTER = "locationRecordToJobdeskLocationConverter";
-    public static final String JOBDESK_LOCATION_ELASTICSEARCH_ITEM_WRITER = "jobdeskLocationElasticSearchItemWriter";
+    @Resource
+    protected Client elasticsearchClient;
 
-    @Bean
-    public ApplicationContextFactory createFullJobIndexJob() {
-        return new GenericApplicationContextFactory(CreateFullJobIndexJobConfiguration.class);
-    }
+    @Resource
+    protected DSLContext jooq;
 
-    @Bean
-    public ApplicationContextFactory createFullLocationIndexJob() {
-        return new GenericApplicationContextFactory(CreateFullLocationIndexJobConfiguration.class);
-    }
+    @Resource
+    protected DataSource alvchMasterDataSource;
 
-    @Bean
-    public Client elasticsearchClient() {
-        final ImmutableSettings.Builder settings = ImmutableSettings.settingsBuilder();
-        TransportClient transportClient = new TransportClient(settings);
-        transportClient = transportClient.addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
-        return transportClient;
-    }
+    @Resource
+    protected StepBuilderFactory steps;
 
+    @Resource
+    protected JobBuilderFactory jobs;
 
 }

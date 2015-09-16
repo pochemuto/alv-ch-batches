@@ -18,6 +18,13 @@
 
     <dependencies>
 
+        <!-- shared modules -->
+
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-config</artifactId>
+        </dependency>
+
         <!-- spring boot starters -->
 
         <dependency>

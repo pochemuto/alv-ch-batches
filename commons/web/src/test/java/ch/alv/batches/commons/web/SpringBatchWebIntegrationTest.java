@@ -1,7 +1,7 @@
 package ch.alv.batches.commons.web;
 
 
-import ch.alv.batches.commons.test.SpringBatchTestApplication;
+import ch.alv.batches.commons.test.SimpleTestApplication;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
+@SpringApplicationConfiguration(classes = SimpleTestApplication.class)
 @WebIntegrationTest
 public class SpringBatchWebIntegrationTest {
 

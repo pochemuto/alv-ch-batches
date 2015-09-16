@@ -8,8 +8,6 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework.integration.expression.ExpressionUtils" level="ERROR"/>
-
     <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>

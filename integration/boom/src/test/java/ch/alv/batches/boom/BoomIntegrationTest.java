@@ -13,6 +13,9 @@ import java.util.List;
 
 import static ch.alv.batches.company.to.master.CompanyToMasterConfiguration.IMPORT_COMPANIES_JOB;
 import static ch.alv.batches.partnerjob.to.master.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
+import static ch.alv.batches.master.to.jobdesk.VacanciesToJobdeskConfiguration.BATCH_JOB_LOAD_VACANCIES;
+import static ch.alv.batches.master.to.jobdesk.LocationsToJobdeskConfiguration.BATCH_JOB_LOAD_LOCATIONS;
+
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,6 +33,10 @@ public class BoomIntegrationTest {
         List<String> jobNames = restTemplate.getForObject("http://localhost:" + port + "/batch/monitoring/jobs", List.class);
         assertTrue(jobNames.contains(IMPORT_COMPANIES_JOB));
         assertTrue(jobNames.contains(IMPORT_PARTNERJOB_JOB));
+        assertTrue(jobNames.contains(BATCH_JOB_LOAD_VACANCIES));
+        assertTrue(jobNames.contains(BATCH_JOB_LOAD_LOCATIONS));
+
+        Thread.sleep(5000);
 
         for (String jobName : jobNames) {
             Long executionId = restTemplate
@@ -43,6 +50,7 @@ public class BoomIntegrationTest {
                     "http://localhost:" + port + "/batch/operations/jobs/executions/{executionId}", String.class, executionId)
                     .equals("FAILED"));
 
+            // FIXME: is there a bug in codecentric's spring-boot-starter-batch-web ?
             String logPath = restTemplate.getForObject("http://localhost:" + port + "/batch/operations/jobs/executions/{executionId}/log", String.class, executionId);
             assertTrue(logPath.length() > 20);
         }

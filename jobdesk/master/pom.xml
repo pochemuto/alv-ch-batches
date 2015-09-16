@@ -19,17 +19,19 @@
 
         <dependency>
             <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
             <artifactId>commons-sql</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -37,6 +39,10 @@
         <dependency>
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
         </dependency>
 
     </dependencies>
@@ -55,7 +61,7 @@
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
-                            <includes>JOB.*|LOCATION.*|JOB_LOCATION.*|JOB_LANGUAGE.*|CODE_BFS_ISCO08.*</includes>
+                            <includes>^(JOB|LOCATION|JOB_LOCATION|JOB_LANGUAGE|CODE_BFS_ISCO08).*$</includes>
                         </database>
                         <target>
                             <packageName>ch.alv.batches.master.to.jobdesk.jooq</packageName>

@@ -1,6 +1,6 @@
 package ch.alv.batches.commons.web;
 
-import ch.alv.batches.commons.test.SpringBatchTestDummyJobFactory;
+import ch.alv.batches.commons.test.springbatch.SpringBatchTestDummyJobFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

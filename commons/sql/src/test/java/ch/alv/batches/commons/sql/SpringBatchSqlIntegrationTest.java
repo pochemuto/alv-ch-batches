@@ -1,8 +1,8 @@
 package ch.alv.batches.commons.sql;
 
-import ch.alv.batches.commons.test.SpringBatchTestApplication;
-import ch.alv.batches.commons.test.SpringBatchTestDummyJobFactory;
-import ch.alv.batches.commons.test.SpringBatchTestHelper;
+import ch.alv.batches.commons.test.SimpleTestApplication;
+import ch.alv.batches.commons.test.springbatch.SpringBatchTestDummyJobFactory;
+import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
 import org.jooq.DSLContext;
 import org.junit.After;
 import org.junit.Assert;
@@ -24,7 +24,7 @@ import static ch.alv.batches.commons.sql.jooq.Tables.TEST_JOOQ;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
+@SpringApplicationConfiguration(classes = SimpleTestApplication.class)
 @IntegrationTest
 public class SpringBatchSqlIntegrationTest {
 
@@ -32,21 +32,21 @@ public class SpringBatchSqlIntegrationTest {
     private SpringBatchTestDummyJobFactory dummyJobs;
 
     @Resource
-    SpringBatchTestHelper springBatchHelper;
+    private SpringBatchTestHelper springBatchHelper;
 
-    @Resource
+    @Resource(name = "alvchMasterDataSource")
+    private DataSource database;
+
+    @Resource(name = "alvchMasterJooq")
     private DSLContext jooq;
-
-    @Resource
-    private DataSource dataSource;
 
     @Before
     public void setup() throws SQLException {
-        springBatchHelper.initializeSpringBatchPostgresqlSchema();
 
         String createTable = "DROP TABLE IF EXISTS TEST_JOOQ; CREATE TABLE TEST_JOOQ (ID INTEGER PRIMARY KEY, VAL1 TEXT)";
-        Connection c = dataSource.getConnection();
+        Connection c = database.getConnection();
         c.createStatement().execute(createTable);
+
     }
 
     @After

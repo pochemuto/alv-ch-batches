@@ -7,7 +7,6 @@ import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OsteAdminRecord;
 import org.jooq.DSLContext;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -39,15 +38,14 @@ import static ch.alv.batches.partnerjob.to.master.jooq.tables.OsteAdmin.OSTE_ADM
  */
 @Configuration
 @ComponentScan("ch.alv.batches.commons")
-@EnableBatchProcessing
 public class PartnerJobToMasterConfiguration {
 
     public final static String IMPORT_PARTNERJOB_JOB = "partnerJobsImportJob";
 
-    @Value("${ch.alv.batch.master.partnerjob.prospective.url}")
+    @Value("${ch.alv.partnerjob.prospective.url}")
     private String prospectiveHttpUrl;
 
-    @Value("${ch.alv.batch.master.partnerjob.prospective.chunkSize:100}")
+    @Value("${ch.alv.batches.chunkSizes.prospective:100}") // FIXME define a common constant for the default fallback?
     private Integer prospectiveChunkSize;
 
     @Resource

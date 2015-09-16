@@ -1,8 +1,8 @@
 package ch.alv.batches.partnerjob.to.master;
 
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
-import ch.alv.batches.commons.test.SpringBatchTestApplication;
-import ch.alv.batches.commons.test.SpringBatchTestHelper;
+import ch.alv.batches.commons.test.SimpleTestApplication;
+import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OsteAdminRecord;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -20,6 +20,7 @@ import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -32,14 +33,15 @@ import java.util.List;
 import static ch.alv.batches.partnerjob.to.master.jooq.tables.OsteAdmin.OSTE_ADMIN;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringBatchTestApplication.class)
+@SpringApplicationConfiguration(classes = SimpleTestApplication.class)
+@IntegrationTest
 public class ProspectiveIntegrationTest {
 
     @Resource
     private Job importAdminJobsJob;
 
     @Resource
-    SpringBatchTestHelper springBatchHelper;
+    private SpringBatchTestHelper springBatchHelper;
 
     @Resource
     private DSLContext jooq;
@@ -64,9 +66,7 @@ public class ProspectiveIntegrationTest {
     
     @Before
     public void initTestObjects() {
-
-        springBatchHelper.initializeSpringBatchPostgresqlSchema();
-        
+        //checkJobs = Arrays.asList(initJob1(), initJob2(), initJob3(), initJob4(), initJob5());
         checkJobs = new ArrayList<>();
         checkJobs.add(initJob1());
         checkJobs.add(initJob2());

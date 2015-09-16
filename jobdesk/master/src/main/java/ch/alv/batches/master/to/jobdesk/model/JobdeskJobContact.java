@@ -5,7 +5,8 @@ package ch.alv.batches.master.to.jobdesk.model;
  */
 public class JobdeskJobContact {
 
-    private int gender;
+    // FIXME Enumeration? Constants at least?
+    private Short gender;
 
     private String firstName;
 
@@ -18,7 +19,7 @@ public class JobdeskJobContact {
     public JobdeskJobContact() {
     }
 
-    public JobdeskJobContact(int gender, String firstName, String lastName, String phone, String email) {
+    public JobdeskJobContact(Short gender, String firstName, String lastName, String phone, String email) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,11 +27,11 @@ public class JobdeskJobContact {
         this.email = email;
     }
 
-    public int getGender() {
+    public Short getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Short gender) {
         this.gender = gender;
     }
 
