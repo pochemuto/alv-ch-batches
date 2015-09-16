@@ -19,6 +19,8 @@ env:
 install:
   - ./test/travis/build-test-database.sh
   - ./replace-db-settings.sh
+  - echo ">>> CHECK maven-config.properties:"; cat maven-config.properties
+  - echo ">>> CHECK application-test.yml:"; cat test/maven/config/application-test.yml 
   - ./test/elasticsearch/create-index.sh
 
 script:
