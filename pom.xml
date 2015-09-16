@@ -272,10 +272,10 @@
                     </executions>
                     <configuration>
                         <jdbc>
-                            <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/alvch_db_name</url>
-                            <user>alvch_db_username</user>
-                            <password>alvch_db_password</password>
+                            <driver>${build-db.jdbc.driver}</driver>
+                            <url>${build-db.jdbc.url}</url>
+                            <user>${build-db.jdbc.username}</user>
+                            <password>${build-db.jdbc.password}</password>
                         </jdbc>
                         <generator>
                             <name>org.jooq.util.JavaGenerator</name>
