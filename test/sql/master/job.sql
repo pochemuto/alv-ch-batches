@@ -1,7 +1,7 @@
 
 BEGIN;
 
--- unique constraints,... -- big serial??
+-- FIXME unique/not-null constraints,...
 CREATE TABLE JOB (          ID SERIAL PRIMARY KEY,
                             JOB_ID TEXT,
                             JOB_ID_AVAM TEXT,
