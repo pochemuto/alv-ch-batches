@@ -17,10 +17,10 @@ env:
     - MAVEN_DEPLOY_ARGS="--settings test/travis/maven-config.xml -DskipTests=true"
 
 install:
-  - ./test/travis/build-test-database.sh
+  - ./test/travis/build-master-db.sh
+  - ./test/travis/build-legacy-db.sh
   - ./replace-db-settings.sh
-  - echo ">>> CHECK maven-config.properties:"; cat maven-config.properties
-  - echo ">>> CHECK application-test.yml:"; cat test/maven/config/application-test.yml 
+  - cp test/travis/legacy-to-master-application-test.yml master/legacy/src/test/resources/application.yml
   - ./test/elasticsearch/create-index.sh
 
 script:

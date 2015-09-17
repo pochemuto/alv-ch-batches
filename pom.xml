@@ -66,7 +66,7 @@
         <!--<module>master/cadastre</module>-->
         <module>master/company</module>
         <!--<module>master/lamda</module>-->
-        <!--<module>master/legacy</module>-->
+        <module>master/legacy</module>
         <module>master/partnerjob</module>
     </modules>
 

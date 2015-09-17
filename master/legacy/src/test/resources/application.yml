@@ -1,0 +1,20 @@
+---
+spring:
+  profiles:
+    # project convention: shared settings are defined config/application-test.yml
+    active: test
+
+ch:
+  alv:
+
+    legacy:
+      database:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:1521/web1
+        username: egov
+        password: egov
+
+#        driverClassName: oracle.jdbc.driver.OracleDriver
+#        url: jdbc:oracle:thin:@<host>:1521:<sid>
+#        username: egov
+#        password: egov

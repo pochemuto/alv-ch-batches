@@ -1,0 +1,16 @@
+---
+spring:
+  profiles:
+    # project convention: shared settings are defined config/application-test.yml
+    active: test
+
+ch:
+  alv:
+
+    legacy:
+      database:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/web1
+        username: postgres
+        password:
+
