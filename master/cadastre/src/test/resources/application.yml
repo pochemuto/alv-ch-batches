@@ -1,0 +1,12 @@
+---
+spring:
+  profiles:
+    # project convention: shared settings are defined config/application-test.yml
+    active: test
+
+ch:
+  alv:
+    batch:
+      master:
+        cadastre:
+          csv_path: /Users/gildegoma/alv-ch-batches/master/cadastre/src/test/resources/PLZO_CSV_WGS84.csv

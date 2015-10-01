@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>batches</artifactId>
+        <groupId>ch.alv.batches</groupId>
+        <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
+    </parent>
+
+    <artifactId>cadastre-to-master</artifactId>
+    <name>alv-ch-batches.cadastre-to-master</name>
+
+    <dependencies>
+
+        <!-- shared modules -->
+
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-sql</artifactId>
+        </dependency>
+
+        <!-- external dependencies -->
+
+        <dependency>
+            <groupId>org.simpleflatmapper</groupId>
+            <artifactId>simpleFlatMapper</artifactId>
+        </dependency>
+
+        <!-- test dependencies -->
+
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-test</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <configuration>
+                    <generator>
+                        <name>org.jooq.util.JavaGenerator</name>
+                        <database>
+                            <name>org.jooq.util.postgres.PostgresDatabase</name>
+                            <includes>^LOCATION$</includes>
+                        </database>
+                        <target>
+                            <packageName>ch.alv.batches.cadastre.to.master.jooq</packageName>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -51,7 +51,7 @@ CREATE TABLE JOB (          ID SERIAL PRIMARY KEY,
                             ISCO_LEVEL_3 INTEGER,
                             ISCO_LEVEL_4 INTEGER);
 
-CREATE TABLE LOCATION (     ID INTEGER PRIMARY KEY,
+CREATE TABLE LOCATION (     ID SERIAL PRIMARY KEY,
                             ZIP TEXT,
                             ZIP_ADDITIONAL_NUMBER TEXT,
                             NAME TEXT,
