@@ -30,7 +30,7 @@ import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
 @Configuration
 public class VacanciesToJobdeskConfiguration extends MasterToJobdeskConfiguration {
 
-    public final static String ELASTICSEARCH_TYPE = "job";
+    public final static String ELASTICSEARCH_TYPE = "jobs";
     public final static String BATCH_JOB_LOAD_VACANCIES = "loadAllVacanciesIntoJobdeskJob";
     public final static String BATCH_STEP_LOAD_VACANCIES = "loadAllVacanciesIntoJobdeskStep";
 

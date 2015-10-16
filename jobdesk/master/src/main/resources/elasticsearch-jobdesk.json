@@ -1,6 +1,6 @@
 {
   "mappings": {
-    "job": {
+    "jobs": {
       "_source": {
         "enabled": true
       },
@@ -254,7 +254,7 @@
         }
       }
     },
-    "location": {
+    "locations": {
       "_source": {
         "enabled": true
       },
