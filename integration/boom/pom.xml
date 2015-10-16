@@ -16,10 +16,7 @@
     <name>alv-ch-batches.boom</name>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>ch.alv.batches</groupId>-->
-            <!--<artifactId>commons-log</artifactId>-->
-        <!--</dependency>-->
+
         <dependency>
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-web</artifactId>

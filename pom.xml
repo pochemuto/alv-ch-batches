@@ -125,11 +125,6 @@
                 <artifactId>commons-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>ch.alv.batches</groupId>-->
-                <!--<artifactId>commons-log</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>ch.alv.batches</groupId>
                 <artifactId>commons-sql</artifactId>
