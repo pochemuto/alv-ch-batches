@@ -31,6 +31,16 @@
             <artifactId>commons-test</artifactId>
         </dependency>
 
+
+        <!-- runtime dependencies -->
+
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>${oracle.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -47,7 +57,7 @@
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
-                            <includes>^JOB$</includes>
+                            <includes>^JOB|LOCATION|JOB_LOCATION$</includes>
                         </database>
                         <target>
                             <packageName>ch.alv.batches.legacy.to.master.jooq</packageName>

@@ -44,6 +44,7 @@
         <jooq.version>3.7.0</jooq.version>
         <jooq.jdbc.driver>org.postgresql.Driver</jooq.jdbc.driver>
         <mock-ftp.version>2.6</mock-ftp.version>
+        <oracle.version>12.1.0.1</oracle.version>
         <postgresql.version>9.4-1201-jdbc41</postgresql.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

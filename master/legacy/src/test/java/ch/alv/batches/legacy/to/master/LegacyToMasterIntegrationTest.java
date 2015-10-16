@@ -28,7 +28,9 @@ public class LegacyToMasterIntegrationTest {
     public void runTest() throws Exception {
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importX28Jobs));
 
-        // FIXME Add content expectations !!!
+        // FIXME Add content expectations !!! totals should be :
+        // - job: 24433
+        // - job_location: 13591
     }
 
 }

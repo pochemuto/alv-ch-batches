@@ -9,12 +9,12 @@ ch:
 
     legacy:
       database:
-        driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:1521/web1
-        username: egov
-        password: egov
-
-#        driverClassName: oracle.jdbc.driver.OracleDriver
-#        url: jdbc:oracle:thin:@<host>:1521:<sid>
+#        driverClassName: org.postgresql.Driver
+#        url: jdbc:postgresql://localhost:1521/web1
 #        username: egov
 #        password: egov
+
+        driverClassName: oracle.jdbc.driver.OracleDriver
+        url: jdbc:oracle:thin:@localhost:9521:XE
+        username: jobroom
+        password: jobroom

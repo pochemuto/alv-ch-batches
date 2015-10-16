@@ -23,7 +23,7 @@ CREATE TABLE JOB (          ID SERIAL PRIMARY KEY,
                             LOCATION_REMARKS_FR TEXT,
                             LOCATION_REMARKS_IT TEXT,
                             LOCATION_REMARKS_EN TEXT,
-                            LOCATION_ID INTEGER,
+                            WORKPLACE_ZIP TEXT,
                             APPLICATION_WRITTEN BOOLEAN,
                             APPLICATION_ELECTRONICAL BOOLEAN,
                             APPLICATION_PHONE BOOLEAN,
@@ -44,28 +44,29 @@ CREATE TABLE JOB (          ID SERIAL PRIMARY KEY,
                             CONTACT_LAST_NAME TEXT,
                             CONTACT_PHONE TEXT,
                             CONTACT_EMAIL TEXT,
-                            ONLINE_SINCE_DATE DATE,
-                            SOURCE TEXT,
-                            ISCO_LEVEL_1 INTEGER,
-                            ISCO_LEVEL_2 INTEGER,
-                            ISCO_LEVEL_3 INTEGER,
-                            ISCO_LEVEL_4 INTEGER);
+                            PUBLICATION_DATE DATE NOT NULL,
+                            SOURCE TEXT NOT NULL CHECK (SOURCE_TEXT IN ('RAV', 'X28'), --FIXME switch to an enum/custom type?
+                            ISCO08_ID CHAR(4) NOT NULL CHECK (ISCO08_ID ~ '^\d{4}$')
+             );
 
 CREATE TABLE LOCATION (     ID SERIAL PRIMARY KEY,
-                            ZIP TEXT,
-                            ZIP_ADDITIONAL_NUMBER TEXT,
-                            NAME TEXT,
-                            MUNICIPALITY_NAME TEXT,
-                            CANTON VARCHAR(50),
-                            LAT DOUBLE PRECISION,
-                            LON DOUBLE PRECISION,
+                            ZIP TEXT NOT NULL,
+                            ZIP_ADDITIONAL_NUMBER INTEGER NOT NULL,
+                            NAME TEXT NOT NULL,
+                            MUNICIPALITY_NAME TEXT NOT NULL,
+                            CANTON VARCHAR(50) NOT NULL,
+                            LAT DOUBLE PRECISION NOT NULL,
+                            LON DOUBLE PRECISION NOT NULL,
                             BFS_NUMBER INTEGER,
-                            AVAM_SEARCH_REGION VARCHAR(4));
+                            AVAM_SEARCH_REGION VARCHAR(4),
+
+                            CONSTRAINT LOCATION_CONSTRAINT_UNIQUE_1 UNIQUE(LAT, LON)
+--                            CONSTRAINT LOCATION_CONSTRAINT_UNIQUE_2 UNIQUE(ZIP, ZIP_ADDITIONAL_NUMBER)  --> not working, e.g. PLZ 6719,6618
+);
 -- JOB_ID 2 meanings!
--- MULTI-Field primary key instead ?
-CREATE TABLE JOB_LOCATION ( ID INTEGER PRIMARY KEY,
-                            JOB_ID INTEGER,
-                            LOCATION_ID INTEGER);
+CREATE TABLE JOB_LOCATION ( JOB_ID INTEGER NOT NULL,
+                            LOCATION_ID INTEGER NOT NULL,
+                            PRIMARY KEY(JOB_ID, LOCATION_ID) );
 
 ALTER TABLE JOB_LOCATION
 ADD CONSTRAINT JOB_LOCATION_JOB_ID_FK
