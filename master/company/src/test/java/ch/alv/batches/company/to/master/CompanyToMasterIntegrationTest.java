@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmen.AVG_FIRMEN;
+import static ch.alv.batches.company.to.master.jooq.Tables.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SimpleTestApplication.class)

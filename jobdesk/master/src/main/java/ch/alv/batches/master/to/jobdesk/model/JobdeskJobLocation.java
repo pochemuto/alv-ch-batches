@@ -1,41 +1,48 @@
 package ch.alv.batches.master.to.jobdesk.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Collects location related data of a jobdesk job
+ * Collects locations related data of a jobdesk job
  */
 public class JobdeskJobLocation {
 
-    private JobdeskMultiLanguageValue locationRemarks;
+    private JobdeskMultiLanguageValue remarks;
 
-    private List<JobdeskLocation> location = new ArrayList<>();
+    @JsonProperty("location") // FIXME: remove when API spec will be changed
+    private List<JobdeskLocationGeoPoint> locations = new ArrayList<>();
 
     public JobdeskJobLocation() {
     }
 
     public JobdeskJobLocation(String remarksText) {
-        setLocationRemarks(new JobdeskMultiLanguageValue(remarksText));
+        setRemarks(new JobdeskMultiLanguageValue(remarksText));
     }
 
     public JobdeskJobLocation(String remarksTextDe, String remarksTextFr, String remarksTextIt, String remarksTextEn) {
-        setLocationRemarks(new JobdeskMultiLanguageValue(remarksTextDe, remarksTextFr, remarksTextIt, remarksTextEn));
+        setRemarks(new JobdeskMultiLanguageValue(remarksTextDe, remarksTextFr, remarksTextIt, remarksTextEn));
     }
 
-    public JobdeskMultiLanguageValue getLocationRemarks() {
-        return locationRemarks;
+    public JobdeskMultiLanguageValue getRemarks() {
+        return remarks;
     }
 
-    public void setLocationRemarks(JobdeskMultiLanguageValue locationRemarks) {
-        this.locationRemarks = locationRemarks;
+    public void setRemarks(JobdeskMultiLanguageValue remarks) {
+        this.remarks = remarks;
     }
 
-    public List<JobdeskLocation> getLocation() {
-        return location;
+    public List<JobdeskLocationGeoPoint> getLocations() {
+        return locations;
     }
 
-    public void setLocation(List<JobdeskLocation> location) {
-        this.location = location;
+    public void setLocations(List<JobdeskLocationGeoPoint> locations) {
+        this.locations = locations;
+    }
+
+    public void addLocation(Integer zip, Double lat, Double lon) {
+        this.locations.add(new JobdeskLocationGeoPoint(zip, lat, lon));
     }
 }

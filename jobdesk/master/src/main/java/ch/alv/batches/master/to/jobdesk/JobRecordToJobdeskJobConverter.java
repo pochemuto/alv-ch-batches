@@ -1,7 +1,6 @@
 package ch.alv.batches.master.to.jobdesk;
 
 
-
 import ch.alv.batches.master.to.jobdesk.jooq.tables.records.JobRecord;
 import ch.alv.batches.master.to.jobdesk.model.*;
 import org.jooq.DSLContext;
@@ -9,15 +8,11 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB_LANGUAGE;
-import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB_LOCATION;
-import static ch.alv.batches.master.to.jobdesk.jooq.Tables.LOCATION;
-
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
 
 /**
  * Converts a master job (represented by the {@link JobRecord} class) into its
@@ -31,9 +26,11 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
 
     @Resource
     private JdbcTemplate jdbcTemplate;
+    private final DSLContext jooq;
 
-    @Resource
-    private DSLContext jooq;
+    public JobRecordToJobdeskJobConverter(DSLContext jooq) {
+        this.jooq = jooq;
+    }
 
     @Override
     public JobdeskJob process(JobRecord in) throws Exception {
@@ -78,7 +75,7 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
     }
 
     private void retrieveAndSetJobLocations(JobRecord in, JobdeskJob out) throws SQLException {
-        out.setLocations(new JobdeskJobLocation(
+        out.setLocation(new JobdeskJobLocation(
                 in.getLocationRemarksDe(),
                 in.getLocationRemarksFr(),
                 in.getLocationRemarksIt(),
@@ -162,12 +159,7 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
     }
 
     private void setISCOCodes(JobRecord in, JobdeskJob out) {
-        out.setIsco(new JobdeskISCOCode(
-                in.getIscoLevel_1(),
-                in.getIscoLevel_2(),
-                in.getIscoLevel_3(),
-                in.getIscoLevel_4()
-        ));
+        out.setIsco(new JobdeskIscoCode(in.getIsco08Id()));
     }
 
 }

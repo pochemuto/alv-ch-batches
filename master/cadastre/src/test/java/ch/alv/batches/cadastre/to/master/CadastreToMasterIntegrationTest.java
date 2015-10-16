@@ -17,13 +17,13 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
-import static ch.alv.batches.cadastre.to.master.jooq.tables.Location.LOCATION;
+import static ch.alv.batches.cadastre.to.master.jooq.Tables.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SimpleTestApplication.class)
 @IntegrationTest
 public class CadastreToMasterIntegrationTest {
-    
+
     @Resource
     private DSLContext jooq;
 

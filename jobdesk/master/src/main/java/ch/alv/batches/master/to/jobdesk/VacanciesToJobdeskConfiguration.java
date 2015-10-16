@@ -1,5 +1,6 @@
 package ch.alv.batches.master.to.jobdesk;
 
+import ch.alv.batches.commons.sql.JdbcCursorItemReaderFactory;
 import ch.alv.batches.master.to.jobdesk.jooq.tables.records.JobRecord;
 import ch.alv.batches.master.to.jobdesk.model.JobdeskJob;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,16 +18,14 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 
-import static ch.alv.batches.master.to.jobdesk.jooq.tables.Job.JOB;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
 
 @Configuration
 public class VacanciesToJobdeskConfiguration extends MasterToJobdeskConfiguration {
@@ -59,15 +58,17 @@ public class VacanciesToJobdeskConfiguration extends MasterToJobdeskConfiguratio
     }
 
     private ItemReader<JobRecord> jobRecordJdbcItemReader() {
-        JdbcCursorItemReader<JobRecord> reader = new JdbcCursorItemReader<>();
-        reader.setSql(jooq.selectFrom(JOB).getSQL());
-        reader.setRowMapper(new BeanPropertyRowMapper<>(JobRecord.class));
-        reader.setDataSource(alvchMasterDataSource);
-        return reader;
+        return JdbcCursorItemReaderFactory.buildJdbcCursorItemReader(
+                JobRecord.class,
+                jooq.selectFrom(JOB)
+                        .where(JOB.ID.in(jooq.select(JOB_LOCATION.JOB_ID).from(JOB_LOCATION)))
+                        .getSQL(),
+                chunkSize, // FIXME see chunk setting in Step definition
+                alvchMasterDataSource);
     }
 
     private ItemProcessor<JobRecord, JobdeskJob> jobRecordToJobdeskJobConverter() {
-        return new JobRecordToJobdeskJobConverter();
+        return new JobRecordToJobdeskJobConverter(jooq);
     }
 
     private ItemWriter<JobdeskJob> jobdeskJobElasticSearchItemWriter() {

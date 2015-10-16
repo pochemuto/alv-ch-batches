@@ -38,7 +38,7 @@ public class JdbcReaderJooqWriterStepFactory {
         return steps.get(stepName)
                 .<UpdatableRecord<?>, UpdatableRecord<?>> chunk(chunkSize)
                 .reader(JdbcCursorItemReaderFactory
-                        .buildJdbcCursorIteamReader(mappedClass, selectQuery, chunkSize, inputDataSource))
+                        .buildJdbcCursorItemReader(mappedClass, selectQuery, chunkSize, inputDataSource))
                 .writer(new JooqBatchWriter(outputJooq))
                 .build();
     }

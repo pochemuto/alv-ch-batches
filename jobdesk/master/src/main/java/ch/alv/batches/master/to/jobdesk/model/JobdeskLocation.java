@@ -1,32 +1,32 @@
 package ch.alv.batches.master.to.jobdesk.model;
 
-/**
- * Created by stibe on 23.08.15.
- */
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+// TODO evaluate if this should inherit from / compose with JobdeskLocationGeoPoint class
 public class JobdeskLocation {
 
     private String name;
 
     private String zip;
 
-    private String zipAdditionalNumber;
+    @JsonProperty("additionalNumber")
+    private String zipAdditionalNumber; // FIXME Switch to Integer data type
 
     private String municipalityName;
 
     private String canton;
 
+    @JsonIgnore // FIXME remove it? Maybe a copy-paste error?
     private int municipalityNumber;
 
+    @JsonIgnore
     private String region;
 
+    @JsonProperty("geoLocation")
     private JobdeskLocationCoordinate coords;
 
     public JobdeskLocation() {
-    }
-
-    public JobdeskLocation(String zip, JobdeskLocationCoordinate coords) {
-        this.zip = zip;
-        this.coords = coords;
     }
 
     public String getName() {

@@ -30,7 +30,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ch.alv.batches.partnerjob.to.master.jooq.tables.OsteAdmin.OSTE_ADMIN;
+import static ch.alv.batches.partnerjob.to.master.jooq.Tables.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SimpleTestApplication.class)

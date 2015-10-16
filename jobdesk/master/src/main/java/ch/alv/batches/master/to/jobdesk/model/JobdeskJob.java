@@ -4,11 +4,12 @@
 package ch.alv.batches.master.to.jobdesk.model;
 
 
-import java.io.Serializable;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * DTO representing a jobdesk job.
@@ -39,7 +40,8 @@ public class JobdeskJob implements Serializable {
 
     private int quotaTo;
 
-    private JobdeskJobLocation locations;
+    @JsonProperty("locations") // FIXME to be removed when API model will be modified
+    private JobdeskJobLocation location;
 
     private JobdeskJobApplication application;
 
@@ -53,9 +55,9 @@ public class JobdeskJob implements Serializable {
 
     private boolean external;
 
-    private Date onlineSinceDate;
+    private Date publicationDate;
 
-    private JobdeskISCOCode isco;
+    private JobdeskIscoCode isco;
 
     private String source;
 
@@ -65,6 +67,20 @@ public class JobdeskJob implements Serializable {
 
     public void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+
+    /**
+     * fingerprint is an alias to jobId
+     */
+    public String getFingerprint() {
+        return getJobId();
+    }
+
+    /**
+     * fingerprint is an alias to jobId
+     */
+    public void setFingerprint(String fingerprint) {
+        // NOOP
     }
 
     public String getJobIdAvam() {
@@ -139,12 +155,12 @@ public class JobdeskJob implements Serializable {
         this.quotaTo = quotaTo;
     }
 
-    public JobdeskJobLocation getLocations() {
-        return locations;
+    public JobdeskJobLocation getLocation() {
+        return location;
     }
 
-    public void setLocations(JobdeskJobLocation locations) {
-        this.locations = locations;
+    public void setLocation(JobdeskJobLocation location) {
+        this.location = location;
     }
 
     public JobdeskJobApplication getApplication() {
@@ -195,19 +211,19 @@ public class JobdeskJob implements Serializable {
         this.external = external;
     }
 
-    public Date getOnlineSinceDate() {
-        return onlineSinceDate;
+    public Date getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setOnlineSinceDate(Date onlineSinceDate) {
-        this.onlineSinceDate = onlineSinceDate;
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
-    public JobdeskISCOCode getIsco() {
+    public JobdeskIscoCode getIsco() {
         return isco;
     }
 
-    public void setIsco(JobdeskISCOCode isco) {
+    public void setIsco(JobdeskIscoCode isco) {
         this.isco = isco;
     }
 

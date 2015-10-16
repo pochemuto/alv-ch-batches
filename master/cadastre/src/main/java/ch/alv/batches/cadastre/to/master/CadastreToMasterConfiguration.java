@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.Resource;
 import java.io.File;
 
-import static ch.alv.batches.cadastre.to.master.jooq.tables.Location.LOCATION;
+import static ch.alv.batches.cadastre.to.master.jooq.Tables.*;
 
 /**
  *
@@ -44,7 +44,6 @@ public class CadastreToMasterConfiguration {
 
     @Value("${ch.alv.batch.master.cadastre.csv_path:PLZO_CSV_WGS84.csv}")
     private String plzCsvFile;
-    //"PLZO_CSV_WGS84/PLZO_CSV_WGS84.csv"
 
     @Bean(name = IMPORT_LOCATIONS)
     public Job buildImportLocationsJob() throws ClassNotFoundException {

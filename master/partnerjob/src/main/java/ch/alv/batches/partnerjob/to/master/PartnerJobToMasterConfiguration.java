@@ -26,7 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 
-import static ch.alv.batches.partnerjob.to.master.jooq.tables.OsteAdmin.OSTE_ADMIN;
+import static ch.alv.batches.partnerjob.to.master.jooq.Tables.*;
 
 /**
  * AutoConfig of the OsteAdminRecord import job.

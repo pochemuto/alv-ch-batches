@@ -31,8 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmen.AVG_FIRMEN;
-import static ch.alv.batches.company.to.master.jooq.tables.AvgFirmenBatchStaging.AVG_FIRMEN_BATCH_STAGING;
+import static ch.alv.batches.company.to.master.jooq.Tables.*;
 
 /**
  * AutoConfig of the Company import job.

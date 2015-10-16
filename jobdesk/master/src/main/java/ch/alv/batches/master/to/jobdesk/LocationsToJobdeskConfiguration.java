@@ -1,5 +1,6 @@
 package ch.alv.batches.master.to.jobdesk;
 
+import ch.alv.batches.commons.sql.JdbcCursorItemReaderFactory;
 import ch.alv.batches.master.to.jobdesk.jooq.tables.records.LocationRecord;
 import ch.alv.batches.master.to.jobdesk.model.JobdeskLocation;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,15 +18,13 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.sql.SQLException;
 
-import static ch.alv.batches.master.to.jobdesk.jooq.tables.Location.LOCATION;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
 
 @Configuration
 public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguration {
@@ -58,11 +57,11 @@ public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguratio
     }
 
     private ItemReader<LocationRecord> locationRecordJdbcItemReader() {
-        JdbcCursorItemReader<LocationRecord> reader = new JdbcCursorItemReader<>();
-        reader.setSql(jooq.selectFrom(LOCATION).getSQL());
-        reader.setRowMapper(new BeanPropertyRowMapper<>(LocationRecord.class));
-        reader.setDataSource(alvchMasterDataSource);
-        return reader;
+        return JdbcCursorItemReaderFactory.buildJdbcCursorItemReader(
+                LocationRecord.class,
+                jooq.selectFrom(LOCATION).getSQL(),
+                chunkSize, // FIXME see chunk setting in Step definition
+                alvchMasterDataSource);
     }
 
     private ItemProcessor<LocationRecord, JobdeskLocation> locationRecordToJobdeskLocationConverter() {
@@ -90,13 +89,13 @@ public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguratio
 
                     for (BulkItemResponse response : bulkItemResponses.getItems()) {
                         if (response.isFailed()) {
-                            log.error("Failed to add a location to the es index. indexName: {}, typeName: {}, zip: {}, failure: {}",
+                            log.error("Failed to add a location to the es index. index: {}, type: {}, id: {}, failure: {}",
                                     response.getIndex(),
                                     response.getType(),
                                     response.getId(),
                                     response.getFailureMessage());
                         } else {
-                            log.trace("Successfully added a location to the es index. indexName: {}, typeName: {}, jobId: {}",
+                            log.trace("Successfully added a location to the es index. index: {}, type: {}, id: {}",
                                     response.getIndex(),
                                     response.getType(),
                                     response.getId());

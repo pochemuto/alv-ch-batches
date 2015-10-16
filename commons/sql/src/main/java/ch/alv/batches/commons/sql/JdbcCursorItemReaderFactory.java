@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 
 public class JdbcCursorItemReaderFactory {
 
-    public static <T> ItemReader<T> buildJdbcCursorIteamReader(Class<T> mappedClass, String selectQuery, Integer chunkSize, DataSource dataSource) {
+    public static <T> ItemReader<T> buildJdbcCursorItemReader(Class<T> mappedClass, String selectQuery, Integer chunkSize, DataSource dataSource) {
 
         JdbcCursorItemReader reader = new JdbcCursorItemReader();
 

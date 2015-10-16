@@ -1,19 +1,22 @@
 package ch.alv.batches.master.to.jobdesk.model;
 
-/**
- * Created by stibe on 23.08.15.
- */
 public class JobdeskLocationCoordinate {
 
     private double lat;
-
     private double lon;
 
-    public JobdeskLocationCoordinate() {}
+    public JobdeskLocationCoordinate() {
+        // FIXME values?
+    }
 
     public JobdeskLocationCoordinate(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
+    }
+
+    @Override
+    public String toString() {
+        return "N:" + this.lat + ",E:" + this.lon;
     }
 
     public double getLat() {
@@ -31,4 +34,5 @@ public class JobdeskLocationCoordinate {
     public void setLon(double lon) {
         this.lon = lon;
     }
+
 }
