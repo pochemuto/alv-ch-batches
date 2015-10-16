@@ -12,7 +12,9 @@ import org.apache.commons.io.FileUtils;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.count.CountResponse;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.search.SearchHit;
 import org.jooq.DSLContext;
 import org.junit.After;
 import org.junit.Assert;
@@ -37,7 +39,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static ch.alv.batches.master.to.jobdesk.jooq.tables.Job.JOB;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.LOCATION;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = TestApplicationWithEmbeddedElasticsearchNode.class)
@@ -74,7 +79,6 @@ public class MasterToJobdeskIntegrationTest {
     public void setup() throws InterruptedException, IOException {
         initJobdeskElasticsearch(); // FIXME wait till ES is ready (yellow check)...
         initMasterDatabase();
-        //springBatchHelper.initializeSpringBatchPostgresqlSchema();
     }
 
     // FIXME address @BeforeClass static / Spring DI conflicts, to be able to split this monolithic Test Suite
@@ -90,75 +94,84 @@ public class MasterToJobdeskIntegrationTest {
             JobInstanceAlreadyCompleteException,
             JobParametersNotFoundException {
 
-        GetResponse response = elasticsearchClient.prepareGet(elasticsearchIndexName, LocationsToJobdeskConfiguration.ELASTICSEARCH_TYPE, "3110")
-                .execute()
-                .actionGet();
+        //
+        // Location Tests
+        //
+
+        //
+        // Ensure that the Testing ES Index is initially empty
+        //
+        GetResponse response = elasticsearchClient.prepareGet(
+                elasticsearchIndexName, LocationsToJobdeskConfiguration.ELASTICSEARCH_TYPE, "3110"
+        ).execute().actionGet();
         Assert.assertNull(response.getSourceAsString());
 
-        Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(loadAllLocationsIntoJobdeskJob));
+        //
+        // Load the Locations
+        //
+        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(loadAllLocationsIntoJobdeskJob));
+        waitUntilElasticSearchBulkIsFinished(LocationsToJobdeskConfiguration.ELASTICSEARCH_TYPE, 4168);
 
-//        response = client.prepareGet(elasticsearchIndexName, LocationsToJobdeskConfiguration.ELASTICSEARCH_TYPE, "3110")
-//                .execute()
-//                .actionGet();
-
-        ObjectReader ow = new ObjectMapper().readerFor(JobdeskLocation.class);
-        //JobdeskLocation location = ow.readValue(response.getSourceAsString());
-
-        // todo useful checks, but discuss data handling before
-
-//        Assert.assertEquals("3110", location.getZip());
-//        Assert.assertEquals(7.555, location.getCoords().getLat(), 0.0);
-//        Assert.assertEquals(46.876, location.getCoords().getLon(), 0.0);
-//
-//        response = client.prepareGet("jobdesk", "locations", "3158")
-//                .execute()
-//                .actionGet();
-//
-//        location = ow.readValue(response.getSourceAsString());
-//        Assert.assertEquals("3158", location.getZip());
-//        Assert.assertEquals(7.329, location.getCoords().getLat(), 0.0);
-//        Assert.assertEquals(46.766, location.getCoords().getLon(), 0.0);
-
-        Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(loadAllVacanciesIntoJobdeskJob));
-
-        long total = 6136;
-        long count = 0;
-        int waited = 0;
-        int waitTime = 10_000;
-        do {
-            CountResponse countResponse = elasticsearchClient.prepareCount()
-                    .setIndices(elasticsearchIndexName)
-                    .setTypes(VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE)
-                    .execute()
-                    .actionGet();
-            count = countResponse.getCount();
-            Thread.sleep(waitTime);
-            waited += waitTime;
-        } while (count < total && waited < 60_000);
-        // FIXME: a  misconfigured elasticsearch queue capacity problem with bulk insert can lead to lose entries...
-        Assert.assertEquals(total, count);
-
-        GetResponse response2 = elasticsearchClient
-                .prepareGet(elasticsearchIndexName, VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE, "6493b71705ef19b8cd3c67cd3ea6cda20432e6b0843baa525b2802abcb9b5cd454ffb4f95785bcf9")
+        response = elasticsearchClient
+                .prepareGet(elasticsearchIndexName, LocationsToJobdeskConfiguration.ELASTICSEARCH_TYPE, "N:46.876,E:7.555")
                 .execute()
                 .actionGet();
-        String sourceAsString = response2.getSourceAsString();
+        ObjectReader ow = new ObjectMapper().readerFor(JobdeskLocation.class);
+        JobdeskLocation location = ow.readValue(response.getSourceAsString());
+
+        assertEquals("3110", location.getZip());
+        assertEquals(7.555, location.getCoords().getLon(), 0.0);
+        assertEquals(46.876, location.getCoords().getLat(), 0.0);
+
+        SearchResponse search = elasticsearchClient
+                .prepareSearch(elasticsearchIndexName)
+                .setTypes(LocationsToJobdeskConfiguration.ELASTICSEARCH_TYPE)
+                .setQuery(queryStringQuery("zip:1000"))
+                .setExplain(true)
+                .execute()
+                .actionGet();
+
+        for (SearchHit s : search.getHits()) {
+            s.getId();
+            JobdeskLocation lx = ow.readValue(s.getSourceAsString());
+            assertEquals("Lausanne", lx.getMunicipalityName());
+        }
+
+        //
+        // Job Vacancy Tests
+        //
+
+        //
+        // Ensure that the Testing ES Index is initially empty
+        //
+        response = elasticsearchClient.prepareGet(
+                elasticsearchIndexName,
+                VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE,
+                "f37783852f2df0a8a4cad18b3c471fade0035788cad7b109765f7978d0f91a6bdd0f7e1c04065795"
+        ).execute().actionGet();
+        Assert.assertNull(response.getSourceAsString());
+
+        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(loadAllVacanciesIntoJobdeskJob));
+        waitUntilElasticSearchBulkIsFinished(VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE, 13591);
+
+        response = elasticsearchClient.prepareGet(
+                elasticsearchIndexName,
+                VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE,
+                "f37783852f2df0a8a4cad18b3c471fade0035788cad7b109765f7978d0f91a6bdd0f7e1c04065795"
+        ).execute().actionGet();
+        String sourceAsString = response.getSourceAsString();
         ObjectReader ow2 = new ObjectMapper().readerFor(JobdeskJob.class);
         JobdeskJob job = ow2.readValue(sourceAsString);
 
-        // todo useful checks, but discuss data handling before
 
-        Assert.assertEquals("6493b71705ef19b8cd3c67cd3ea6cda20432e6b0843baa525b2802abcb9b5cd454ffb4f95785bcf9", job.getJobId());
-        Assert.assertEquals("00000483601", job.getJobIdAvam());
-        Assert.assertEquals("230088354", job.getJobIdEgov());
-        Assert.assertEquals("Tiefbauer Q / Betoninstandhalter", job.getTitle().getDe());
-//        Assert.assertEquals("Tiefbauer Q / Betoninstandhalter", job.getTitle().getFr());
-//        Assert.assertEquals("Tiefbauer Q / Betoninstandhalter", job.getTitle().getIt());
-//        Assert.assertEquals("Tiefbauer Q / Betoninstandhalter", job.getTitle().getEn());
-//
+        // FIXME id or not id?
+        assertEquals("f37783852f2df0a8a4cad18b3c471fade0035788cad7b109765f7978d0f91a6bdd0f7e1c04065795", job.getJobId());
+        assertEquals("00000589019", job.getJobIdAvam());
+        assertEquals("230141180", job.getJobIdEgov());
+        assertEquals("thailändische Köchin", job.getTitle().getDe());
 
-        //Assert.assertEquals(1, job.getLocations().getLocation().size());
-        //Assert.assertEquals("8355", job.getLocations().getLocation().get(0).getZip());
+        assertEquals(1, job.getLocation().getLocations().size());
+        assertEquals(8897, job.getLocation().getLocations().get(0).getZip().longValue());
 
         //Assert.assertEquals(2, job.getLanguages().size());
         //Assert.assertEquals(20, job.getLanguages().get(0).getLanguageCode());
@@ -169,6 +182,27 @@ public class MasterToJobdeskIntegrationTest {
         //Assert.assertEquals(4, job.getLanguages().get(1).getSpokenCode());
         //Assert.assertEquals(5, job.getLanguages().get(1).getWrittenCode());
 
+    }
+
+    private void waitUntilElasticSearchBulkIsFinished(String elasticsearchType, long documentTotal)
+            throws InterruptedException {
+        long count;
+        int waited = 0;
+        int waitTime = 10_000;
+        do {
+            CountResponse countResponse = elasticsearchClient.prepareCount()
+                    .setIndices(elasticsearchIndexName)
+                    .setTypes(elasticsearchType)
+                    .execute()
+                    .actionGet();
+            count = countResponse.getCount();
+            Thread.sleep(waitTime);
+            waited += waitTime;
+            System.out.println("running for " + waited + " sec: " + count + " items stored in ES");
+        } while (count < documentTotal && waited < 90_000);
+
+        // FIXME: a  misconfigured elasticsearch queue capacity problem with bulk insert can lead to lose entries...
+        assertEquals(documentTotal, count);
     }
 
     @After
@@ -200,6 +234,7 @@ public class MasterToJobdeskIntegrationTest {
     private void initMasterDatabase() throws IOException, InterruptedException {
 
         jooq.truncate(JOB).cascade().execute();
+        jooq.truncate(LOCATION).cascade().execute();
 
         File file = new File(classLoader.getResource("jobs.dump").getFile());
         ProcessBuilder processBuilder = new ProcessBuilder(
@@ -219,9 +254,10 @@ public class MasterToJobdeskIntegrationTest {
 
         Process psqlProcess = processBuilder.start();
         boolean executed = psqlProcess.waitFor(30, TimeUnit.SECONDS);
-        Assert.assertEquals(true, executed);
+        assertEquals(true, executed);
         int result = psqlProcess.exitValue();
-        Assert.assertEquals(0, result);
+        assertEquals(0, result);
+        // TODO assert totals in DB: location=4168, job=24443, job_loc=13591
     }
 
 }

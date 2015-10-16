@@ -78,7 +78,7 @@ public class VacanciesToJobdeskConfiguration extends MasterToJobdeskConfiguratio
             list.forEach(job -> {
                 try {
                     bulkRequest.add(elasticsearchClient.prepareIndex(elasticsearchIndexName, ELASTICSEARCH_TYPE,
-                            job.getJobId()).setSource(ow.writeValueAsString(job)));
+                            job.getFingerprint()).setSource(ow.writeValueAsString(job)));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

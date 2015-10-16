@@ -118,8 +118,9 @@
         "source": {
           "type": "string"
         },
-        "onlineSince": {
-          "type": "integer"
+        "publicationDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd"
         },
         "quotaFrom": {
           "type": "short"
@@ -134,10 +135,12 @@
           "type": "boolean"
         },
         "startDate": {
-          "type": "string"
+          "type": "date",
+          "format": "yyyy-MM-dd"
         },
         "endDate": {
-          "type": "string"
+          "type": "date",
+          "format": "yyyy-MM-dd"
         },
         "languages": {
           "properties": {
@@ -265,7 +268,7 @@
         "zip": {
           "type": "string"
         },
-        "zipAdditionalNumber": {
+        "additionalNumber": {
           "type": "string"
         },
         "municipalityName": {
@@ -274,7 +277,7 @@
         "canton": {
           "type": "string"
         },
-        "coords": {
+        "geoLocation": {
           "type": "geo_point"
         }
       }

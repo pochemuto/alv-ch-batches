@@ -2,11 +2,11 @@ package ch.alv.batches.master.to.jobdesk;
 
 
 import ch.alv.batches.master.to.jobdesk.jooq.tables.records.JobRecord;
+import ch.alv.batches.master.to.jobdesk.jooq.tables.records.LocationRecord;
 import ch.alv.batches.master.to.jobdesk.model.*;
 import org.jooq.DSLContext;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -22,10 +22,8 @@ import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
  */
 public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, JobdeskJob> {
 
-    private static final List<String> INTERNAL_SOURCES = Collections.singletonList("AVAM");
+    private static final List<String> INTERNAL_SOURCES = Collections.singletonList("RAV"); // upcoming "EPA" ?
 
-    @Resource
-    private JdbcTemplate jdbcTemplate;
     private final DSLContext jooq;
 
     public JobRecordToJobdeskJobConverter(DSLContext jooq) {
@@ -46,16 +44,23 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
     }
 
     private void mapComplexData(JobRecord in, JobdeskJob out) throws SQLException {
+
         setTitle(in, out);
         setDescription(in, out);
-        // FIXME retrieveAndSetJobLocations(in, out);
-        setApplication(in, out);
-        setCompany(in, out);
-        setContact(in, out);
-        // FIXME retrieveAndSetLanguages(in, out);
         setFulltimeFlag(in, out);
         setExternalFlag(in, out);
-        // FIXME setISCOCodes(in, out);
+        setISCOCodes(in, out);
+
+        if (!out.isExternal()) {
+            setApplication(in, out);
+            setCompany(in, out);
+            setContact(in, out);
+        }
+
+        retrieveAndSetJobLocations(in, out);
+
+        // FIXME retrieveAndSetLanguages(in, out);
+
     }
 
     private void setTitle(JobRecord in, JobdeskJob out) {
@@ -81,18 +86,21 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
                 in.getLocationRemarksIt(),
                 in.getLocationRemarksEn()));
 
-        out.getLocations().setLocation(jdbcTemplate.query(
-                jooq.select()
-                        .from(JOB_LOCATION)
-                        .join(LOCATION)
-                        .on(JOB_LOCATION.LOCATION_ID.eq(LOCATION.ID))
-                        .where(JOB_LOCATION.JOB_ID.eq(in.getId())).getSQL().replace("?", in.getId().toString()),
-                (resultSet, i) -> {
-                    JobdeskLocation location = new JobdeskLocation();
-                    location.setZip(resultSet.getString(LOCATION.ZIP.getName()));
-                    location.setCoords(new JobdeskLocationCoordinate(resultSet.getDouble(LOCATION.LAT.getName()), resultSet.getDouble(LOCATION.LON.getName())));
-                    return location;
-                }));
+        List<LocationRecord> locationRecords = jooq.select()
+                .from(LOCATION)
+                .where(LOCATION.ID.in(
+                                jooq.select(JOB_LOCATION.LOCATION_ID)
+                                        .from(JOB_LOCATION)
+                                        .where(JOB_LOCATION.JOB_ID.equal(in.getId()))))
+                .fetchInto(LOCATION);
+        // FIXME fetchInto sounds "overkill" in this case...
+
+        JobdeskJobLocation location = new JobdeskJobLocation(in.getLocationRemarksDe());
+
+        // FIXME is it correct to reuse the same JobdesLocation class ?
+        // the jackson mapper outputs nulled fields (noisy...)
+        locationRecords.forEach(l -> location.addLocation(Integer.parseInt(l.getZip()), l.getLat(), l.getLon()));
+        out.setLocation(location);
     }
 
     private void setApplication(JobRecord in, JobdeskJob out) {
@@ -136,15 +144,15 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
         ));
     }
 
-    private void retrieveAndSetLanguages(JobRecord in, JobdeskJob out) throws SQLException {
-        out.setLanguages(jdbcTemplate.query(jooq.select().from(JOB_LANGUAGE).where(JOB_LANGUAGE.JOB_ID.eq(in.getId())).getSQL().replace("?", in.getId().toString()), (resultSet, i) -> {
-            return new JobdeskLanguage(
-                    resultSet.getInt(JOB_LANGUAGE.LANGUAGE_ID.getName()),
-                    resultSet.getInt(JOB_LANGUAGE.SKILL_SPOKEN.getName()),
-                    resultSet.getInt(JOB_LANGUAGE.SKILL_WRITTEN.getName())
-            );
-        }));
-    }
+//    private void retrieveAndSetLanguages(JobRecord in, JobdeskJob out) throws SQLException {
+//        out.setLanguages(jdbcTemplate.query(jooq.select().from(JOB_LANGUAGE).where(JOB_LANGUAGE.JOB_ID.eq(in.getId())).getSQL().replace("?", in.getId().toString()), (resultSet, i) -> {
+//            return new JobdeskLanguage(
+//                    resultSet.getInt(JOB_LANGUAGE.LANGUAGE_ID.getName()),
+//                    resultSet.getInt(JOB_LANGUAGE.SKILL_SPOKEN.getName()),
+//                    resultSet.getInt(JOB_LANGUAGE.SKILL_WRITTEN.getName())
+//            );
+//        }));
+//    }
 
     private void setFulltimeFlag(JobRecord in, JobdeskJob out) {
         if (100 == in.getQuotaFrom() && 100 == in.getQuotaTo()) {

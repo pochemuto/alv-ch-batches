@@ -74,7 +74,12 @@ public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguratio
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             list.forEach(location -> {
                 try {
-                    bulkRequest.add(elasticsearchClient.prepareIndex(elasticsearchIndexName, ELASTICSEARCH_TYPE, location.getZip()).setSource(ow.writeValueAsString(location)));
+                    bulkRequest.add(
+                            elasticsearchClient
+                                    .prepareIndex(elasticsearchIndexName,
+                                            ELASTICSEARCH_TYPE,
+                                            location.getCoords().toString())
+                                    .setSource(ow.writeValueAsString(location)));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
