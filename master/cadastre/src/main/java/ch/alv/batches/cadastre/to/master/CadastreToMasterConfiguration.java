@@ -42,7 +42,7 @@ public class CadastreToMasterConfiguration {
 //    @Value("${ch.alv.batch.master.company.avgfirmen.url}")
 //    private String locationCsvUrl;
 
-    @Value("${ch.alv.batch.master.cadastre.csv_path:PLZO_CSV_WGS84.csv}")
+    @Value("${ch.alv.master.cadastre.csv_path:PLZO_CSV_WGS84.csv}")
     private String plzCsvFile;
 
     @Bean(name = IMPORT_LOCATIONS)

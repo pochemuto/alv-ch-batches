@@ -23,6 +23,9 @@ spring:
 ch:
   alv:
 
+    cadastre:
+      csv_path: /tmp/wrong.csv
+
     company:
       avgfirmen:
         url: ftp://user:pw@anyhost:2015/AVAMPSTS.xml
@@ -32,8 +35,16 @@ ch:
         url: http://your.partner.xyz/jobs-feed.xml
 
     jobdesk:
-      elasticsearch:
-        host: localhost # somewhere.online
+      java_api:
+        host: wrongserver
+        port: 5764
+
+    legacy:
+      database:
+        driverClassName: oracle.jdbc.driver.OracleDriver
+        url: jdbc:oracle:thin:@localhost:9521:XE
+        username: wrong_username
+        password: wrong_password
 
 server:
   port: 8999

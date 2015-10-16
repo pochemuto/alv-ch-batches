@@ -140,7 +140,17 @@
 
             <dependency>
                 <groupId>ch.alv.batches</groupId>
+                <artifactId>cadastre-to-master</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.alv.batches</groupId>
                 <artifactId>company-to-master</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.alv.batches</groupId>
+                <artifactId>legacy-to-master</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

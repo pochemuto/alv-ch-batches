@@ -16,19 +16,20 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-@ComponentScan(
-        "ch.alv.batches.company.to.master, " +
-        "ch.alv.batches.partnerjob.to.master, " +
-        "ch.alv.batches.master.to.jobdesk, " +
-        "ch.alv.batches.commons.config" +
-        "ch.alv.batches.commons.web"
+@ComponentScan("ch.alv.batches.commons.config, "
+        + "ch.alv.batches.commons.web, "
+        + "ch.alv.batches.company.to.master, "
+        + "ch.alv.batches.cadastre.to.master, "
+        + "ch.alv.batches.legacy.to.master, "
+        + "ch.alv.batches.master.to.jobdesk, "
+        + "ch.alv.batches.partnerjob.to.master"
 )
 public class BoomApplication {
 
     // FIXME configuration attributes managed in module?
-    @Value(("${ch.alv.jobdesk.elasticsearch.host}"))
+    @Value(("${ch.alv.jobdesk.elasticsearch.java_api.host:localhost}"))
     private String jobdeskElasticsearchHost;
-    @Value(("${ch.alv.jobdesk.elasticsearch.port:9300}"))
+    @Value(("${ch.alv.jobdesk.elasticsearch.java_api.port:9300}"))
     private int jobdeskElasticsearchPort;
 
     @Bean

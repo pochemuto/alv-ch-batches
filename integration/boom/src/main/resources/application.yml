@@ -1,0 +1,79 @@
+
+server:
+  port: 9999
+
+spring:
+  main:
+    show-banner: false
+
+  batch:
+    metrics:
+      enabled: true
+    job:
+      enabled: false
+    initializer:
+      enabled: true
+
+# HOW TO FORCE embedded in-memory?
+  # Persist the Spring Batch metadata tables in the DBMS used for the master database
+  datasource:
+    driverClassName: ${ch.alv.master.database.driverClassName}
+    url: ${ch.alv.master.database.url}
+    username: ${ch.alv.master.database.username}
+    password: ${ch.alv.master.database.password}
+    defaultAutoCommit: ${ch.alv.master.database.defaultAutoCommit}
+
+ch:
+  alv:
+
+    master:
+      database:
+        driverClassName: org.postgresql.Driver
+        host: localhost
+        port: 5432
+        name: alvch_db_name
+        url: jdbc:postgresql://${ch.alv.master.database.host}:${ch.alv.master.database.port}/${ch.alv.master.database.name}
+        username: alvch_db_username
+        password: alvch_db_password
+        defaultAutoCommit: true # TODO switch to false by default?
+
+    legacy:
+      database:
+        driverClassName: oracle.jdbc.driver.OracleDriver
+        url: jdbc:oracle:thin:@localhost:1521:YOUR_SID
+        username: username
+        password: password
+
+    cadastre:
+      csv_path: /path/to/PLZO_CSV_WGS84.csv
+
+    company:
+      avgfirmen:
+        url: ftp://user:pw@anyhost/path/AVAMPSTS.xml
+
+    partnerjob:
+      prospective:
+        url: http://your.partner.xyz/jobs-feed.xml
+
+    jobdesk:
+      elasticsearch:
+        java_api:
+           host: localhost
+           port: 9300
+
+logging:
+
+  level:
+    root: INFO
+    ch:
+      alv:
+        #batches: INFO
+    org:
+      springframework:
+        context:
+          annotation:
+            ConfigurationClassEnhancer: ERROR
+        integration:
+          expression:
+            ExpressionUtils: ERROR
+        security: WARN

@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static ch.alv.batches.cadastre.to.master.CadastreToMasterConfiguration.IMPORT_LOCATIONS;
+import static ch.alv.batches.legacy.to.master.LegacyToMasterConfiguration.IMPORT_X28_JOBS;
 import static ch.alv.batches.company.to.master.CompanyToMasterConfiguration.IMPORT_COMPANIES_JOB;
 import static ch.alv.batches.partnerjob.to.master.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
 import static ch.alv.batches.master.to.jobdesk.VacanciesToJobdeskConfiguration.BATCH_JOB_LOAD_VACANCIES;
@@ -35,6 +37,8 @@ public class BoomIntegrationTest {
         assertTrue(jobNames.contains(IMPORT_PARTNERJOB_JOB));
         assertTrue(jobNames.contains(BATCH_JOB_LOAD_VACANCIES));
         assertTrue(jobNames.contains(BATCH_JOB_LOAD_LOCATIONS));
+        assertTrue(jobNames.contains(IMPORT_X28_JOBS));
+        assertTrue(jobNames.contains(IMPORT_LOCATIONS));
 
         Thread.sleep(5000);
 
