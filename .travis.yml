@@ -11,13 +11,11 @@ env:
     - MAVEN_ARGS="--settings test/travis/maven-config.xml"
     - MAVEN_DEPLOY_ARGS="$MAVEN_ARGS -DskipTests=true"
 
-before_install:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
-  - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-
 install:
+
+  # login to pull private docker images
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
+
   # stop default PostgreSQL service (port conflict)
   - sudo service postgresql stop
 
