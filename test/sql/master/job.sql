@@ -45,7 +45,7 @@ CREATE TABLE JOB (          ID SERIAL PRIMARY KEY,
                             CONTACT_PHONE TEXT,
                             CONTACT_EMAIL TEXT,
                             PUBLICATION_DATE DATE NOT NULL,
-                            SOURCE TEXT NOT NULL CHECK (SOURCE_TEXT IN ('RAV', 'X28'), --FIXME switch to an enum/custom type?
+                            SOURCE TEXT NOT NULL CHECK (SOURCE IN ('RAV', 'X28')), --FIXME switch to an enum/custom type?
                             ISCO08_ID CHAR(4) NOT NULL CHECK (ISCO08_ID ~ '^\d{4}$')
              );
 
