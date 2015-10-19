@@ -16,13 +16,13 @@ env:
 install:
 
   # login to pull private docker images
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
+  # - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
 
   # stop default PostgreSQL service (port conflict)
   - sudo service postgresql stop
 
   # create and initialize docker-based services
-  - ./test/docker/create-docker-containers.sh
+  - ./test/travis/create-docker-containers.sh
   - ./test/sql/master/create-master-db-schema.sh
   - ./test/elasticsearch/create-jobdesk-index.sh
 
