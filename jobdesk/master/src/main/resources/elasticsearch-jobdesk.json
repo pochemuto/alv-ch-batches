@@ -1,6 +1,6 @@
 {
   "mappings": {
-    "jobs": {
+    "job": {
       "_source": {
         "enabled": true
       },
@@ -76,13 +76,13 @@
             }
           }
         },
-        "locations": {
+        "location": {
           "type": "object",
           "properties": {
-            "location": {
+            "locations": {
               "type": "nested",
               "properties": {
-                "coords": {
+                "geoLocation": {
                   "type": "geo_point"
                 },
                 "zip": {
@@ -254,7 +254,7 @@
         }
       }
     },
-    "locations": {
+    "location": {
       "_source": {
         "enabled": true
       },

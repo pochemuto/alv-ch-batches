@@ -4,8 +4,6 @@
 package ch.alv.batches.master.to.jobdesk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +38,6 @@ public class JobdeskJob implements Serializable {
 
     private int quotaTo;
 
-    @JsonProperty("locations") // FIXME to be removed when API model will be modified
     private JobdeskJobLocation location;
 
     private JobdeskJobApplication application;

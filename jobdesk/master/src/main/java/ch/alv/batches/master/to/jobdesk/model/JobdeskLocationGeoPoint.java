@@ -4,7 +4,7 @@ public class JobdeskLocationGeoPoint {
 
     private Integer zip; // FIXME is it really the good key?
 
-    private JobdeskLocationCoordinate coords;
+    private JobdeskLocationCoordinate geoLocation;
 
     public JobdeskLocationGeoPoint() {
     }
@@ -17,7 +17,7 @@ public class JobdeskLocationGeoPoint {
      */
     JobdeskLocationGeoPoint(Integer zip, Double lat, Double lon) {
         this.setZip(zip);
-        this.setCoords(new JobdeskLocationCoordinate(lat, lon));
+        this.setGeoLocation(new JobdeskLocationCoordinate(lat, lon));
     }
 
     public Integer getZip() {
@@ -28,11 +28,11 @@ public class JobdeskLocationGeoPoint {
         this.zip = zip;
     }
 
-    public JobdeskLocationCoordinate getCoords() {
-        return coords;
+    public JobdeskLocationCoordinate getGeoLocation() {
+        return geoLocation;
     }
 
-    public void setCoords(JobdeskLocationCoordinate coords) {
-        this.coords = coords;
+    public void setGeoLocation(JobdeskLocationCoordinate geoLocation) {
+        this.geoLocation = geoLocation;
     }
 }

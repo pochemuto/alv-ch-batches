@@ -172,7 +172,9 @@ public class MasterToJobdeskIntegrationTest {
 
         assertEquals(1, job.getLocation().getLocations().size());
         assertEquals(8897, job.getLocation().getLocations().get(0).getZip().longValue());
-
+        assertEquals(47.086, job.getLocation().getLocations().get(0).getGeoLocation().getLat(), 0);
+        assertEquals(9.305, job.getLocation().getLocations().get(0).getGeoLocation().getLon(), 0);
+        
         //Assert.assertEquals(2, job.getLanguages().size());
         //Assert.assertEquals(20, job.getLanguages().get(0).getLanguageCode());
         //Assert.assertEquals(2, job.getLanguages().get(0).getSpokenCode());

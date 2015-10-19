@@ -1,7 +1,5 @@
 package ch.alv.batches.master.to.jobdesk.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,6 @@ public class JobdeskJobLocation {
 
     private JobdeskMultiLanguageValue remarks;
 
-    @JsonProperty("location") // FIXME: remove when API spec will be changed
     private List<JobdeskLocationGeoPoint> locations = new ArrayList<>();
 
     public JobdeskJobLocation() {

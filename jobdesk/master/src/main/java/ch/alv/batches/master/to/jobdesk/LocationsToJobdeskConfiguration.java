@@ -29,7 +29,7 @@ import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
 @Configuration
 public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguration {
 
-    public final static String ELASTICSEARCH_TYPE = "locations";
+    public final static String ELASTICSEARCH_TYPE = "location";
     public final static String BATCH_JOB_LOAD_LOCATIONS = "loadAllLocationsIntoJobdeskJob";
     public final static String BATCH_STEP_LOAD_LOCATIONS = "loadAllLocationsIntoJobdeskStep";
 
