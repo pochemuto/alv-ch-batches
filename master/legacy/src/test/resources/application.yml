@@ -6,15 +6,10 @@ spring:
 
 ch:
   alv:
-
     legacy:
       database:
-#        driverClassName: org.postgresql.Driver
-#        url: jdbc:postgresql://localhost:1521/web1
-#        username: egov
-#        password: egov
-
         driverClassName: oracle.jdbc.driver.OracleDriver
-        url: jdbc:oracle:thin:@localhost:9521:XE
+        url: jdbc:oracle:thin:@localhost:1521:XE
         username: jobroom
         password: jobroom
+

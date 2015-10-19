@@ -1,30 +1,33 @@
-language: java
-
-jdk: oraclejdk8
-
-addons:
-  postgresql: 9.4
-
+sudo: required
+dist: trusty
 services:
-  - postgresql
-  - elasticsearch
+  - docker
+
+language: java
+jdk:
+  - oraclejdk8
+  - openjdk8
 
 env:
   global:
-    - TEST_DB_NAME=travis_ci_test
-    - TEST_DB_USERNAME=postgres
-    - TEST_DB_PASSWORD=
-    - MAVEN_DEPLOY_ARGS="--settings test/travis/maven-config.xml -DskipTests=true"
+    - MAVEN_ARGS="--settings test/travis/maven-config.xml"
+    - MAVEN_DEPLOY_ARGS="$MAVEN_ARGS -DskipTests=true"
 
 install:
-  - ./test/travis/build-master-db.sh
-  - ./test/travis/build-legacy-db.sh
-  - ./replace-db-settings.sh
-  - cp test/travis/legacy-to-master-application-test.yml master/legacy/src/test/resources/application.yml
-  - ./test/elasticsearch/create-index.sh
+
+  # login to pull private docker images
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
+
+  # stop default PostgreSQL service (port conflict)
+  - sudo service postgresql stop
+
+  # create and initialize docker-based services
+  - ./test/docker/create-docker-containers.sh
+  - ./test/sql/master/create-master-db-schema.sh
+  - ./test/elasticsearch/create-jobdesk-index.sh
 
 script:
-  - mvn clean cobertura:cobertura coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report $MAVEN_ARGS
 
   # Rebuild without Cobertura Instrumentation and Upload the built Artifacts
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
@@ -36,3 +39,4 @@ script:
 cache:
   directories:
     - '$HOME/.m2/repository'
+

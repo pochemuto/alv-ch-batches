@@ -3,32 +3,11 @@
 legacy_db:
 
   ports:
-    - 1521:5432
+    - 1521:1521
+    - 8080:8080
 
-  image: postgres:9.4
-  # alexeiled/docker-oracle-xe-11g
-  
-  # wnameless/oracle-xe-11g
-#ENV ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
-#ENV ORACLE_SID=xe
-#ENV TNS_ADMIN=$ORACLE_HOME/network/admin
-#ENV SQLPLUS=$ORACLE_HOME/bin/sqlplus
-#RUN service oracle-xe start && su -c "$SQLPLUS '/ as sysdba' @create.sql" oracle 
-# more details at https://hub.docker.com/r/wnameless/oracle-xe-11g/
+  image: alvch-docker-dockerv2-local.artifactoryonline.com/alvch/oracle_xe_11g_jobroom:20151013
 
-  # OR (slim) https://hub.docker.com/r/sath89/oracle-xe-11g/
-  # or (opensource) https://hub.docker.com/r/ukhomeofficedigital/oracle-xe-11g/
-  #    https://github.com/UKHomeOffice/docker-oracle-database-express-edition-11g
-
-  volumes:
-    - ./docker-compose-data/legacy_db/etc/postgresql:/etc/postgresql
-    - ./docker-compose-data/legacy_db/var/log/postgresql:/var/log/postgresql
-    - ./docker-compose-data/legacy_db/var/lib/postgresql:/var/lib/postgresql
-
-  environment:
-    POSTGRES_DB:         web1
-    POSTGRES_USER:       egov
-    POSTGRES_PASSWORD:   egov
 
 master_db:
 
