@@ -36,15 +36,15 @@ public class JobdeskIscoCode {
 
     @JsonIgnore
     public String getGroupLevel1() {
-        return isco08Id.substring(0);
-    }
-
-    public String getGroupLevel2() {
         return isco08Id.substring(0, 1);
     }
 
-    public String getGroupLevel3() {
+    public String getGroupLevel2() {
         return isco08Id.substring(0, 2);
+    }
+
+    public String getGroupLevel3() {
+        return isco08Id.substring(0, 3);
     }
 
     public String getGroupLevel4() {

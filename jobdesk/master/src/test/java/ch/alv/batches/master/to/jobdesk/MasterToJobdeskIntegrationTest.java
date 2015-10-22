@@ -174,7 +174,14 @@ public class MasterToJobdeskIntegrationTest {
         assertEquals(8897, job.getLocation().getLocations().get(0).getZip().longValue());
         assertEquals(47.086, job.getLocation().getLocations().get(0).getGeoLocation().getLat(), 0);
         assertEquals(9.305, job.getLocation().getLocations().get(0).getGeoLocation().getLon(), 0);
-        
+
+        assertEquals("5", job.getIsco().getGroupLevel1());
+        assertEquals("51", job.getIsco().getGroupLevel2());
+        assertEquals("512", job.getIsco().getGroupLevel3());
+        assertEquals("5120", job.getIsco().getGroupLevel4());
+        assertEquals(job.getIsco().getMajorGroup(), job.getIsco().getGroupLevel1());
+
+
         //Assert.assertEquals(2, job.getLanguages().size());
         //Assert.assertEquals(20, job.getLanguages().get(0).getLanguageCode());
         //Assert.assertEquals(2, job.getLanguages().get(0).getSpokenCode());
