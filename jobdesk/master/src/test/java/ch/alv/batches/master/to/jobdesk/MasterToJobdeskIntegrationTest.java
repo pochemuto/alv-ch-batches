@@ -120,6 +120,7 @@ public class MasterToJobdeskIntegrationTest {
         JobdeskLocation location = ow.readValue(response.getSourceAsString());
 
         assertEquals("3110", location.getZip());
+        assertEquals(0, location.getZipAdditionalNumber().intValue());
         assertEquals(7.555, location.getCoords().getLon(), 0.0);
         assertEquals(46.876, location.getCoords().getLat(), 0.0);
 

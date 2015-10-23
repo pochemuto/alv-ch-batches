@@ -11,7 +11,7 @@ public class JobdeskLocation {
     private String zip;
 
     @JsonProperty("additionalNumber")
-    private String zipAdditionalNumber; // FIXME Switch to Integer data type
+    private Integer zipAdditionalNumber;
 
     private String municipalityName;
 
@@ -45,11 +45,11 @@ public class JobdeskLocation {
         this.zip = zip;
     }
 
-    public String getZipAdditionalNumber() {
+    public Integer getZipAdditionalNumber() {
         return zipAdditionalNumber;
     }
 
-    public void setZipAdditionalNumber(String zipAdditionalNumber) {
+    public void setZipAdditionalNumber(Integer zipAdditionalNumber) {
         this.zipAdditionalNumber = zipAdditionalNumber;
     }
 

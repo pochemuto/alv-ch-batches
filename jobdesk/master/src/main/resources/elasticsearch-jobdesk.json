@@ -269,7 +269,7 @@
           "type": "string"
         },
         "additionalNumber": {
-          "type": "string"
+          "type": "integer"
         },
         "municipalityName": {
           "type": "string"
