@@ -4,17 +4,16 @@ import org.elasticsearch.client.Client;
 import org.jooq.DSLContext;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 @Configuration
-public class MasterToJobdeskConfiguration {
+public class AnyMasterEntityToJobdeskConfiguration {
 
-    @Value("${ch.alv.jobdesk.elasticsearch.index:jobdesk}")
-    protected String elasticsearchIndexName;
+    @Resource
+    MasterToJobdeskSettings masterToJobdeskSettings;
 
     @Resource
     protected Client elasticsearchClient;
@@ -30,5 +29,9 @@ public class MasterToJobdeskConfiguration {
 
     @Resource
     protected JobBuilderFactory jobs;
+
+    protected String getTargetIndex() {
+        return masterToJobdeskSettings.getElasticSearchImportAlias();
+    }
 
 }

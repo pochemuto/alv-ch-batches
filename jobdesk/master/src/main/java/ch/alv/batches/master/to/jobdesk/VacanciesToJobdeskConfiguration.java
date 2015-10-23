@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
 
 @Configuration
-public class VacanciesToJobdeskConfiguration extends MasterToJobdeskConfiguration {
+public class VacanciesToJobdeskConfiguration extends AnyMasterEntityToJobdeskConfiguration {
 
     public final static String ELASTICSEARCH_TYPE = "job";
     public final static String BATCH_JOB_LOAD_VACANCIES = "loadAllVacanciesIntoJobdeskJob";
@@ -77,7 +77,7 @@ public class VacanciesToJobdeskConfiguration extends MasterToJobdeskConfiguratio
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             list.forEach(job -> {
                 try {
-                    bulkRequest.add(elasticsearchClient.prepareIndex(elasticsearchIndexName, ELASTICSEARCH_TYPE,
+                    bulkRequest.add(elasticsearchClient.prepareIndex(getTargetIndex(), ELASTICSEARCH_TYPE,
                             job.getFingerprint()).setSource(ow.writeValueAsString(job)));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();

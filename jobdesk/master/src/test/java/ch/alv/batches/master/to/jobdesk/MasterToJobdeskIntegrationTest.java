@@ -29,7 +29,6 @@ import org.springframework.batch.core.launch.NoSuchJobException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,8 +51,8 @@ public class MasterToJobdeskIntegrationTest {
     @Resource
     private MasterDatabaseSettings masterDbSettings;
 
-    @Value("${ch.alv.jobdesk.elasticsearch.index}")
-    private String elasticsearchIndexName;
+    @Resource
+    private MasterToJobdeskSettings masterToJobdeskSettings;
 
     @Resource
     private Job loadAllLocationsIntoJobdeskJob;
@@ -74,6 +73,8 @@ public class MasterToJobdeskIntegrationTest {
     private EmbeddedElasticsearchNode elasticsearchNode;
 
     private final ClassLoader classLoader = getClass().getClassLoader();
+
+    private String elasticsearchIndexName;
 
     @Before
     public void setup() throws InterruptedException, IOException {
@@ -222,12 +223,8 @@ public class MasterToJobdeskIntegrationTest {
 
     private void initJobdeskElasticsearch() throws IOException {
 
-        // TODO: delete all previous indices...
-
-//        elasticsearchClient.admin().indices().create(
-//                new CreateIndexRequest(elasticsearchIndexName)
-//                        .mapping(classLoader.getResource("elasticsearch-jobdesk.json").getFile()))
-//                .actionGet();
+        // KISS: Don't create any alias, but name the target index with the import alias
+        this.elasticsearchIndexName = masterToJobdeskSettings.getElasticSearchImportAlias();
 
         String indexDefinition = FileUtils.readFileToString(
                 new File(classLoader.getResource("elasticsearch-jobdesk.json").getFile()));
@@ -236,8 +233,6 @@ public class MasterToJobdeskIntegrationTest {
                 new CreateIndexRequest(elasticsearchIndexName)
                         .source(indexDefinition))
                 .actionGet();
-
-//        GetIndexResponse check = elasticsearchClient.admin().indices().prepareGetIndex().setIndices(elasticsearchIndexName).execute().actionGet();
 
     }
 

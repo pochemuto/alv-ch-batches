@@ -25,6 +25,11 @@
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-sql</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
@@ -39,10 +44,6 @@
         <dependency>
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
         </dependency>
 
     </dependencies>

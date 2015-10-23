@@ -12,11 +12,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 import static ch.alv.batches.cadastre.to.master.CadastreToMasterConfiguration.IMPORT_LOCATIONS;
-import static ch.alv.batches.legacy.to.master.LegacyToMasterConfiguration.IMPORT_X28_JOBS;
 import static ch.alv.batches.company.to.master.CompanyToMasterConfiguration.IMPORT_COMPANIES_JOB;
-import static ch.alv.batches.partnerjob.to.master.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
-import static ch.alv.batches.master.to.jobdesk.VacanciesToJobdeskConfiguration.BATCH_JOB_LOAD_VACANCIES;
+import static ch.alv.batches.legacy.to.master.LegacyToMasterConfiguration.IMPORT_X28_JOBS;
 import static ch.alv.batches.master.to.jobdesk.LocationsToJobdeskConfiguration.BATCH_JOB_LOAD_LOCATIONS;
+import static ch.alv.batches.master.to.jobdesk.VacanciesToJobdeskConfiguration.BATCH_JOB_LOAD_VACANCIES;
+import static ch.alv.batches.partnerjob.to.master.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
+import static ch.alv.batches.master.to.jobdesk.FullMasterToJobdeskConfiguration.BATCH_JOB_JOBDESK_FULLRELOAD;
 
 import static org.junit.Assert.assertTrue;
 
@@ -39,6 +40,8 @@ public class BoomIntegrationTest {
         assertTrue(jobNames.contains(BATCH_JOB_LOAD_LOCATIONS));
         assertTrue(jobNames.contains(IMPORT_X28_JOBS));
         assertTrue(jobNames.contains(IMPORT_LOCATIONS));
+        assertTrue(jobNames.contains(BATCH_JOB_JOBDESK_FULLRELOAD));
+
 
         Thread.sleep(5000);
 

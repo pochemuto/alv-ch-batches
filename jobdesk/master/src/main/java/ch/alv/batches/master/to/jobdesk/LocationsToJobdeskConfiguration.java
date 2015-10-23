@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
 
 @Configuration
-public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguration {
+public class LocationsToJobdeskConfiguration extends AnyMasterEntityToJobdeskConfiguration {
 
     public final static String ELASTICSEARCH_TYPE = "location";
     public final static String BATCH_JOB_LOAD_LOCATIONS = "loadAllLocationsIntoJobdeskJob";
@@ -76,7 +76,7 @@ public class LocationsToJobdeskConfiguration extends MasterToJobdeskConfiguratio
                 try {
                     bulkRequest.add(
                             elasticsearchClient
-                                    .prepareIndex(elasticsearchIndexName,
+                                    .prepareIndex(getTargetIndex(),
                                             ELASTICSEARCH_TYPE,
                                             location.getCoords().toString())
                                     .setSource(ow.writeValueAsString(location)));
