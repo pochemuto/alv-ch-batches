@@ -43,7 +43,7 @@ public class VacanciesToJobdeskConfiguration extends AnyMasterEntityToJobdeskCon
     public Job createFullJobIndexJob() throws MalformedURLException, SQLException {
         return jobs.get(BATCH_JOB_LOAD_VACANCIES)
                 .incrementer(new RunIdIncrementer())
-                .preventRestart()
+                //.preventRestart()
                 .start(createFullJobdeskJobIndexStep())
                 .build();
     }

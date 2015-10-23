@@ -42,7 +42,7 @@ public class LocationsToJobdeskConfiguration extends AnyMasterEntityToJobdeskCon
     public Job createFullLocationIndexJob() throws SQLException {
         return jobs.get(BATCH_JOB_LOAD_LOCATIONS)
                 .incrementer(new RunIdIncrementer())
-                .preventRestart()
+                //.preventRestart()
                 .start(createFullLocationIndexStep())
                 .build();
     }
