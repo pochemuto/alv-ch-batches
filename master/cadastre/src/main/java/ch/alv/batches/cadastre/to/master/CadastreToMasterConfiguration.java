@@ -27,7 +27,7 @@ import static ch.alv.batches.cadastre.to.master.jooq.Tables.*;
 public class CadastreToMasterConfiguration {
 
     public final static String CADASTRE_PREFIX = "importCadastre";
-    public final static String IMPORT_LOCATIONS = CADASTRE_PREFIX + "-Locations";
+    public final static String IMPORT_LOCATIONS = CADASTRE_PREFIX + "Locations";
 
     @Resource
     private DSLContext jooq;
