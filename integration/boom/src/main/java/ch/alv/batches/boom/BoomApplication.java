@@ -20,6 +20,7 @@ import javax.sql.DataSource;
         + "ch.alv.batches.commons.web, "
         + "ch.alv.batches.company.to.master, "
         + "ch.alv.batches.cadastre.to.master, "
+        + "ch.alv.batches.boom, "
         + "ch.alv.batches.legacy.to.master, "
         + "ch.alv.batches.master.to.jobdesk, "
         + "ch.alv.batches.partnerjob.to.master"
@@ -48,7 +49,6 @@ public class BoomApplication {
     public DataSource defaultSpringDataSource() {
         return DataSourceBuilder.create().build();
     }
-
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(BoomApplication.class);

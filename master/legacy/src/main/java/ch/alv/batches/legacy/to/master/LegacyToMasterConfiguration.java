@@ -34,7 +34,7 @@ import static ch.alv.batches.legacy.to.master.jooq.Tables.*;
 public class LegacyToMasterConfiguration {
 
     public final static String LEGACY_PREFIX = "importLegacy";
-    public final static String IMPORT_X28_JOBS = LEGACY_PREFIX + "-X28Jobs";
+    public final static String IMPORT_X28_JOBS = LEGACY_PREFIX + "X28Jobs";
 
     protected final static String JOOQ_PACKAGES_PATH = "ch.alv.batches.legacy.to.master.jooq.tables.records";
     // LegacyToMasterConfiguration.class.getName()
@@ -72,7 +72,7 @@ public class LegacyToMasterConfiguration {
     public Job buildImportX28Job() throws ClassNotFoundException {
         return jobs.get(IMPORT_X28_JOBS)
                 .incrementer(new RunIdIncrementer())
-                .preventRestart()
+                //.preventRestart()
                 .flow(truncateTableStep())
                 .next(importLegacyX28JobsStep())
                 // FIXME: should elegantly fail when location table is empty !!!

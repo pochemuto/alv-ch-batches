@@ -18,7 +18,9 @@ import static ch.alv.batches.master.to.jobdesk.LocationsToJobdeskConfiguration.B
 import static ch.alv.batches.master.to.jobdesk.VacanciesToJobdeskConfiguration.BATCH_JOB_LOAD_VACANCIES;
 import static ch.alv.batches.partnerjob.to.master.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
 import static ch.alv.batches.master.to.jobdesk.FullMasterToJobdeskConfiguration.BATCH_JOB_JOBDESK_FULLRELOAD;
+import static ch.alv.batches.boom.BoomConfiguration.BOOM_JOBDESK_FULLRELOAD;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,6 +36,7 @@ public class BoomIntegrationTest {
     @Test
     public void testFindAndExecuteJobs() throws InterruptedException {
         List<String> jobNames = restTemplate.getForObject("http://localhost:" + port + "/batch/monitoring/jobs", List.class);
+        assertEquals(8, jobNames.size());
         assertTrue(jobNames.contains(IMPORT_COMPANIES_JOB));
         assertTrue(jobNames.contains(IMPORT_PARTNERJOB_JOB));
         assertTrue(jobNames.contains(BATCH_JOB_LOAD_VACANCIES));
@@ -41,7 +44,7 @@ public class BoomIntegrationTest {
         assertTrue(jobNames.contains(IMPORT_X28_JOBS));
         assertTrue(jobNames.contains(IMPORT_LOCATIONS));
         assertTrue(jobNames.contains(BATCH_JOB_JOBDESK_FULLRELOAD));
-
+        assertTrue(jobNames.contains(BOOM_JOBDESK_FULLRELOAD));
 
         Thread.sleep(5000);
 
