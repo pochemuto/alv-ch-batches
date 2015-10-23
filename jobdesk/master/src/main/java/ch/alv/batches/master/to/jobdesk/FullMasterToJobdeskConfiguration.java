@@ -1,6 +1,6 @@
 package ch.alv.batches.master.to.jobdesk;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.elasticsearch.action.admin.indices.alias.IndicesAliasesRequest;
 import org.elasticsearch.action.admin.indices.alias.IndicesAliasesResponse;
 import org.elasticsearch.action.admin.indices.alias.exists.AliasesExistResponse;
@@ -23,9 +23,9 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -58,8 +58,6 @@ public class FullMasterToJobdeskConfiguration {
     @Resource
     private Job loadAllVacanciesIntoJobdeskJob;
 
-    private final ClassLoader classLoader = getClass().getClassLoader();
-
     private static final DateTimeFormatter datetimeFormatter = DateTimeFormat.forPattern("YYYYMMddHHmmss");
 
     @Bean(name = BATCH_JOB_JOBDESK_FULLRELOAD)
@@ -89,8 +87,9 @@ public class FullMasterToJobdeskConfiguration {
             final String newIndexName = masterToJobdeskSettings.getElasticSearchIndexName()
                     + "_" + datetimeFormatter.print(new DateTime());
             final String importAlias = masterToJobdeskSettings.getElasticSearchImportAlias();
-            final String indexDefinition = FileUtils.readFileToString(
-                    new File(classLoader.getResource(MAPPING_FILE).getFile()));
+
+            ClassPathResource classPathResource = new ClassPathResource(MAPPING_FILE);
+            final String indexDefinition = IOUtils.toString(classPathResource.getInputStream(), "UTF8");
 
             // FIXME check result!!!!
             elasticsearchClient.admin().indices().create(
