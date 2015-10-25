@@ -74,6 +74,7 @@ public class LegacyToMasterConfiguration {
                 .incrementer(new RunIdIncrementer())
                 //.preventRestart()
                 .flow(truncateTableStep())
+                .next(updateLegacyPlz())
                 .next(importLegacyX28JobsStep())
                 // FIXME: should elegantly fail when location table is empty !!!
                 .next(mapJobLocationsStep())     // TODO this step could/should be part of a distinct batch
@@ -92,6 +93,38 @@ public class LegacyToMasterConfiguration {
                 .tasklet(t)
                 .build();
     }
+
+    // FIXME: remove this workaround when Legacy System will be fixed
+    private Step updateLegacyPlz() {
+
+        final String updateQuery = "MERGE INTO oste_x28"+
+                "\n"+
+                "USING"+
+                "\n"+
+                "("+
+                "\n"+
+                "  SELECT STELLENNUMMERAVAM, arbeitsort_plz"+
+                "\n"+
+                "  FROM egov_avam.oste_avam" +
+                "\n"+
+                ") ta ON (ta.stellennummeravam = oste_x28.STELLENNUMMER_AVAM)"+
+                "\n"+
+                "WHEN MATCHED THEN UPDATE"+
+                "\n"+
+                "    SET oste_x28.arbeitsort_plz = ta.arbeitsort_plz";
+
+        Tasklet t = (contribution, context) -> {
+
+            this.legacyDataSource().getConnection().prepareStatement(updateQuery).execute();
+
+            return RepeatStatus.FINISHED;
+        };
+
+        return steps.get(IMPORT_X28_JOBS + "-updateLegacyPlz")
+                .tasklet(t)
+                .build();
+    }
+
 
     private Step importLegacyX28JobsStep() throws ClassNotFoundException {
 
