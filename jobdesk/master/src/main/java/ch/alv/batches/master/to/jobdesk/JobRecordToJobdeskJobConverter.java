@@ -50,10 +50,10 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
         setFulltimeFlag(in, out);
         setExternalFlag(in, out);
         setISCOCodes(in, out);
+        setCompany(in, out);
 
         if (!out.isExternal()) {
             setApplication(in, out);
-            setCompany(in, out);
             setContact(in, out);
         }
 
@@ -115,22 +115,28 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
 
     private void setCompany(JobRecord in, JobdeskJob out) {
         JobdeskJobCompany company = new JobdeskJobCompany();
-        company.setName(in.getCompanyName());
-        company.setAddress(new JobdeskCompanyAddress(
-                in.getCompanyAddress(),
-                in.getCompanyZip(),
-                in.getCompanyCity(),
-                in.getCompanyCountry()
-        ));
-        company.setPoAddress(new JobdeskCompanyPostboxAddress(
-                in.getCompanyPoNumber(),
-                String.valueOf(in.getCompanyPoZip()),
-                String.valueOf(in.getCompanyPoCity())
-        ));
 
-        company.setPhone(in.getCompanyPhone());
-        company.setEmail(in.getCompanyEmail());
-        company.setUrl(in.getCompanyUrl());
+        company.setName(in.getCompanyName());
+
+        if (!out.isExternal()) {
+            company.setAddress(new JobdeskCompanyAddress(
+                    in.getCompanyAddress(),
+                    in.getCompanyZip(),
+                    in.getCompanyCity(),
+                    in.getCompanyCountry()
+            ));
+
+            company.setPoAddress(new JobdeskCompanyPostboxAddress(
+                    in.getCompanyPoNumber(),
+                    String.valueOf(in.getCompanyPoZip()),
+                    String.valueOf(in.getCompanyPoCity())
+            ));
+
+            company.setPhone(in.getCompanyPhone());
+            company.setEmail(in.getCompanyEmail());
+            company.setUrl(in.getCompanyUrl());
+        }
+
         out.setCompany(company);
     }
 

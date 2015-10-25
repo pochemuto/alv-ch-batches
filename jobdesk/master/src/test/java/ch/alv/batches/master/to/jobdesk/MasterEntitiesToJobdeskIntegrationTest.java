@@ -10,7 +10,6 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
@@ -27,6 +26,7 @@ import java.io.IOException;
 
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskIntegrationTest {
 
@@ -54,7 +54,7 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
     }
 
     // FIXME address @BeforeClass static / Spring DI conflicts, to be able to split this monolithic Test Suite
-    @Ignore // Skipped because of an "SQL integration conflict" with the other FullMaster test
+    //@Ignore // Skipped because of an "SQL integration conflict" with the other FullMaster test
     @Test
     public void doTests() throws
     //public void importAllLocations() throws
@@ -97,6 +97,8 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
         assertEquals(7.555, location.getCoords().getLon(), 0.0);
         assertEquals(46.876, location.getCoords().getLat(), 0.0);
 
+
+
         SearchResponse search = elasticsearchClient
                 .prepareSearch(elasticsearchIndexName)
                 .setTypes(LocationsToJobdeskConfiguration.ELASTICSEARCH_TYPE)
@@ -128,6 +130,10 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
         assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(loadAllVacanciesIntoJobdeskJob));
         waitUntilElasticSearchBulkIsFinished(VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE, 13591);
 
+        //
+        // Internal Job Offer
+        //
+
         response = elasticsearchClient.prepareGet(
                 elasticsearchIndexName,
                 VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE,
@@ -143,6 +149,17 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
         assertEquals("00000589019", job.getJobIdAvam());
         assertEquals("230141180", job.getJobIdEgov());
         assertEquals("thailändische Köchin", job.getTitle().getDe());
+        assertEquals("Für die Wintersaison, vom 01. Dezember 2015 bis Ende März 2016, suchen wir zur Ergänzung unseres Teams eine thailändische Köchin. Sie bringen bereits Erfahrung mit im Kochen von thailändischen Gerichten.\n" +
+                " \n" +
+                "Wir freuen uns auf Ihre Bewerbung.", job.getDescription().getDe());
+
+// FIXME        assertEquals(new LocalDate(2015, 12, 1).toDate(), job.getStartDate());
+// FIXME        assertEquals(new LocalDate(2016, 4, 31).toDate(), job.getEndDate());
+
+        assertEquals("Hinnästall", job.getCompany().getName());
+        assertEquals("Gafriedastrasse 21", job.getCompany().getAddress().getStreet());
+        assertEquals("Max", job.getContact().getFirstName());
+        // TODO full company/contact details (with better anonymous data), quotaTo/From, ...
 
         assertEquals(1, job.getLocation().getLocations().size());
         assertEquals(8897, job.getLocation().getLocations().get(0).getZip().longValue());
@@ -164,6 +181,42 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
         //Assert.assertEquals(22, job.getLanguages().get(1).getLanguageCode());
         //Assert.assertEquals(4, job.getLanguages().get(1).getSpokenCode());
         //Assert.assertEquals(5, job.getLanguages().get(1).getWrittenCode());
+
+        //
+        // External Job Offer
+        //
+        response = elasticsearchClient.prepareGet(
+                elasticsearchIndexName,
+                VacanciesToJobdeskConfiguration.ELASTICSEARCH_TYPE,
+                "6965898ec075064b1104ac94b406c22acfcff844b6f35cc7a56a761f28a77b2f406726a85c4b82d8"
+        ).execute().actionGet();
+        sourceAsString = response.getSourceAsString();
+        job = ow2.readValue(sourceAsString);
+
+
+        // FIXME id or not id?
+        assertEquals("6965898ec075064b1104ac94b406c22acfcff844b6f35cc7a56a761f28a77b2f406726a85c4b82d8", job.getJobId());
+        assertEquals(null, job.getJobIdAvam());
+        assertEquals(null, job.getJobIdEgov());
+        assertTrue(job.isExternal());
+        assertTrue(job.isFulltime());
+        assertEquals("Entwicklungsingenieur", job.getTitle().getDe());
+        assertEquals("http://www.jobs.ch/de/job_content.php?iid=6595213", job.getUrl());
+// FIXME assertEquals(new LocalDate(2015, 9, 23).toDate(), job.getPublicationDate());
+
+        assertEquals("Sauter Building Control Schweiz AG", job.getCompany().getName());
+        assertEquals(null, job.getCompany().getAddress());
+
+        assertEquals(1, job.getLocation().getLocations().size());
+        assertEquals(4001, job.getLocation().getLocations().get(0).getZip().longValue());
+        assertEquals(47.556, job.getLocation().getLocations().get(0).getGeoLocation().getLat(), 0);
+        assertEquals(7.588, job.getLocation().getLocations().get(0).getGeoLocation().getLon(), 0);
+
+        assertEquals("2", job.getIsco().getGroupLevel1());
+        assertEquals("21", job.getIsco().getGroupLevel2());
+        assertEquals("214", job.getIsco().getGroupLevel3());
+        assertEquals("2140", job.getIsco().getGroupLevel4());
+        assertEquals(job.getIsco().getMajorGroup(), job.getIsco().getGroupLevel1());
 
     }
 
