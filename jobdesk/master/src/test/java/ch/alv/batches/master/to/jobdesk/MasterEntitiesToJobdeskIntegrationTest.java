@@ -172,15 +172,10 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
         assertEquals("5120", job.getIsco().getGroupLevel4());
         assertEquals(job.getIsco().getMajorGroup(), job.getIsco().getGroupLevel1());
 
-
-        //Assert.assertEquals(2, job.getLanguages().size());
-        //Assert.assertEquals(20, job.getLanguages().get(0).getLanguageCode());
-        //Assert.assertEquals(2, job.getLanguages().get(0).getSpokenCode());
-        //Assert.assertEquals(3, job.getLanguages().get(0).getWrittenCode());
-
-        //Assert.assertEquals(22, job.getLanguages().get(1).getLanguageCode());
-        //Assert.assertEquals(4, job.getLanguages().get(1).getSpokenCode());
-        //Assert.assertEquals(5, job.getLanguages().get(1).getWrittenCode());
+        Assert.assertEquals(1, job.getLanguages().size());
+        Assert.assertEquals(1, job.getLanguages().get(0).getLanguageCode());
+        Assert.assertEquals(2, job.getLanguages().get(0).getSpokenCode());
+        Assert.assertEquals(3, job.getLanguages().get(0).getWrittenCode());
 
         //
         // External Job Offer
@@ -218,6 +213,7 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
         assertEquals("2140", job.getIsco().getGroupLevel4());
         assertEquals(job.getIsco().getMajorGroup(), job.getIsco().getGroupLevel1());
 
+        Assert.assertEquals(0, job.getLanguages().size());
     }
 
 }

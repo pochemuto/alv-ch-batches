@@ -33,6 +33,7 @@ public class LegacyToMasterIntegrationTest {
         // FIXME Add content expectations !!! totals should be :
         // - job: 24433
         // - job_location: 13591
+        // - job_language: 4879
     }
 
 }

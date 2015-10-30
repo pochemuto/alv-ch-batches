@@ -57,7 +57,7 @@
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
-                            <includes>^JOB|LOCATION|JOB_LOCATION$</includes>
+                            <includes>^JOB|LOCATION|JOB_.*$</includes>
                         </database>
                         <target>
                             <packageName>ch.alv.batches.legacy.to.master.jooq</packageName>

@@ -1,6 +1,7 @@
 package ch.alv.batches.master.to.jobdesk;
 
 
+import ch.alv.batches.master.to.jobdesk.jooq.Keys;
 import ch.alv.batches.master.to.jobdesk.jooq.tables.records.JobRecord;
 import ch.alv.batches.master.to.jobdesk.jooq.tables.records.LocationRecord;
 import ch.alv.batches.master.to.jobdesk.model.*;
@@ -10,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import static ch.alv.batches.master.to.jobdesk.jooq.Tables.*;
@@ -32,6 +34,12 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
 
     @Override
     public JobdeskJob process(JobRecord in) throws Exception {
+
+        // FIXME: if possible, find a way to ensure this step upstream ?!!!
+        if (in.configuration() == null) {
+            in.attach(jooq.configuration());
+        }
+
         JobdeskJob out = new JobdeskJob();
         mapSimpleData(in, out);
         mapComplexData(in, out);
@@ -59,7 +67,7 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
 
         retrieveAndSetJobLocations(in, out);
 
-        // FIXME retrieveAndSetLanguages(in, out);
+        retrieveAndSetLanguages(in, out);
 
     }
 
@@ -101,6 +109,14 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
         // the jackson mapper outputs nulled fields (noisy...)
         locationRecords.forEach(l -> location.addLocation(Integer.parseInt(l.getZip()), l.getLat(), l.getLon()));
         out.setLocation(location);
+    }
+
+    private void retrieveAndSetLanguages(JobRecord in, JobdeskJob out) throws SQLException {
+        List<JobdeskLanguage> languages = new LinkedList<>();
+        in.fetchChildren(Keys.JOB_LANGUAGE__JOB_LANGUAGE_JOB_ID_FK).forEach(
+            r -> languages.add(new JobdeskLanguage(r.getLanguageId(), r.getSkillSpoken(), r.getSkillWritten()))
+        );
+        out.setLanguages(languages);
     }
 
     private void setApplication(JobRecord in, JobdeskJob out) {
@@ -149,16 +165,6 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
                 in.getContactEmail()
         ));
     }
-
-//    private void retrieveAndSetLanguages(JobRecord in, JobdeskJob out) throws SQLException {
-//        out.setLanguages(jdbcTemplate.query(jooq.select().from(JOB_LANGUAGE).where(JOB_LANGUAGE.JOB_ID.eq(in.getId())).getSQL().replace("?", in.getId().toString()), (resultSet, i) -> {
-//            return new JobdeskLanguage(
-//                    resultSet.getInt(JOB_LANGUAGE.LANGUAGE_ID.getName()),
-//                    resultSet.getInt(JOB_LANGUAGE.SKILL_SPOKEN.getName()),
-//                    resultSet.getInt(JOB_LANGUAGE.SKILL_WRITTEN.getName())
-//            );
-//        }));
-//    }
 
     private void setFulltimeFlag(JobRecord in, JobdeskJob out) {
         if (100 == in.getQuotaFrom() && 100 == in.getQuotaTo()) {

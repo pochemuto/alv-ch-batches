@@ -1,11 +1,15 @@
 package ch.alv.batches.legacy.to.master;
 
+import ch.alv.batches.commons.sql.JdbcCursorItemReaderFactory;
 import ch.alv.batches.commons.sql.JdbcReaderJooqWriterStepFactory;
+import ch.alv.batches.commons.sql.JooqBatchWriter;
+import ch.alv.batches.commons.sql.JooqLinkedTablesBatchWriter;
 import ch.alv.batches.legacy.to.master.jooq.tables.records.JobLocationRecord;
 import ch.alv.batches.legacy.to.master.jooq.tables.records.JobRecord;
 import ch.alv.batches.legacy.to.master.jooq.tables.records.LocationRecord;
 import org.jooq.Cursor;
 import org.jooq.DSLContext;
+import org.jooq.UpdatableRecord;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -23,6 +27,9 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
+import java.util.Collection;
+import java.util.List;
 
 import static ch.alv.batches.legacy.to.master.jooq.Tables.*;
 /**
@@ -128,9 +135,9 @@ public class LegacyToMasterConfiguration {
 
     private Step importLegacyX28JobsStep() throws ClassNotFoundException {
 
-        String className =  JOOQ_PACKAGES_PATH + ".JobRecord";
+        String className = JOOQ_PACKAGES_PATH + ".JobRecord";
 
-        Integer chunkSize = 1000;
+        Integer chunkSize = 2500;
         String selectQuery = "select\n" +
                 "    ID as JOB_ID,\n" +
                 "    STELLENNUMMER_AVAM as JOB_ID_AVAM,\n" +
@@ -175,13 +182,25 @@ public class LegacyToMasterConfiguration {
                 "    KP_EMAIL as CONTACT_EMAIL,\n" +
                 "    SOURCE as SOURCE,\n" +
                 "    to_date(ANMELDE_DATUM, 'YYYY-MM-DD-HH24:MI:SS.\"000000\"') as PUBLICATION_DATE,\n" +
-                "    ISCO_08_CODE as ISCO08_ID\n" +
+                "    ISCO_08_CODE as ISCO08_ID,\n" +
+                // Job Language Stuff
+                "    SK1_SPRACHE_CODE, SK1_MUENDLICH_CODE, SK1_SCHRIFTLICH_CODE,\n" +
+                "    SK2_SPRACHE_CODE, SK2_MUENDLICH_CODE, SK2_SCHRIFTLICH_CODE,\n" +
+                "    SK3_SPRACHE_CODE, SK3_MUENDLICH_CODE, SK3_SCHRIFTLICH_CODE,\n" +
+                "    SK4_SPRACHE_CODE, SK4_MUENDLICH_CODE, SK4_SCHRIFTLICH_CODE,\n" +
+                "    SK5_SPRACHE_CODE, SK5_MUENDLICH_CODE, SK5_SCHRIFTLICH_CODE\n" +
+
                 "from Z_JOBDESK2\n" +
                 // FIXME remove the where condition when view is up to date!
                 "where ARBEITSORT_TEXT != 'Ausland'" +
                 "";
 
-        return jrjwFactory.buildStep(IMPORT_X28_JOBS + "-fillJobTableStep", chunkSize, selectQuery, className);
+        //return jrjwFactory.buildStep(IMPORT_X28_JOBS + "-fillJobTableStep", chunkSize, selectQuery, className);
+        return steps.get(IMPORT_X28_JOBS + "-fillJobTableStep")
+                .<Collection<? extends UpdatableRecord<?>>, List<UpdatableRecord<?>>> chunk(chunkSize)
+                .reader(new LegacyX28JobItemReader(selectQuery, chunkSize, legacyDataSource()))
+                .writer(new LegacyX28JobBatchWriter(jooq))
+                .build();
     }
 
 
