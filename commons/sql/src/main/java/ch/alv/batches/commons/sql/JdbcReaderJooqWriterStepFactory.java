@@ -7,6 +7,8 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 
 import javax.sql.DataSource;
 
+import static ch.alv.batches.commons.sql.JdbcCursorItemReaderFactory.buildJdbcCursorItemReader;
+
 /**
  * TODO Explain why not implemented as Spring Bean Singleton (i.e. multiple JDBC sources, etc.)
  */
@@ -37,8 +39,7 @@ public class JdbcReaderJooqWriterStepFactory {
 
         return steps.get(stepName)
                 .<UpdatableRecord<?>, UpdatableRecord<?>> chunk(chunkSize)
-                .reader(JdbcCursorItemReaderFactory
-                        .buildJdbcCursorItemReader(mappedClass, selectQuery, chunkSize, inputDataSource))
+                .reader(buildJdbcCursorItemReader(mappedClass, selectQuery, chunkSize, inputDataSource))
                 .writer(new JooqBatchWriter(outputJooq))
                 .build();
     }
