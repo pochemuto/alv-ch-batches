@@ -1,9 +1,6 @@
 package ch.alv.batches.legacy.to.master;
 
-import ch.alv.batches.commons.sql.JdbcCursorItemReaderFactory;
 import ch.alv.batches.commons.sql.JdbcReaderJooqWriterStepFactory;
-import ch.alv.batches.commons.sql.JooqBatchWriter;
-import ch.alv.batches.commons.sql.JooqLinkedTablesBatchWriter;
 import ch.alv.batches.legacy.to.master.jooq.tables.records.JobLocationRecord;
 import ch.alv.batches.legacy.to.master.jooq.tables.records.JobRecord;
 import ch.alv.batches.legacy.to.master.jooq.tables.records.LocationRecord;
@@ -27,7 +24,6 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-
 import java.util.Collection;
 import java.util.List;
 
