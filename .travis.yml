@@ -13,6 +13,9 @@ env:
     - MAVEN_ARGS="--settings test/travis/maven-config.xml"
     - MAVEN_DEPLOY_ARGS="$MAVEN_ARGS -DskipTests=true"
 
+before_install:
+  - pip install --user codecov
+
 install:
 
   # login to pull private docker images
@@ -27,7 +30,8 @@ install:
   - ./test/elasticsearch/create-jobdesk-index.sh
 
 script:
-  - mvn clean cobertura:cobertura coveralls:report $MAVEN_ARGS
+#  - mvn clean cobertura:cobertura coveralls:report $MAVEN_ARGS
+  - mvn clean install $MAVEN_ARGS
 
   # Rebuild without Cobertura Instrumentation and Upload the built Artifacts
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
@@ -45,3 +49,5 @@ notifications:
 #   directories:
 #     - '$HOME/.m2/repository'
 
+after_success:
+  - codecov
