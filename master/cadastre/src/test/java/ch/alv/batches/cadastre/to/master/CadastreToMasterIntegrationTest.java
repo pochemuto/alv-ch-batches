@@ -5,6 +5,7 @@ import ch.alv.batches.commons.test.SimpleTestApplication;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
 import org.jooq.DSLContext;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.ExitStatus;
@@ -33,6 +34,7 @@ public class CadastreToMasterIntegrationTest {
     @Resource
     private SpringBatchTestHelper springBatchHelper;
 
+    @Ignore
     @Test
     public void runTest() throws Exception {
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importLocationJobs));
