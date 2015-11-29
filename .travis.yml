@@ -32,6 +32,11 @@ script:
   # Rebuild without Cobertura Instrumentation and Upload the built Artifacts
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
 
+notifications:
+  webhooks:
+    # trigger Buildtime Trend Service to parse Travis CI log
+    - https://buildtimetrend.herokuapp.com/travis
+    
 #   # Trick to avoid useless S3 cache updates
 #   # (force this step to always return 0, as it might fail for some unkown reasons, so far...)
 #   - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
