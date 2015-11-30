@@ -32,7 +32,7 @@ before_install:
   - ./test/sql/master/create-master-db-schema.sh
   - ./test/elasticsearch/create-jobdesk-index.sh
 
-install: mvn clean install $MAVEN_ARGS_SKIPT_TESTS
+install: mvn clean install $MAVEN_ARGS_SKIP_TESTS
 
 script:
   - mvn test $MAVEN_ARGS
