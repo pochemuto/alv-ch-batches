@@ -9,8 +9,9 @@ nb_containers=0
 
 cd $(dirname $0)/../docker/
 
-echo "Docker Compose Up (without Legacy DB)!"
+#echo "Docker Compose Up (without Legacy DB)!"
 docker-compose up -d master_db jobdesk_es
+docker-compose up -d legacy_db
 
 until [ $nb_containers -eq $TOTAL ]
 do

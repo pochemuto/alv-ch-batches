@@ -25,7 +25,7 @@ public class LegacyToMasterIntegrationTest {
     @Resource
     private SpringBatchTestHelper springBatchHelper;
 
-    @Ignore
+//    @Ignore
     @Test
     public void runTest() throws Exception {
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importX28Jobs));
