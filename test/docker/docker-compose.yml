@@ -6,7 +6,7 @@ legacy_db:
     - 1521:1521
     - 8080:8080
 
-  image: alvch-docker-dockerv2-local.artifactoryonline.com/alvch/oracle_xe_11g_jobroom:20151013
+  image: alvch-docker-dockerv2-local.artifactoryonline.com/alvch/oracle_xe_11g_jobroom_with_egov_avam:20151103
 
 
 master_db:
