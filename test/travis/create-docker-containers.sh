@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOTAL=2
+TOTAL=3
 WAIT_STEP=10
 WAIT_MAX=60
 
@@ -20,7 +20,7 @@ echo "Docker Compose Up!"
 docker-compose up -d master_db jobdesk_es
 docker-compose up -d legacy_db
 
-until [ $nb_containers -eq $TOTAL ]
+until [ $nb_containers -eq $TOTAL ] || [ $wait_total -gt $WAIT_MAX ]
 do
   sleep $WAIT_STEP;
   wait_total=$(($wait_total + $WAIT_STEP))
@@ -30,8 +30,9 @@ do
   echo "Waiting for the $TOTAL containers to be up and ready... (started: $nb_containers in $wait_total seconds)"
 done
 
-echo "Docker Compose looks Ready:"
+echo "Docker Compose status:"
 docker-compose ps
 
 cd -
 
+# TODO return a Basic result status (OK if nb containers is as expected...)
