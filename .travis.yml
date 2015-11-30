@@ -21,9 +21,6 @@ env:
 before_install:
   - pip install --user codecov
 
-  # login to pull private docker images
-  # - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
-
   # stop default PostgreSQL service (port conflict)
   - sudo service postgresql stop
 
@@ -32,7 +29,8 @@ before_install:
   - ./test/sql/master/create-master-db-schema.sh
   - ./test/elasticsearch/create-jobdesk-index.sh
 
-install: mvn clean install $MAVEN_ARGS_SKIP_TESTS
+install:
+  - mvn clean install $MAVEN_ARGS_SKIP_TESTS
 
 script:
   - mvn test $MAVEN_ARGS

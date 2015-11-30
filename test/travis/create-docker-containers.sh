@@ -9,7 +9,14 @@ nb_containers=0
 
 cd $(dirname $0)/../docker/
 
-#echo "Docker Compose Up (without Legacy DB)!"
+echo "Docker versions"
+docker --version
+docker-compose --version
+
+echo "Docker Login to pull private images"
+docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
+
+echo "Docker Compose Up!"
 docker-compose up -d master_db jobdesk_es
 docker-compose up -d legacy_db
 
