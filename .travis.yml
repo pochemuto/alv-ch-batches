@@ -11,12 +11,15 @@ jdk:
 env:
   global:
     - MAVEN_ARGS="--settings test/travis/maven-config.xml"
-    - MAVEN_DEPLOY_ARGS="$MAVEN_ARGS -DskipTests=true"
+    - MAVEN_ARGS_SKIP_TESTS="$MAVEN_ARGS -DskipTests=true"
+
+# Disabled, because File Caching is only available on Docker-based environment
+# cache:
+#   directories:
+#     - '$HOME/.m2/repository'
 
 before_install:
   - pip install --user codecov
-
-install:
 
   # login to pull private docker images
   # - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
@@ -29,25 +32,24 @@ install:
   - ./test/sql/master/create-master-db-schema.sh
   - ./test/elasticsearch/create-jobdesk-index.sh
 
-script:
-#  - mvn clean cobertura:cobertura coveralls:report $MAVEN_ARGS
-  - mvn clean install $MAVEN_ARGS
+install: mvn clean install $MAVEN_ARGS_SKIPT_TESTS
 
-  # Rebuild without Cobertura Instrumentation and Upload the built Artifacts
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_DEPLOY_ARGS ; fi
+script:
+  - mvn test $MAVEN_ARGS
+
+  # Publish the Artifacts built from master branch
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_ARGS_SKIPT_TESTS ; fi
+
+# DISABLED, because S3 caching is only available in docker-based environment
+#
+#   # Trick to avoid useless S3 cache updates
+#   # (force this step to always return 0, as it might fail for some unkown reasons, so far...)
+#   - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
+
+after_success:
+  - codecov
 
 notifications:
   webhooks:
     # trigger Buildtime Trend Service to parse Travis CI log
     - https://buildtimetrend.herokuapp.com/travis
-    
-#   # Trick to avoid useless S3 cache updates
-#   # (force this step to always return 0, as it might fail for some unkown reasons, so far...)
-#   - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
-
-# cache:
-#   directories:
-#     - '$HOME/.m2/repository'
-
-after_success:
-  - codecov
