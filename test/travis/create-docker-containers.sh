@@ -9,10 +9,18 @@ nb_containers=0
 
 cd $(dirname $0)/../docker/
 
-echo "Docker Compose Up (without Legacy DB)!"
-docker-compose up -d master_db jobdesk_es
+echo "Docker versions"
+docker --version
+docker-compose --version
 
-until [ $nb_containers -eq $TOTAL ]
+#echo "Docker Login to pull private images"
+#docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
+
+echo "Docker Compose Up (without private images)!"
+docker-compose up -d master_db jobdesk_es
+#docker-compose up -d legacy_db
+
+until [ $nb_containers -eq $TOTAL ] || [ $wait_total -gt $WAIT_MAX ]
 do
   sleep $WAIT_STEP;
   wait_total=$(($wait_total + $WAIT_STEP))
@@ -22,8 +30,9 @@ do
   echo "Waiting for the $TOTAL containers to be up and ready... (started: $nb_containers in $wait_total seconds)"
 done
 
-echo "Docker Compose looks Ready:"
+echo "Docker Compose status:"
 docker-compose ps
 
 cd -
 
+# TODO return a Basic result status (OK if nb containers is as expected...)
