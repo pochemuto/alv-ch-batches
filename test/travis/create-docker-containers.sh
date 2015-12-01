@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOTAL=3
+TOTAL=2
 WAIT_STEP=10
 WAIT_MAX=60
 
@@ -13,12 +13,12 @@ echo "Docker versions"
 docker --version
 docker-compose --version
 
-echo "Docker Login to pull private images"
-docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
+#echo "Docker Login to pull private images"
+#docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_PRIVATE_REPO
 
-echo "Docker Compose Up!"
+echo "Docker Compose Up (without private images)!"
 docker-compose up -d master_db jobdesk_es
-docker-compose up -d legacy_db
+#docker-compose up -d legacy_db
 
 until [ $nb_containers -eq $TOTAL ] || [ $wait_total -gt $WAIT_MAX ]
 do
