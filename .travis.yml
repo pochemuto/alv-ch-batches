@@ -36,7 +36,7 @@ script:
   - mvn test $MAVEN_ARGS
 
   # Publish the Artifacts built from master branch
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_ARGS_SKIPT_TESTS ; fi
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_ARGS_SKIP_TESTS ; fi
 
 # DISABLED, because S3 caching is only available in docker-based environment
 #
