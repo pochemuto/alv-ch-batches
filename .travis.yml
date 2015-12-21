@@ -19,7 +19,6 @@ env:
 #     - '$HOME/.m2/repository'
 
 before_install:
-  - pip install --user codecov
 
   # stop default PostgreSQL service (port conflict)
   - sudo service postgresql stop
@@ -45,7 +44,7 @@ script:
 #   - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
 
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   webhooks:
