@@ -10,6 +10,7 @@ jdk: oraclejdk9
 
 env:
   global:
+    - MAVEN_SKIP_RC=true
     - MAVEN_ARGS="--settings test/travis/maven-config.xml"
     - MAVEN_DEPLOY_ARGS="$MAVEN_ARGS -DskipTests=true"
 
