@@ -74,6 +74,13 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>jdk.tools</groupId>
+            <artifactId>jdk.tools</artifactId>
+            <scope>system</scope>
+            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+        </dependency>
+
         <!-- project-wide dependencies -->
 
         <dependency>
