@@ -7,14 +7,14 @@ public class JobdeskLanguage {
 
     private int languageCode;
 
-    private Integer spokenCode;
+    private Short spokenCode;
 
-    private Integer writtenCode;
+    private Short writtenCode;
 
     public JobdeskLanguage() {
     }
 
-    public JobdeskLanguage(int languageCode, Integer spokenCode, Integer writtenCode) {
+    public JobdeskLanguage(int languageCode, Short spokenCode, Short writtenCode) {
         this.languageCode = languageCode;
         this.spokenCode = spokenCode;
         this.writtenCode = writtenCode;
@@ -28,19 +28,19 @@ public class JobdeskLanguage {
         this.languageCode = languageCode;
     }
 
-    public Integer getSpokenCode() {
+    public Short getSpokenCode() {
         return spokenCode;
     }
 
-    public void setSpokenCode(Integer spokenCode) {
+    public void setSpokenCode(Short spokenCode) {
         this.spokenCode = spokenCode;
     }
 
-    public Integer getWrittenCode() {
+    public Short getWrittenCode() {
         return writtenCode;
     }
 
-    public void setWrittenCode(Integer writtenCode) {
+    public void setWrittenCode(Short writtenCode) {
         this.writtenCode = writtenCode;
     }
 }
