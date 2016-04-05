@@ -174,8 +174,8 @@ public class MasterEntitiesToJobdeskIntegrationTest extends MasterToJobdeskInteg
 
         Assert.assertEquals(1, job.getLanguages().size());
         Assert.assertEquals(1, job.getLanguages().get(0).getLanguageCode());
-        Assert.assertEquals(2, job.getLanguages().get(0).getSpokenCode());
-        Assert.assertEquals(3, job.getLanguages().get(0).getWrittenCode());
+        Assert.assertEquals(2, job.getLanguages().get(0).getSpokenCode().intValue());
+        Assert.assertEquals(3, job.getLanguages().get(0).getWrittenCode().intValue());
 
         //
         // External Job Offer
