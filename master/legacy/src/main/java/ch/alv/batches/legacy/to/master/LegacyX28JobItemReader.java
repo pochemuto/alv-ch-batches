@@ -63,9 +63,14 @@ public class LegacyX28JobItemReader extends JdbcCursorItemReader<Collection<? ex
                 JobLanguageRecord jl = new JobLanguageRecord();
 
                 jl.setLanguageId(Integer.parseInt(rs.getString(columnLanguageCode)));
-                jl.setSkillSpoken(Short.parseShort(rs.getString(columnSpokenCode)));
-                jl.setSkillWritten(Short.parseShort(rs.getString(columnWrittenCode)));
-
+                
+                if (rs.getString(columnSpokenCode) != null) {
+                    jl.setSkillSpoken(Short.parseShort(rs.getString(columnSpokenCode)));
+                }
+                if (rs.getString(columnWrittenCode) != null) {
+                    jl.setSkillWritten(Short.parseShort(rs.getString(columnWrittenCode)));
+                }
+                
                 records.add(jl);
             } else {
                 break;

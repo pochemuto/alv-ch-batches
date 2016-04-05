@@ -74,8 +74,8 @@ CREATE TABLE JOB_LOCATION ( JOB_ID INTEGER NOT NULL,
 -- FIXME JOB_ID 2 meanings!
 CREATE TABLE JOB_LANGUAGE ( JOB_ID INTEGER NOT NULL,
                             LANGUAGE_ID INTEGER NOT NULL,
-                            SKILL_SPOKEN SMALLINT NOT NULL, -- TODO should be enum 1..4, or restricted with a check constraint
-                            SKILL_WRITTEN SMALLINT NOT NULL,
+                            SKILL_SPOKEN SMALLINT, -- TODO should be enum 1..4, or restricted with a check constraint
+                            SKILL_WRITTEN SMALLINT,
                             PRIMARY KEY(JOB_ID, LANGUAGE_ID),
                             CONSTRAINT JOB_LANGUAGE_JOB_ID_FK FOREIGN KEY (JOB_ID) REFERENCES JOB ON DELETE CASCADE
                           );
