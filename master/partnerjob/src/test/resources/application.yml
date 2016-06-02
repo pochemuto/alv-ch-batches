@@ -11,5 +11,14 @@ ch:
         prospective: 20
 
     partnerjob:
-      prospective:
-        url: http://localhost:8180/prospective_feed.xml
+      sources:
+
+        partner1:
+          name: "crazy white-on-red-cross jobs"
+          mode: HTTP
+          uri:  http://localhost:8180/partner1_feed.xml
+
+        partner2:
+          name: "awesome yellow jobs"
+          mode: HTTP
+          uri:  http://localhost:8180/partner2_feed.xml

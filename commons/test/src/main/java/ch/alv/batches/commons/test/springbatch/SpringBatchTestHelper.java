@@ -11,9 +11,12 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.util.Map;
 
 @Component
 public class SpringBatchTestHelper {
+
+    private static String RUN_ID_PARAMETER_KEY = "run.id";
 
     @Value("classpath:org/springframework/batch/core/schema-drop-postgresql.sql")
     private org.springframework.core.io.Resource dropSpringBatchSchemaScript;
@@ -27,8 +30,8 @@ public class SpringBatchTestHelper {
     @Resource
     private DataSource dataSource;
 
+    private JobParameters lastExecutedJobParameters = null;
     private JobParametersIncrementer idIncrementer = new RunIdIncrementer();
-    private JobParameters jobParameters = new JobParameters();
 
     // The method below can be used when SpringBatch metadata tables are not stored
     // in a separate In-Memory database, but for instance stored in the main JDBC
@@ -46,8 +49,24 @@ public class SpringBatchTestHelper {
             JobRestartException,
             JobInstanceAlreadyCompleteException,
             JobParametersInvalidException {
-        jobParameters = idIncrementer.getNext(jobParameters);
-        JobExecution exec = jobLauncher.run(job, jobParameters);
+        return runJob(job, null);
+    }
+
+    public ExitStatus runJob(Job job, Map<String, JobParameter> customJobParameters) throws
+            JobExecutionAlreadyRunningException,
+            JobRestartException,
+            JobInstanceAlreadyCompleteException,
+            JobParametersInvalidException {
+
+        JobParameters parameters = idIncrementer.getNext(lastExecutedJobParameters);
+
+        if (customJobParameters != null) {
+            customJobParameters.put(RUN_ID_PARAMETER_KEY, parameters.getParameters().get(RUN_ID_PARAMETER_KEY));
+            parameters = new JobParameters(customJobParameters);
+        }
+
+        lastExecutedJobParameters = parameters;
+        JobExecution exec = jobLauncher.run(job, parameters);
         return exec.getExitStatus();
     }
 }

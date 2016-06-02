@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static ch.alv.batches.company.to.master.jooq.Tables.*;
+import static ch.alv.batches.company.to.master.jooq.Tables.AVG_FIRMEN;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SimpleTestApplication.class)
@@ -187,13 +187,7 @@ public class CompanyToMasterIntegrationTest {
                 .sortAsc(AVG_FIRMEN.ID);
 
         Assert.assertEquals(66, fetchedCompanies.size());
-
-        while (!fetchedCompanies.isEmpty() && !checkCompanies.isEmpty()) {
-            AvgFirmenRecord result = fetchedCompanies.remove(0);
-            AvgFirmenRecord check = checkCompanies.remove(0);
-
-            Assert.assertEquals(0, result.compareTo(check));
-        }
+        Assert.assertArrayEquals(checkCompanies.toArray(), fetchedCompanies.subList(0, 5).toArray());
 
         while (!fetchedCompanies.isEmpty()) {
             AvgFirmenRecord result = fetchedCompanies.remove(0);

@@ -59,7 +59,6 @@ public class SpringBatchTestDummyJobFactory {
                 .build();
     }
 
-
     private Step buildDummyReadWriteStep(String stepName, int chunkSize, ItemReader reader, ItemWriter writer) {
         return steps.get(stepName)
                 .chunk(chunkSize)
