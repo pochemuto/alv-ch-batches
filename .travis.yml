@@ -13,10 +13,9 @@ env:
     - MAVEN_ARGS="--settings test/travis/maven-config.xml"
     - MAVEN_ARGS_SKIP_TESTS="$MAVEN_ARGS -DskipTests=true"
 
-# Disabled, because File Caching is only available on Docker-based environment
-# cache:
-#   directories:
-#     - '$HOME/.m2/repository'
+cache:
+  directories:
+    - '$HOME/.m2/repository'
 
 before_install:
 
@@ -37,11 +36,9 @@ script:
   # Publish the Artifacts built from master branch
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn clean deploy $MAVEN_ARGS_SKIP_TESTS ; fi
 
-# DISABLED, because S3 caching is only available in docker-based environment
-#
-#   # Trick to avoid useless S3 cache updates
-#   # (force this step to always return 0, as it might fail for some unkown reasons, so far...)
-#   - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
+  # Trick to avoid useless S3 cache updates
+  # (force this step to always return 0, as it might fail for some unkown reasons, so far...)
+  - mv $HOME/.m2/repository/ch/alv /tmp/cache-trick || /bin/true
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
