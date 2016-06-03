@@ -1,0 +1,41 @@
+---
+
+- name: Install PostgreSQL
+
+  hosts: all
+
+  become: yes
+  become_user: root
+
+  vars:
+    postgresql_listen_addresses:
+      - '*'
+
+    postgresql_version: 9.4
+    postgresql_encoding: 'UTF-8'
+    postgresql_locale: 'en_US.UTF-8'
+    postgresql_admin_user: "postgres"
+    postgresql_default_auth_method: "trust"
+    postgresql_cluster_name: "main"
+    postgresql_cluster_reset: false
+
+    postgresql_pg_hba_custom:
+      - { type: host, database: alvch_db_name, user: alvch_db_username, address: all, method: password, comment: 'allow developer remote connection' }
+
+    postgresql_users:
+      - name: alvch_db_username
+        pass: alvch_db_password
+        encrypted: no # denotes if the password is already encrypted.
+
+    postgresql_user_privileges:
+      - name: alvch_db_username
+        db: alvch_db_name
+        priv: "ALL"
+        role_attr_flags: "SUPERUSER"
+
+    postgresql_databases:
+      - name: alvch_db_name
+        owner: alvch_db_username
+
+  roles:
+    - ANXS.postgresql
