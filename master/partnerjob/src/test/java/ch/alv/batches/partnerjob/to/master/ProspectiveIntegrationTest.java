@@ -3,6 +3,7 @@ package ch.alv.batches.partnerjob.to.master;
 import ch.alv.batches.commons.sql.SqlDataTypesHelper;
 import ch.alv.batches.commons.test.SimpleTestApplication;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
+import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -46,6 +47,9 @@ import static org.junit.Assert.*;
 @SpringApplicationConfiguration(classes = SimpleTestApplication.class)
 @IntegrationTest
 public class ProspectiveIntegrationTest {
+
+    @Resource
+    private PartnerJobToMasterConfiguration configuration;
 
     @Resource
     private Job importPartnerjobsJob;
@@ -144,6 +148,7 @@ public class ProspectiveIntegrationTest {
             JobInstanceAlreadyCompleteException,
             IOException,
             SQLException {
+
         Integer partner1CountBeforeImport = jooq.fetchCount(
                 jooq.selectFrom(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_1))
         );
@@ -188,6 +193,44 @@ public class ProspectiveIntegrationTest {
 
         assertEquals(DESC_MAX_LENGTH, fetchedJob.getBeschreibung().length());
         assertEquals(DESC_TRUNCATE_SUFFIX, fetchedJob.getBeschreibung().substring(DESC_MAX_LENGTH - DESC_TRUNCATE_SUFFIX.length()));
+    }
+
+    @Test
+    public void testThatExistingDataIsNotRemovedWhenHttpUrlIsInvalid() throws
+            JobParametersInvalidException,
+            JobExecutionAlreadyRunningException,
+            JobRestartException,
+            JobInstanceAlreadyCompleteException,
+            IOException,
+            SQLException {
+
+        Map<String, JobParameter> validParameters = new HashMap<>();
+        validParameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter(PARTNER_CODE_2));
+
+        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importPartnerjobsJob, validParameters));
+
+        int initialCount = jooq.fetchCount(
+                jooq.selectFrom(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2))
+        );
+        assertNotEquals(0, initialCount);
+
+        // Change the Partner2 URI to an invalid URL
+        String originalUri = configuration.getSources().get(PARTNER_CODE_2).getUri();
+        configuration.getSources().get(PARTNER_CODE_2).setUri("http://localhost:666/404");
+
+        Map<String, JobParameter> invalidParameters = new HashMap<>();
+        invalidParameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter(PARTNER_CODE_2));
+
+        ExitStatus jobResult = springBatchHelper.runJob(importPartnerjobsJob, invalidParameters);
+        int count = jooq.fetchCount(
+                jooq.selectFrom(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2))
+        );
+
+        // Restore the original URL before making the test assertions... (for other unit tests)
+        configuration.getSources().get(PARTNER_CODE_2).setUri(originalUri);
+
+        assertEquals(ExitStatus.FAILED, jobResult);
+        assertEquals(initialCount, count);
     }
 
     private OstePartnerRecord initJob1() {
