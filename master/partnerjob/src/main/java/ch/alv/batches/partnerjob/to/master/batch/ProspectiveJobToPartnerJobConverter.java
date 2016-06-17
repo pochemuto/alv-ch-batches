@@ -7,6 +7,7 @@ import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemProcessor;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.UUID;
 
@@ -49,9 +50,10 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
         partnerJob.setBeschreibung(partnerJob.getBeschreibung().trim());
         partnerJob.setId(UUID.randomUUID().toString());
         partnerJob.setUntName(prospectiveJob.getKundenname().trim());
-        partnerJob.setBerufsgruppe(Integer.valueOf(prospectiveJob.getMetadaten().getTmp10().trim()));
+        partnerJob.setBerufsgruppe(Long.valueOf(prospectiveJob.getMetadaten().getTmp10().trim()));
         partnerJob.setArbeitsortPlz(prospectiveJob.getMetadaten().getXtmp20().trim());
-        partnerJob.setAnmeldeDatum(fromGregorianCalendar(prospectiveJob.getDatumStart().toGregorianCalendar()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'-00.00.00.000000'");
+        partnerJob.setAnmeldeDatum(sdf.format(prospectiveJob.getDatumStart().toGregorianCalendar().getTime()));
         String[] quotaData = prospectiveJob.getMetadaten().getXtmp30().trim().split("-");
         partnerJob.setPensumVon(Integer.valueOf(quotaData[0].trim()));
         if (quotaData.length == 1) {
@@ -60,7 +62,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
             partnerJob.setPensumBis(Integer.valueOf(quotaData[1].trim()));
         }
         partnerJob.setUrlDetail(prospectiveJob.getUrlDirektlink().trim());
-        partnerJob.setSprache(prospectiveJob.getSprache().trim());
+        // not available in legacy database: partnerJob.setSprache(prospectiveJob.getSprache().trim());
         return partnerJob;
     }
 }

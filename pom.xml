@@ -62,14 +62,14 @@
         <module>commons/test</module>
         <module>commons/web</module>
 
-        <module>integration/boom</module>
+        <!--<module>integration/boom</module>-->
 
-        <module>jobdesk/master</module>
+        <!--<module>jobdesk/master</module>-->
 
-        <module>master/cadastre</module>
-        <module>master/company</module>
+        <!--<module>master/cadastre</module>-->
+        <!--<module>master/company</module>-->
         <!--<module>master/lamda</module>-->
-        <module>master/legacy</module>
+        <!--<module>master/legacy</module>-->
         <module>master/partnerjob</module>
     </modules>
 
@@ -114,12 +114,11 @@
         <!-- runtime dependencies -->
 
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>${oracle.version}</version>
             <scope>runtime</scope>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>
@@ -219,8 +218,13 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate.validator.version}</version>
             </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.jooq</groupId>-->
+                <!--<artifactId>jooq</artifactId>-->
+                <!--<version>${jooq.version}</version>-->
+            <!--</dependency>-->
             <dependency>
-                <groupId>org.jooq</groupId>
+                <groupId>org.jooq.trial</groupId>
                 <artifactId>jooq</artifactId>
                 <version>${jooq.version}</version>
             </dependency>
@@ -298,7 +302,7 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.jooq</groupId>
+                    <groupId>org.jooq.trial</groupId>
                     <artifactId>jooq-codegen-maven</artifactId>
                     <version>${jooq.version}</version>
                     <executions>
@@ -318,12 +322,12 @@
                         <generator>
                             <name>org.jooq.util.JavaGenerator</name>
                             <database>
-                                <name>org.jooq.util.postgres.PostgresDatabase</name>
+                                <name>org.jooq.util.oracle.OracleDatabase</name>
                                 <includes>.*</includes>
                                 <excludes></excludes>
                                 <schemata>
                                     <schema>
-                                        <inputSchema>public</inputSchema>
+                                        <inputSchema>JOBROOM</inputSchema>
                                         <outputSchema></outputSchema>
                                     </schema>
                                 </schemata>

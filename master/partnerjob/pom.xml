@@ -51,13 +51,13 @@
                 <artifactId>properties-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.jooq</groupId>
+                <groupId>org.jooq.trial</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <configuration>
                     <generator>
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
-                            <name>org.jooq.util.postgres.PostgresDatabase</name>
+                            <name>org.jooq.util.oracle.OracleDatabase</name>
                             <includes>^OSTE_PARTNER.*</includes>
                         </database>
                         <target>
