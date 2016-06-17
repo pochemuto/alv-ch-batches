@@ -1,7 +1,17 @@
+# directory names black-list
 .idea
 target
 tmp
 wip
+
+# potentially contains sensitive/secret information
+*/main/resources/application.yml
+
+# generated test files
+/test/vagrant/roles
+/test/vagrant/.vagrant*
+
+# file extensions black-list
 *.iml
 *.retry
 

@@ -1,4 +1,4 @@
-drop schema public cascade;
+drop schema if exists public cascade;
 create schema public;
 
 \i company.sql

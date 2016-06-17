@@ -31,8 +31,15 @@ ch:
         url: ftp://user:pw@anyhost:2015/AVAMPSTS.xml
 
     partnerjob:
-      prospective:
-        url: http://your.partner.xyz/jobs-feed.xml
+      sources:
+        xyz:
+          name: Partner XYZ
+          mode: HTTP
+          uri: http://your.partner.xyz/jobs-feed.xml
+        abc:
+          name: ABC AG
+          mode: HTTP
+          uri: http://other.partner.abc/jobs?oo=O_o
 
     jobdesk:
       java_api:

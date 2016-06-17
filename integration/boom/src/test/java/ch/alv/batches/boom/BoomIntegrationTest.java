@@ -16,7 +16,7 @@ import static ch.alv.batches.company.to.master.CompanyToMasterConfiguration.IMPO
 import static ch.alv.batches.legacy.to.master.LegacyToMasterConfiguration.IMPORT_X28_JOBS;
 import static ch.alv.batches.master.to.jobdesk.LocationsToJobdeskConfiguration.BATCH_JOB_LOAD_LOCATIONS;
 import static ch.alv.batches.master.to.jobdesk.VacanciesToJobdeskConfiguration.BATCH_JOB_LOAD_VACANCIES;
-import static ch.alv.batches.partnerjob.to.master.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
+import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
 import static ch.alv.batches.master.to.jobdesk.FullMasterToJobdeskConfiguration.BATCH_JOB_JOBDESK_FULLRELOAD;
 import static ch.alv.batches.boom.BoomConfiguration.BOOM_JOBDESK_FULLRELOAD;
 
