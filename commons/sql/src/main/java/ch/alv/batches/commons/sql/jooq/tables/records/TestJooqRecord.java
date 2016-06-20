@@ -5,16 +5,14 @@ package ch.alv.batches.commons.sql.jooq.tables.records;
 
 
 import ch.alv.batches.commons.sql.jooq.tables.TestJooq;
-
-import java.math.BigDecimal;
-
-import javax.annotation.Generated;
-
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record2;
 import org.jooq.Row2;
 import org.jooq.impl.UpdatableRecordImpl;
+
+import javax.annotation.Generated;
+import java.math.BigDecimal;
 
 
 /**
