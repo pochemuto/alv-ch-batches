@@ -21,13 +21,8 @@ ch:
 
     master:
       database:
-        driverClassName: org.postgresql.Driver
-        host: localhost
-        port: 5432
-        name: alvch_db_name
-        url: jdbc:postgresql://${ch.alv.master.database.host}:${ch.alv.master.database.port}/${ch.alv.master.database.name}
-        username: alvch_db_username
-        password: alvch_db_password
+        port: 1521
+        driverClassName: oracle.jdbc.driver.OracleDriver
         defaultAutoCommit: true # TODO switch to false by default?
 
     jobdesk:

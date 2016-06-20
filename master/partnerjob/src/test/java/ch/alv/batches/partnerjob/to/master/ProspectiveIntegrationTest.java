@@ -1,6 +1,5 @@
 package ch.alv.batches.partnerjob.to.master;
 
-import ch.alv.batches.commons.sql.SqlDataTypesHelper;
 import ch.alv.batches.commons.test.SimpleTestApplication;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
 import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
@@ -11,7 +10,6 @@ import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
-import org.joda.time.LocalDate;
 import org.jooq.DSLContext;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -238,14 +236,14 @@ public class ProspectiveIntegrationTest {
         job1.setBeschreibung("Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
                 "<b>Direktion für europäische Angelegenheiten DEA</b> Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
                 "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)");
-        job1.setBerufsgruppe(10);
+        job1.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
         job1.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         job1.setArbeitsortPlz("3002");
         job1.setPensumVon(80);
         job1.setPensumBis(100);
         job1.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
-        job1.setAnmeldeDatum(SqlDataTypesHelper.fromJodaLocalDate(LocalDate.parse("2015-06-11")));
-        job1.setSprache("de");
+        job1.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        // job1.setSprache("de");
         return job1;
     }
 
@@ -270,14 +268,14 @@ public class ProspectiveIntegrationTest {
                 "<br/>Dann freuen wir uns auf die Zustellung Ihrer Bewerbungsunterlagen per E-Mail an: hr-center-basel@ezv.admin.ch Eidgenössisches Finanzdepartement EFD<br/>\n" +
                 "<b>Eidgenössische Zollverwaltung EZV</b> Fachliche Auskünfte erteilt Ihnen gerne:<br/>\n" +
                 "<br/>Eidgenössische Zollverwaltung<br/>HR-Center Basel<br/>Elisabethenstrasse 31<br/>4010 Basel<br/>Telefon: +41 58 469 11 30<br/>www.gwk.ch");
-        j.setBerufsgruppe(11);
+        j.setBerufsgruppe(11L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössische Zollverwaltung EZV");
         j.setArbeitsortPlz("8038");
         j.setPensumVon(80);
         j.setPensumBis(80);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E259D738-0559-E806-E9C3077F15A49B16");
-        j.setAnmeldeDatum(SqlDataTypesHelper.fromJodaLocalDate(LocalDate.parse("2015-06-11")));
-        j.setSprache("de");
+        j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        // j.setSprache("de");
         return j;
     }
 
@@ -291,14 +289,14 @@ public class ProspectiveIntegrationTest {
                 "<br/>Nel dinamico contesto della politica europea, il/la titolare del posto sarà l'esperto/a della DAE per tutte le questioni fiscali legate all'Unione europea, in stretta collaborazione con la Segreteria di Stato per le questioni finanziarie internazionali (SFI). In seno alla DAE, sarà inoltre responsabile di tutte le questioni generali legate alla politica della concorrenza e agli aiuti di Stato, dell'accordo bilaterale sulla lotta contro la frode, nonché dei dossier di politica regionale e della cooperazione transfrontaliera.<br/>\n" +
                 "<br/>Monitorerà autonomamente gli sviluppi registrati nell'UE nel settore di sua competenza: in particolare esaminerà la compatibilità delle bozze di atti giuridici e degli affari del Consiglio federale con gli impegni della Svizzera nell'ambito della politica europea, delineerà opzioni operative ed elaborerà la posizione della DAE. Il/la titolare del posto rappresenterà la DAE in differenti comitati e gruppi di lavoro dell'Amministrazione, nonché nel quadro dei negoziati con l'UE. All'occorrenza effettuerà viaggi a Bruxelles e opererà a stretto contatto con la Missione della Svizzera presso l'Unione europea. <b>Requisiti</b>\n" +
                 "<br/>Comprovato interesse per la politica europea della Svizzera e, nel caso ideale, prime esperienze professionali e conoscenze nel campo d'attività previsto dal posto. Diploma universitario (idealmente diritto, scienze politiche o ambiti affini) e capacità di ragionare in modo interdisciplinare, tenendo conto di considerazioni giuridiche, economiche, nonché di politica este...");
-        j.setBerufsgruppe(10);
+        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(40);
         j.setPensumBis(50);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6818-B845-086C-C7C94F50F21A3A7E");
-        j.setAnmeldeDatum(SqlDataTypesHelper.fromJodaLocalDate(LocalDate.parse("2015-06-12")));
-        j.setSprache("it");
+        j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
+        // j.setSprache("it");
         return j;
     }
 
@@ -312,14 +310,14 @@ public class ProspectiveIntegrationTest {
                 "<br/>Dans le contexte dynamique de la politique européenne, vous serez l'expert/e de la DAE pour toutes les questions fiscales en lien avec l'Union européenne, en étroite collaboration avec le Secrétariat d'Etat aux questions financières internationales (SIF). Au sein de la DAE, vous serez également responsable de toutes les questions générales liées à la politique de la concurrence et aux aides d'Etat, de l'accord bilatéral sur la lutte contre la fraude, ainsi que des dossiers de la politique régionale et de la coopération transfrontalière.<br/>\n" +
                 "<br/>Vous suivrez de manière autonome les développements au sein de l'UE dans votre domaine de compétence, contrôlerez notamment des projets d'actes juridiques et d'affaires du Conseil fédéral sous l'angle de leur compatibilité avec les engagements pris par la Suisse en matière de politique européenne, esquisserez les actions envisageables et élaborerez les prises de position de la DAE. Vous représenterez cette dernière dans différents comités et groupes de travail de l'administration ainsi que dans les négociations avec l'UE. Le cas échéant, vous serez amené/e à voyager à Bruxelles et serez en contact régulier avec la Mission de la Suisse auprès de l'UE. <b>Profil demandé</b>\n" +
                 "<br/>Vous vous intéressez vivement à la politique européenne de la Suisse et justifiez, idéalement, de premières expériences professionnelles et de connaissances dans le domaine d'activité qui vous sera confié. Titulaire d'un diplôme universitaire (idéalement en droit,...");
-        j.setBerufsgruppe(10);
+        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6A4A-AA9A-1576-51595322160A0B4F");
-        j.setAnmeldeDatum(SqlDataTypesHelper.fromJodaLocalDate(LocalDate.parse("2015-06-12")));
-        j.setSprache("fr");
+        j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
+        // j.setSprache("fr");
         return j;
     }
 
@@ -334,14 +332,14 @@ public class ProspectiveIntegrationTest {
                 "<br/>Sie verfolgen selbständig die Entwicklungen in der EU im Zuständigkeitsbereich ihrer Dossiers, prüfen u.a. Entwürfe für Rechtserlasse und Bundesratsgeschäfte hinsichtlich ihrer Kompatibilität mit den europapolitischen Verpflichtungen der Schweiz, skizzieren Handlungsoptionen und erarbeiten die DEA-Position. Sie vertreten die DEA in Ausschüssen und Arbeitsgruppen innerhalb der Verwaltung und bei Verhandlungen mit der EU. Hierfür reisen Sie gegebenenfalls nach Brüssel und stehen in engem Kontakt mit der dortigen Schweizer Mission. <b>Anforderungen</b>\n" +
                 "<br/>Sie haben ein ausgewiesenes Interesse an der schweizerischen Europapolitik und bringen idealerweise erste Arbeitserfahrungen und Kenntnisse im Aufgabenbereich der Stelle mit. Sie verfügen über einen Hochschulabschluss (idealerweise Recht, Politikwissenschaft oder ähnlich) und zeichnen sich durch die Fähigkeit zu interdisziplinärem Denken im Spannungsfeld zwischen (innen- und aussen-)politischen, juristischen und wirtschaftlichen Gesichtspunkten aus.<br/>\n" +
                 "<br/>Wir richten uns an eine belastbare, flexible...");
-        j.setBerufsgruppe(10);
+        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(80);
         j.setPensumBis(80);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6B83-9607-C2FE-2BA8743DC442BC94");
-        j.setAnmeldeDatum(SqlDataTypesHelper.fromJodaLocalDate(LocalDate.parse("2015-06-12")));
-        j.setSprache("de");
+        j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
+        // j.setSprache("de");
         return j;
     }
 
@@ -352,14 +350,14 @@ public class ProspectiveIntegrationTest {
         j.setBeschreibung("Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
                 "<b>Direktion für europäische Angelegenheiten DEA</b> Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
                 "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)");
-        j.setBerufsgruppe(10);
+        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("3002");
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
-        j.setAnmeldeDatum(SqlDataTypesHelper.fromJodaLocalDate(LocalDate.parse("2015-06-11")));
-        j.setSprache("de");
+        j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        // j.setSprache("de");
         return j;
     }
 

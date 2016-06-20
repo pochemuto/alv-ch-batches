@@ -1,0 +1,9 @@
+ch:
+  alv:
+    master:
+      database:
+        host: <db-host>
+        name: <db-sid>
+        username: <db-user>
+        password: <db-password>
+        url: jdbc:oracle:thin:@${ch.alv.master.database.host}:${ch.alv.master.database.port}:${ch.alv.master.database.name}

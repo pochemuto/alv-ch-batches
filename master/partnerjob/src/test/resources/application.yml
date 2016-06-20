@@ -1,7 +1,7 @@
 ---
 spring:
   profiles:
-    # project convention: shared settings are defined config/application-test.yml
+    # project convention: shared settings are defined /test/maven/config/...
     active: test
 
 ch:
