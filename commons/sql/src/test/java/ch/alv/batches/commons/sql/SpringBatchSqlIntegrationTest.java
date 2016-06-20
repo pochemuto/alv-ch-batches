@@ -38,12 +38,15 @@ public class SpringBatchSqlIntegrationTest {
     private DSLContext jooq;
 
     @Before
-    public void setup() throws SQLException {
+    public void setup() {
+        String createTable = "CREATE TABLE TEST_JOOQ (ID INTEGER PRIMARY KEY, VAL1 VARCHAR2(255 CHAR))";
 
-        String createTable = "DROP TABLE IF EXISTS TEST_JOOQ; CREATE TABLE TEST_JOOQ (ID INTEGER PRIMARY KEY, VAL1 TEXT)";
-        Connection c = database.getConnection();
-        c.createStatement().execute(createTable);
-
+        try {
+            Connection c = database.getConnection();
+            c.createStatement().execute(createTable);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @After
