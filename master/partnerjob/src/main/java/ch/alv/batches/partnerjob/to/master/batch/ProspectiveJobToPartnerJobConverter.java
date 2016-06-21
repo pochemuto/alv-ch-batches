@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.UUID;
 
-import static ch.alv.batches.commons.sql.SqlDataTypesHelper.fromGregorianCalendar;
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE;
 
 /**
@@ -38,10 +37,10 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
         OstePartnerRecord partnerJob = new OstePartnerRecord();
         partnerJob.setQuelle(partnerCode);
         partnerJob.setBezeichnung(prospectiveJob.getStellentitel().trim());
-        partnerJob.setBeschreibung(prospectiveJob.getTexte().getText1().trim() + " " +
-                prospectiveJob.getTexte().getText2().trim() + " " +
-                prospectiveJob.getTexte().getText3().trim() + " " +
-                prospectiveJob.getTexte().getText4().trim() + " " +
+        partnerJob.setBeschreibung(prospectiveJob.getTexte().getText1().trim() + "\n" +
+                prospectiveJob.getTexte().getText2().trim() + "\n" +
+                prospectiveJob.getTexte().getText3().trim() + "\n" +
+                prospectiveJob.getTexte().getText4().trim() + "\n" +
                 prospectiveJob.getTexte().getText5().trim());
         if (partnerJob.getBeschreibung().length() > DESC_MAX_LENGTH) {
             partnerJob.setBeschreibung(partnerJob.getBeschreibung()
