@@ -65,38 +65,30 @@
                                                     <xs:element type="xs:string" name="text_3"/>
                                                     <xs:element type="xs:string" name="text_4"/>
                                                     <xs:element type="xs:string" name="text_5"/>
+                                                    <xs:element type="xs:string" name="text_6" minOccurs="0"/>
+                                                    <xs:element type="xs:string" name="text_7" minOccurs="0"/>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
                                         <xs:element name="metadaten">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element type="xs:string" name="xcontracttype" minOccurs="0"/>
-                                                    <xs:element type="xs:int" name="contracttype" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xjobstatus" minOccurs="0"/>
-                                                    <xs:element type="xs:int" name="jobstatus" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xindustries" minOccurs="0"/>
-                                                    <xs:element type="xs:int" name="industries" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xplz" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="plz" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xjoblocationcity" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="joblocationcity" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xlocations" minOccurs="0"/>
-                                                    <xs:element type="xs:short" name="locations" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xcareerlevel" minOccurs="0"/>
-                                                    <xs:element type="xs:int" name="careerlevel" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xjobsummary" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="jobsummary" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xkeywords" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="keywords" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="rubrik" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xrubrik" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="xtmp_10" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="tmp_10" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="xtmp_20" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="tmp_20" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="xtmp_30" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="tmp_30" minOccurs="1"/>
+                                                    <xs:element type="xs:string" name="xjobcategory"/>
+                                                    <xs:element type="xs:int" name="jobcategory"/>
+                                                    <xs:element type="xs:string" name="xzipcode" minOccurs="0"/>
+                                                    <xs:element type="xs:string" name="zipcode" minOccurs="1"/>
+                                                    <xs:element type="xs:string" name="xplace" minOccurs="0"/>
+                                                    <xs:element type="xs:string" name="place"/>
+                                                    <xs:element type="xs:int" name="xpensumvon" minOccurs="0"/>
+                                                    <xs:element type="xs:int" name="pensumvon" minOccurs="1"/>
+                                                    <xs:element type="xs:int" name="xpensumbis" minOccurs="0"/>
+                                                    <xs:element type="xs:int" name="pensumbis" minOccurs="1"/>
+                                                    <xs:element type="xs:string" name="xjobduration"/>
+                                                    <xs:element type="xs:int" name="jobduration" minOccurs="1"/>
+                                                    <xs:element type="xs:string" name="xeducation"/>
+                                                    <xs:element type="xs:string" name="education"/>
+                                                    <xs:element type="xs:string" name="xexperience"/>
+                                                    <xs:element type="xs:string" name="experience"/>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
