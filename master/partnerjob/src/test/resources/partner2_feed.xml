@@ -3,23 +3,23 @@
     <inserate>
         <ordercount>1</ordercount>
         <inserat>
-                <!-- XING spezifisch Start -->
-                <poster_url>
-<![CDATA[https://www.xing.com/profile/null]]>
-</poster_url>
-                <order_id>657425</order_id>
-                <organization_id>999</organization_id>
-                <COMPANY_PROFILE_URL>
-<![CDATA[https://www.xing.com/companies/bundesverwaltung]]>
-</COMPANY_PROFILE_URL>
-                <!-- XING spezifisch End -->
+            <!-- XING spezifisch Start -->
+            <poster_url>
+                <![CDATA[https://www.xing.com/profile/null]]>
+            </poster_url>
+            <order_id>657425</order_id>
+            <organization_id>999</organization_id>
+            <COMPANY_PROFILE_URL>
+                <![CDATA[https://www.xing.com/companies/bundesverwaltung]]>
+            </COMPANY_PROFILE_URL>
+            <!-- XING spezifisch End -->
             <hierarchien>
                 <hierarchieid>
-<![CDATA[]]>
-</hierarchieid>
+                    <![CDATA[]]>
+                </hierarchieid>
                 <hierarchietext>
-<![CDATA[]]>
-</hierarchietext>
+                    <![CDATA[]]>
+                </hierarchietext>
             </hierarchien>
             <inserat_id>3492462</inserat_id>
             <medienname>job-room.ch Schnittstelle</medienname>
@@ -34,36 +34,31 @@
             <datum_mutation>2015-06-11</datum_mutation>
             <kontakt>
                 <firma>Eidgenössisches Departement für auswärtige Angelegenheiten</firma>
-                <abteilung>
-</abteilung>
-                <anrede>
-</anrede>
-                <titel>
-</titel>
+                <abteilung/>
+                <anrede/>
+                <titel/>
                 <name>DEA</name>
                 <vorname>Direktion für europäische Angelegenheiten</vorname>
                 <adresse1>Freiburgstrasse 130</adresse1>
                 <adresse2>EDA</adresse2>
-                <adresse3>
-</adresse3>
+                <adresse3/>
                 <plz>3003</plz>
                 <ort>Bern</ort>
                 <land>Schweiz</land>
                 <land_iso2>CH</land_iso2>
                 <land_iso3>CHE</land_iso3>
-                <telefon>  </telefon>
-                <mail>
-</mail>
+                <telefon/>
+                <mail/>
             </kontakt>
             <stellentitel>
-<![CDATA[Teststelle Partner2]]>
-</stellentitel>
+                <![CDATA[Teststelle Partner2]]>
+            </stellentitel>
             <vorspann>
-<![CDATA[Dies ist die Kurzbeschreibung, die verwendet werden kann.]]>
-</vorspann>
-                <texte>
-                    <text_1>
-<![CDATA[Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
+                <![CDATA[Dies ist die Kurzbeschreibung, die verwendet werden kann.]]>
+            </vorspann>
+            <texte>
+                <text_1>
+                    <![CDATA[Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
 
 Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
 
@@ -80,9 +75,9 @@ Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia
 Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
 
 Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.]]>
-</text_1>
-                    <text_2>
-<![CDATA[Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
+                </text_1>
+                <text_2>
+                    <![CDATA[Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
 
 Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
 
@@ -99,52 +94,51 @@ Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia
 Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
 
 Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.]]>
-</text_2>
-                    <text_3>
-<![CDATA[]]>
-</text_3>
-                    <text_4>
-<![CDATA[Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>
+                </text_2>
+                <text_3>
+                    <![CDATA[]]>
+                </text_3>
+                <text_4>
+                    <![CDATA[Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>
 <b>Direktion für europäische Angelegenheiten DEA</b>]]>
-</text_4>
-                    <text_5>
-<![CDATA[Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>
+                </text_4>
+                <text_5>
+                    <![CDATA[Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>
 <br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)]]>
-</text_5>
-                </texte>
+                </text_5>
+            </texte>
             <metadaten>
-                    <xtmp_10>
-<![CDATA[Administration/Verwaltung/Management]]>
-</xtmp_10>
-                    <tmp_10>
-<![CDATA[10]]>
-</tmp_10>
-                    <xtmp_20>
-<![CDATA[3002]]>
-</xtmp_20>
-                    <tmp_20>
-<![CDATA[3002]]>
-</tmp_20>
-                    <xtmp_30>
-<![CDATA[80 - 100]]>
-</xtmp_30>
-                    <tmp_30>
-<![CDATA[0]]>
-</tmp_30>
-                    <xtmp_30_p>
-<![CDATA[80]]>
-</xtmp_30_p>
-                    <tmp_30_p>
-<![CDATA[0]]>
-</tmp_30_p>
+                <xtmp_10>
+                    <![CDATA[Administration/Verwaltung/Management]]>
+                </xtmp_10>
+                <tmp_10>
+                    <![CDATA[10]]>
+                </tmp_10>
+                <xtmp_20>
+                    <![CDATA[3002]]>
+                </xtmp_20>
+                <tmp_20>
+                    <![CDATA[3002]]>
+                </tmp_20>
+                <xtmp_30>
+                    <![CDATA[80 - 100]]>
+                </xtmp_30>
+                <tmp_30>
+                    <![CDATA[0]]>
+                </tmp_30>
+                <xtmp_30_p>
+                    <![CDATA[80]]>
+                </xtmp_30_p>
+                <tmp_30_p>
+                    <![CDATA[0]]>
+                </tmp_30_p>
             </metadaten>
             <url_bewerber>
-<![CDATA[]]>
-</url_bewerber>
+                <![CDATA[]]>
+            </url_bewerber>
             <url_direktlink>
-<![CDATA[http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71]]>
-</url_direktlink>
-            </inserat>
+                <![CDATA[http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71]]>
+            </url_direktlink>
+        </inserat>
     </inserate>
 </interface>
- 
