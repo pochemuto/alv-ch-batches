@@ -98,12 +98,12 @@ public class PartnerJobToMasterConfiguration implements InitializingBean {
     }
 
     private Step fetchAndImportNewPartnerJobsStep() throws MalformedURLException, URISyntaxException, SQLException {
-        Jaxb2Marshaller PartnerjobXmlUnmarshaller = new Jaxb2Marshaller();
-        PartnerjobXmlUnmarshaller.setPackagesToScan("ch.alv.batches.partnerjob.to.master.jaxb");
+        Jaxb2Marshaller unmarshaller = new Jaxb2Marshaller();
+        unmarshaller.setPackagesToScan("ch.alv.batches.partnerjob.to.master.jaxb");
 
         ProspectiveJobXmlItemReader partnerjobXmlReader = new ProspectiveJobXmlItemReader(sources);
         partnerjobXmlReader.setFragmentRootElementName("inserat");
-        partnerjobXmlReader.setUnmarshaller(PartnerjobXmlUnmarshaller);
+        partnerjobXmlReader.setUnmarshaller(unmarshaller);
 
         return steps.get("fetchAndImportNewPartnerJobsStep")
                 .<ProspectiveJob, OstePartnerRecord>chunk(prospectiveChunkSize)
