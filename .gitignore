@@ -7,6 +7,7 @@ wip
 # potentially contains sensitive/secret information
 */main/resources/application.yml
 /test/maven/config/application-test.yml
+/maven-config.properties
 
 # generated test files
 /test/vagrant/roles
