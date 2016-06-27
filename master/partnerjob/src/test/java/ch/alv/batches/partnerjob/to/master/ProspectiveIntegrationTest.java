@@ -242,7 +242,7 @@ public class ProspectiveIntegrationTest {
                 "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
                 "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)"
         );
-        job1.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
+        job1.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
         job1.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         job1.setArbeitsortPlz("3002");
         job1.setPensumVon(80);
@@ -280,7 +280,7 @@ public class ProspectiveIntegrationTest {
                 "Fachliche Auskünfte erteilt Ihnen gerne:<br/>\n" +
                 "<br/>Eidgenössische Zollverwaltung<br/>HR-Center Basel<br/>Elisabethenstrasse 31<br/>4010 Basel<br/>Telefon: +41 58 469 11 30<br/>www.gwk.ch"
         );
-        j.setBerufsgruppe(11L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(2L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössische Zollverwaltung EZV");
         j.setArbeitsortPlz("8038");
         j.setPensumVon(80);
@@ -317,7 +317,7 @@ public class ProspectiveIntegrationTest {
                 "<br/>\n" +
                 "<br/>Per ulteriori informazioni è a disposizione signor Fabian Mahnig, caposezione, <br/>tel. 058 462 23 13."
         );
-        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(12L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(40);
@@ -354,7 +354,7 @@ public class ProspectiveIntegrationTest {
                 "<br/>\n" +
                 "<br/>Pour tout renseignement complémentaire, n'hésitez pas à contacter Monsieur Fabian Mahnig, chef de section, <br/>tél. 058 462 23 13."
         );
-        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(14L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(80);
@@ -391,11 +391,11 @@ public class ProspectiveIntegrationTest {
                 "<br/>\n" +
                 "<br/>Für zusätzliche Informationen steht Ihnen Herr Fabian Mahnig, Sektionsleiter, Tel. 058 462 23 13, gerne zur Verfügung."
         );
-        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(80);
-        j.setPensumBis(80);
+        j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6B83-9607-C2FE-2BA8743DC442BC94");
         j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
         // j.setSprache("de");

@@ -1,3 +1,11 @@
+//
+// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.11 
+// Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+// Généré le : 2016.06.26 à 09:20:28 AM CEST 
+//
+
+
 package ch.alv.batches.partnerjob.to.master.jaxb;
 
 import javax.xml.bind.annotation.*;
@@ -37,7 +45,7 @@ public class ProspectiveJob {
     protected String kundenname;
     protected int layout;
     protected int logo;
-    @XmlElement(name = "sprache", required = true)
+    @XmlElement(required = true)
     protected String sprache;
     @XmlElement(name = "datum_start", required = true)
     @XmlSchemaType(name = "date")
@@ -65,17 +73,17 @@ public class ProspectiveJob {
     protected String urlDirektlink;
 
     /**
-     * Ruft den Wert der posterUrl-Eigenschaft ab.
+     * Obtient la valeur de la propriété posterUrl.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getPosterUrl() {
         return posterUrl;
     }
 
     /**
-     * Legt den Wert der posterUrl-Eigenschaft fest.
+     * Définit la valeur de la propriété posterUrl.
      *
      * @param value allowed object is
      *              {@link String }
@@ -85,17 +93,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der orderId-Eigenschaft ab.
+     * Obtient la valeur de la propriété orderId.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getOrderId() {
         return orderId;
     }
 
     /**
-     * Legt den Wert der orderId-Eigenschaft fest.
+     * Définit la valeur de la propriété orderId.
      *
      * @param value allowed object is
      *              {@link String }
@@ -105,31 +113,31 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der organizationId-Eigenschaft ab.
+     * Obtient la valeur de la propriété organizationId.
      */
     public short getOrganizationId() {
         return organizationId;
     }
 
     /**
-     * Legt den Wert der organizationId-Eigenschaft fest.
+     * Définit la valeur de la propriété organizationId.
      */
     public void setOrganizationId(short value) {
         this.organizationId = value;
     }
 
     /**
-     * Ruft den Wert der companyprofileurl-Eigenschaft ab.
+     * Obtient la valeur de la propriété companyprofileurl.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getCOMPANYPROFILEURL() {
         return companyprofileurl;
     }
 
     /**
-     * Legt den Wert der companyprofileurl-Eigenschaft fest.
+     * Définit la valeur de la propriété companyprofileurl.
      *
      * @param value allowed object is
      *              {@link String }
@@ -139,17 +147,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der hierarchien-Eigenschaft ab.
+     * Obtient la valeur de la propriété hierarchien.
      *
      * @return possible object is
-     * {@link ProspectiveJob.Hierarchien }
+     *         {@link ProspectiveJob.Hierarchien }
      */
     public ProspectiveJob.Hierarchien getHierarchien() {
         return hierarchien;
     }
 
     /**
-     * Legt den Wert der hierarchien-Eigenschaft fest.
+     * Définit la valeur de la propriété hierarchien.
      *
      * @param value allowed object is
      *              {@link ProspectiveJob.Hierarchien }
@@ -159,31 +167,31 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der inseratId-Eigenschaft ab.
+     * Obtient la valeur de la propriété inseratId.
      */
     public int getInseratId() {
         return inseratId;
     }
 
     /**
-     * Legt den Wert der inseratId-Eigenschaft fest.
+     * Définit la valeur de la propriété inseratId.
      */
     public void setInseratId(int value) {
         this.inseratId = value;
     }
 
     /**
-     * Ruft den Wert der medienname-Eigenschaft ab.
+     * Obtient la valeur de la propriété medienname.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getMedienname() {
         return medienname;
     }
 
     /**
-     * Legt den Wert der medienname-Eigenschaft fest.
+     * Définit la valeur de la propriété medienname.
      *
      * @param value allowed object is
      *              {@link String }
@@ -193,45 +201,45 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der medienId-Eigenschaft ab.
+     * Obtient la valeur de la propriété medienId.
      */
     public int getMedienId() {
         return medienId;
     }
 
     /**
-     * Legt den Wert der medienId-Eigenschaft fest.
+     * Définit la valeur de la propriété medienId.
      */
     public void setMedienId(int value) {
         this.medienId = value;
     }
 
     /**
-     * Ruft den Wert der kontoId-Eigenschaft ab.
+     * Obtient la valeur de la propriété kontoId.
      */
     public int getKontoId() {
         return kontoId;
     }
 
     /**
-     * Legt den Wert der kontoId-Eigenschaft fest.
+     * Définit la valeur de la propriété kontoId.
      */
     public void setKontoId(int value) {
         this.kontoId = value;
     }
 
     /**
-     * Ruft den Wert der kundenname-Eigenschaft ab.
+     * Obtient la valeur de la propriété kundenname.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getKundenname() {
         return kundenname;
     }
 
     /**
-     * Legt den Wert der kundenname-Eigenschaft fest.
+     * Définit la valeur de la propriété kundenname.
      *
      * @param value allowed object is
      *              {@link String }
@@ -241,45 +249,45 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der layout-Eigenschaft ab.
+     * Obtient la valeur de la propriété layout.
      */
     public int getLayout() {
         return layout;
     }
 
     /**
-     * Legt den Wert der layout-Eigenschaft fest.
+     * Définit la valeur de la propriété layout.
      */
     public void setLayout(int value) {
         this.layout = value;
     }
 
     /**
-     * Ruft den Wert der logo-Eigenschaft ab.
+     * Obtient la valeur de la propriété logo.
      */
     public int getLogo() {
         return logo;
     }
 
     /**
-     * Legt den Wert der logo-Eigenschaft fest.
+     * Définit la valeur de la propriété logo.
      */
     public void setLogo(int value) {
         this.logo = value;
     }
 
     /**
-     * Ruft den Wert der sprache-Eigenschaft ab.
+     * Obtient la valeur de la propriété sprache.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getSprache() {
         return sprache;
     }
 
     /**
-     * Legt den Wert der sprache-Eigenschaft fest.
+     * Définit la valeur de la propriété sprache.
      *
      * @param value allowed object is
      *              {@link String }
@@ -289,77 +297,77 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der datumStart-Eigenschaft ab.
+     * Obtient la valeur de la propriété datumStart.
      *
      * @return possible object is
-     * {@link javax.xml.datatype.XMLGregorianCalendar }
+     *         {@link XMLGregorianCalendar }
      */
     public XMLGregorianCalendar getDatumStart() {
         return datumStart;
     }
 
     /**
-     * Legt den Wert der datumStart-Eigenschaft fest.
+     * Définit la valeur de la propriété datumStart.
      *
      * @param value allowed object is
-     *              {@link javax.xml.datatype.XMLGregorianCalendar }
+     *              {@link XMLGregorianCalendar }
      */
     public void setDatumStart(XMLGregorianCalendar value) {
         this.datumStart = value;
     }
 
     /**
-     * Ruft den Wert der datumEnde-Eigenschaft ab.
+     * Obtient la valeur de la propriété datumEnde.
      *
      * @return possible object is
-     * {@link javax.xml.datatype.XMLGregorianCalendar }
+     *         {@link XMLGregorianCalendar }
      */
     public XMLGregorianCalendar getDatumEnde() {
         return datumEnde;
     }
 
     /**
-     * Legt den Wert der datumEnde-Eigenschaft fest.
+     * Définit la valeur de la propriété datumEnde.
      *
      * @param value allowed object is
-     *              {@link javax.xml.datatype.XMLGregorianCalendar }
+     *              {@link XMLGregorianCalendar }
      */
     public void setDatumEnde(XMLGregorianCalendar value) {
         this.datumEnde = value;
     }
 
     /**
-     * Ruft den Wert der datumMutation-Eigenschaft ab.
+     * Obtient la valeur de la propriété datumMutation.
      *
      * @return possible object is
-     * {@link javax.xml.datatype.XMLGregorianCalendar }
+     *         {@link XMLGregorianCalendar }
      */
     public XMLGregorianCalendar getDatumMutation() {
         return datumMutation;
     }
 
     /**
-     * Legt den Wert der datumMutation-Eigenschaft fest.
+     * Définit la valeur de la propriété datumMutation.
      *
      * @param value allowed object is
-     *              {@link javax.xml.datatype.XMLGregorianCalendar }
+     *              {@link XMLGregorianCalendar }
      */
     public void setDatumMutation(XMLGregorianCalendar value) {
         this.datumMutation = value;
     }
 
     /**
-     * Ruft den Wert der kontakt-Eigenschaft ab.
+     * Obtient la valeur de la propriété kontakt.
      *
      * @return possible object is
-     * {@link ProspectiveJob.Kontakt }
+     *         {@link ProspectiveJob.Kontakt }
      */
     public ProspectiveJob.Kontakt getKontakt() {
         return kontakt;
     }
 
     /**
-     * Legt den Wert der kontakt-Eigenschaft fest.
+     * Définit la valeur de la propriété kontakt.
      *
      * @param value allowed object is
      *              {@link ProspectiveJob.Kontakt }
@@ -369,17 +377,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der stellentitel-Eigenschaft ab.
+     * Obtient la valeur de la propriété stellentitel.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getStellentitel() {
         return stellentitel;
     }
 
     /**
-     * Legt den Wert der stellentitel-Eigenschaft fest.
+     * Définit la valeur de la propriété stellentitel.
      *
      * @param value allowed object is
      *              {@link String }
@@ -389,17 +397,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der vorspann-Eigenschaft ab.
+     * Obtient la valeur de la propriété vorspann.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getVorspann() {
         return vorspann;
     }
 
     /**
-     * Legt den Wert der vorspann-Eigenschaft fest.
+     * Définit la valeur de la propriété vorspann.
      *
      * @param value allowed object is
      *              {@link String }
@@ -409,17 +417,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der texte-Eigenschaft ab.
+     * Obtient la valeur de la propriété texte.
      *
      * @return possible object is
-     * {@link ProspectiveJob.Texte }
+     *         {@link ProspectiveJob.Texte }
      */
     public ProspectiveJob.Texte getTexte() {
         return texte;
     }
 
     /**
-     * Legt den Wert der texte-Eigenschaft fest.
+     * Définit la valeur de la propriété texte.
      *
      * @param value allowed object is
      *              {@link ProspectiveJob.Texte }
@@ -429,17 +437,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der metadaten-Eigenschaft ab.
+     * Obtient la valeur de la propriété metadaten.
      *
      * @return possible object is
-     * {@link ProspectiveJob.Metadaten }
+     *         {@link ProspectiveJob.Metadaten }
      */
     public ProspectiveJob.Metadaten getMetadaten() {
         return metadaten;
     }
 
     /**
-     * Legt den Wert der metadaten-Eigenschaft fest.
+     * Définit la valeur de la propriété metadaten.
      *
      * @param value allowed object is
      *              {@link ProspectiveJob.Metadaten }
@@ -449,17 +457,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der urlBewerber-Eigenschaft ab.
+     * Obtient la valeur de la propriété urlBewerber.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getUrlBewerber() {
         return urlBewerber;
     }
 
     /**
-     * Legt den Wert der urlBewerber-Eigenschaft fest.
+     * Définit la valeur de la propriété urlBewerber.
      *
      * @param value allowed object is
      *              {@link String }
@@ -469,17 +477,17 @@ public class ProspectiveJob {
     }
 
     /**
-     * Ruft den Wert der urlDirektlink-Eigenschaft ab.
+     * Obtient la valeur de la propriété urlDirektlink.
      *
      * @return possible object is
-     * {@link String }
+     *         {@link String }
      */
     public String getUrlDirektlink() {
         return urlDirektlink;
     }
 
     /**
-     * Legt den Wert der urlDirektlink-Eigenschaft fest.
+     * Définit la valeur de la propriété urlDirektlink.
      *
      * @param value allowed object is
      *              {@link String }
@@ -490,21 +498,21 @@ public class ProspectiveJob {
 
 
     /**
-     * <p>Java-Klasse für anonymous complex type.
+     * <p>Classe Java pour anonymous complex type.
      * <p/>
-     * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+     * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
      * <p/>
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="hierarchieid" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="hierarchietext" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="hierarchieid" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="hierarchietext" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      */
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -520,17 +528,17 @@ public class ProspectiveJob {
         protected String hierarchietext;
 
         /**
-         * Ruft den Wert der hierarchieid-Eigenschaft ab.
+         * Obtient la valeur de la propriété hierarchieid.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getHierarchieid() {
             return hierarchieid;
         }
 
         /**
-         * Legt den Wert der hierarchieid-Eigenschaft fest.
+         * Définit la valeur de la propriété hierarchieid.
          *
          * @param value allowed object is
          *              {@link String }
@@ -540,17 +548,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der hierarchietext-Eigenschaft ab.
+         * Obtient la valeur de la propriété hierarchietext.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getHierarchietext() {
             return hierarchietext;
         }
 
         /**
-         * Legt den Wert der hierarchietext-Eigenschaft fest.
+         * Définit la valeur de la propriété hierarchietext.
          *
          * @param value allowed object is
          *              {@link String }
@@ -563,35 +571,35 @@ public class ProspectiveJob {
 
 
     /**
-     * <p>Java-Klasse für anonymous complex type.
+     * <p>Classe Java pour anonymous complex type.
      * <p/>
-     * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+     * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
      * <p/>
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="firma" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="abteilung" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="anrede" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="titel" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="vorname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="adresse1" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="adresse2" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="adresse3" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="plz" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *         &lt;element name="ort" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="land" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="land_iso2" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="land_iso3" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="telefon" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="mail" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="firma" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="abteilung" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="anrede" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="titel" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="vorname" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="adresse1" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="adresse2" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="adresse3" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="plz" type="{http://www.w3.org/2001/XMLSchema}short"/&gt;
+     *         &lt;element name="ort" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="land" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="land_iso2" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="land_iso3" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="telefon" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="mail" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      */
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -648,17 +656,17 @@ public class ProspectiveJob {
         protected String mail;
 
         /**
-         * Ruft den Wert der firma-Eigenschaft ab.
+         * Obtient la valeur de la propriété firma.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getFirma() {
             return firma;
         }
 
         /**
-         * Legt den Wert der firma-Eigenschaft fest.
+         * Définit la valeur de la propriété firma.
          *
          * @param value allowed object is
          *              {@link String }
@@ -668,17 +676,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der abteilung-Eigenschaft ab.
+         * Obtient la valeur de la propriété abteilung.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getAbteilung() {
             return abteilung;
         }
 
         /**
-         * Legt den Wert der abteilung-Eigenschaft fest.
+         * Définit la valeur de la propriété abteilung.
          *
          * @param value allowed object is
          *              {@link String }
@@ -688,17 +696,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der anrede-Eigenschaft ab.
+         * Obtient la valeur de la propriété anrede.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getAnrede() {
             return anrede;
         }
 
         /**
-         * Legt den Wert der anrede-Eigenschaft fest.
+         * Définit la valeur de la propriété anrede.
          *
          * @param value allowed object is
          *              {@link String }
@@ -708,17 +716,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der titel-Eigenschaft ab.
+         * Obtient la valeur de la propriété titel.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getTitel() {
             return titel;
         }
 
         /**
-         * Legt den Wert der titel-Eigenschaft fest.
+         * Définit la valeur de la propriété titel.
          *
          * @param value allowed object is
          *              {@link String }
@@ -728,17 +736,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der name-Eigenschaft ab.
+         * Obtient la valeur de la propriété name.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getName() {
             return name;
         }
 
         /**
-         * Legt den Wert der name-Eigenschaft fest.
+         * Définit la valeur de la propriété name.
          *
          * @param value allowed object is
          *              {@link String }
@@ -748,17 +756,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der vorname-Eigenschaft ab.
+         * Obtient la valeur de la propriété vorname.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getVorname() {
             return vorname;
         }
 
         /**
-         * Legt den Wert der vorname-Eigenschaft fest.
+         * Définit la valeur de la propriété vorname.
          *
          * @param value allowed object is
          *              {@link String }
@@ -768,17 +776,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der adresse1-Eigenschaft ab.
+         * Obtient la valeur de la propriété adresse1.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getAdresse1() {
             return adresse1;
         }
 
         /**
-         * Legt den Wert der adresse1-Eigenschaft fest.
+         * Définit la valeur de la propriété adresse1.
          *
          * @param value allowed object is
          *              {@link String }
@@ -788,17 +796,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der adresse2-Eigenschaft ab.
+         * Obtient la valeur de la propriété adresse2.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getAdresse2() {
             return adresse2;
         }
 
         /**
-         * Legt den Wert der adresse2-Eigenschaft fest.
+         * Définit la valeur de la propriété adresse2.
          *
          * @param value allowed object is
          *              {@link String }
@@ -808,17 +816,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der adresse3-Eigenschaft ab.
+         * Obtient la valeur de la propriété adresse3.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getAdresse3() {
             return adresse3;
         }
 
         /**
-         * Legt den Wert der adresse3-Eigenschaft fest.
+         * Définit la valeur de la propriété adresse3.
          *
          * @param value allowed object is
          *              {@link String }
@@ -828,31 +836,31 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der plz-Eigenschaft ab.
+         * Obtient la valeur de la propriété plz.
          */
         public short getPlz() {
             return plz;
         }
 
         /**
-         * Legt den Wert der plz-Eigenschaft fest.
+         * Définit la valeur de la propriété plz.
          */
         public void setPlz(short value) {
             this.plz = value;
         }
 
         /**
-         * Ruft den Wert der ort-Eigenschaft ab.
+         * Obtient la valeur de la propriété ort.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getOrt() {
             return ort;
         }
 
         /**
-         * Legt den Wert der ort-Eigenschaft fest.
+         * Définit la valeur de la propriété ort.
          *
          * @param value allowed object is
          *              {@link String }
@@ -862,17 +870,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der land-Eigenschaft ab.
+         * Obtient la valeur de la propriété land.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getLand() {
             return land;
         }
 
         /**
-         * Legt den Wert der land-Eigenschaft fest.
+         * Définit la valeur de la propriété land.
          *
          * @param value allowed object is
          *              {@link String }
@@ -882,17 +890,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der landIso2-Eigenschaft ab.
+         * Obtient la valeur de la propriété landIso2.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getLandIso2() {
             return landIso2;
         }
 
         /**
-         * Legt den Wert der landIso2-Eigenschaft fest.
+         * Définit la valeur de la propriété landIso2.
          *
          * @param value allowed object is
          *              {@link String }
@@ -902,17 +910,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der landIso3-Eigenschaft ab.
+         * Obtient la valeur de la propriété landIso3.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getLandIso3() {
             return landIso3;
         }
 
         /**
-         * Legt den Wert der landIso3-Eigenschaft fest.
+         * Définit la valeur de la propriété landIso3.
          *
          * @param value allowed object is
          *              {@link String }
@@ -922,17 +930,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der telefon-Eigenschaft ab.
+         * Obtient la valeur de la propriété telefon.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getTelefon() {
             return telefon;
         }
 
         /**
-         * Legt den Wert der telefon-Eigenschaft fest.
+         * Définit la valeur de la propriété telefon.
          *
          * @param value allowed object is
          *              {@link String }
@@ -942,17 +950,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der mail-Eigenschaft ab.
+         * Obtient la valeur de la propriété mail.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getMail() {
             return mail;
         }
 
         /**
-         * Legt den Wert der mail-Eigenschaft fest.
+         * Définit la valeur de la propriété mail.
          *
          * @param value allowed object is
          *              {@link String }
@@ -965,653 +973,403 @@ public class ProspectiveJob {
 
 
     /**
-     * <p>Java-Klasse für anonymous complex type.
+     * <p>Classe Java pour anonymous complex type.
      * <p/>
-     * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+     * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
      * <p/>
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="xcontracttype" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="contracttype" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
-     *         &lt;element name="xjobstatus" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="jobstatus" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
-     *         &lt;element name="xindustries" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="industries" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
-     *         &lt;element name="xplz" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="plz" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="xjoblocationcity" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="joblocationcity" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="xlocations" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="locations" type="{http://www.w3.org/2001/XMLSchema}short" minOccurs="0"/>
-     *         &lt;element name="xcareerlevel" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="careerlevel" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
-     *         &lt;element name="xjobsummary" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="jobsummary" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="xkeywords" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="keywords" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="rubrik" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="xrubrik" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element name="xtmp_10" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="tmp_10" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="xtmp_20" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="tmp_20" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="xtmp_30" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="tmp_30" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="xjobcategory" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="jobcategory" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="xzipcode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+     *         &lt;element name="zipcode" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="xplace" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+     *         &lt;element name="place" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="xpensumvon" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
+     *         &lt;element name="pensumvon" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="xpensumbis" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
+     *         &lt;element name="pensumbis" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="xjobduration" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="jobduration" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="xeducation" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="education" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="xexperience" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="experience" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "xcontracttype",
-            "contracttype",
-            "xjobstatus",
-            "jobstatus",
-            "xindustries",
-            "industries",
-            "xplz",
-            "plz",
-            "xjoblocationcity",
-            "joblocationcity",
-            "xlocations",
-            "locations",
-            "xcareerlevel",
-            "careerlevel",
-            "xjobsummary",
-            "jobsummary",
-            "xkeywords",
-            "keywords",
-            "rubrik",
-            "xrubrik",
-            "xtmp10",
-            "tmp10",
-            "xtmp20",
-            "tmp20",
-            "xtmp30",
-            "tmp30"
+            "xjobcategory",
+            "jobcategory",
+            "xzipcode",
+            "zipcode",
+            "xplace",
+            "place",
+            "xpensumvon",
+            "pensumvon",
+            "xpensumbis",
+            "pensumbis",
+            "xjobduration",
+            "jobduration",
+            "xeducation",
+            "education",
+            "xexperience",
+            "experience"
     })
     public static class Metadaten {
 
-        protected String xcontracttype;
-        protected Integer contracttype;
-        protected String xjobstatus;
-        protected Integer jobstatus;
-        protected String xindustries;
-        protected Integer industries;
-        protected String xplz;
-        protected String plz;
-        protected String xjoblocationcity;
-        protected String joblocationcity;
-        protected String xlocations;
-        protected Short locations;
-        protected String xcareerlevel;
-        protected Integer careerlevel;
-        protected String xjobsummary;
-        protected String jobsummary;
-        protected String xkeywords;
-        protected String keywords;
-        protected String rubrik;
-        protected String xrubrik;
-        @XmlElement(name = "xtmp_10", required = true)
-        protected String xtmp10;
-        @XmlElement(name = "tmp_10", required = true)
-        protected String tmp10;
-        @XmlElement(name = "xtmp_20", required = true)
-        protected String xtmp20;
-        @XmlElement(name = "tmp_20", required = true)
-        protected String tmp20;
-        @XmlElement(name = "xtmp_30", required = true)
-        protected String xtmp30;
-        @XmlElement(name = "tmp_30", required = true)
-        protected String tmp30;
+        @XmlElement(required = true)
+        protected String xjobcategory;
+        protected int jobcategory;
+        protected String xzipcode;
+        @XmlElement(required = true)
+        protected String zipcode;
+        protected String xplace;
+        @XmlElement(required = true)
+        protected String place;
+        protected Integer xpensumvon;
+        protected int pensumvon;
+        protected Integer xpensumbis;
+        protected int pensumbis;
+        @XmlElement(required = true)
+        protected String xjobduration;
+        protected int jobduration;
+        @XmlElement(required = true)
+        protected String xeducation;
+        @XmlElement(required = true)
+        protected String education;
+        @XmlElement(required = true)
+        protected String xexperience;
+        @XmlElement(required = true)
+        protected String experience;
 
         /**
-         * Ruft den Wert der xcontracttype-Eigenschaft ab.
+         * Obtient la valeur de la propriété xjobcategory.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
-        public String getXcontracttype() {
-            return xcontracttype;
+        public String getXjobcategory() {
+            return xjobcategory;
         }
 
         /**
-         * Legt den Wert der xcontracttype-Eigenschaft fest.
+         * Définit la valeur de la propriété xjobcategory.
          *
          * @param value allowed object is
          *              {@link String }
          */
-        public void setXcontracttype(String value) {
-            this.xcontracttype = value;
+        public void setXjobcategory(String value) {
+            this.xjobcategory = value;
         }
 
         /**
-         * Ruft den Wert der contracttype-Eigenschaft ab.
+         * Obtient la valeur de la propriété jobcategory.
+         */
+        public int getJobcategory() {
+            return jobcategory;
+        }
+
+        /**
+         * Définit la valeur de la propriété jobcategory.
+         */
+        public void setJobcategory(int value) {
+            this.jobcategory = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété xzipcode.
          *
          * @return possible object is
-         * {@link Integer }
+         *         {@link String }
          */
-        public Integer getContracttype() {
-            return contracttype;
+        public String getXzipcode() {
+            return xzipcode;
         }
 
         /**
-         * Legt den Wert der contracttype-Eigenschaft fest.
+         * Définit la valeur de la propriété xzipcode.
+         *
+         * @param value allowed object is
+         *              {@link String }
+         */
+        public void setXzipcode(String value) {
+            this.xzipcode = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété zipcode.
+         *
+         * @return possible object is
+         *         {@link String }
+         */
+        public String getZipcode() {
+            return zipcode;
+        }
+
+        /**
+         * Définit la valeur de la propriété zipcode.
+         *
+         * @param value allowed object is
+         *              {@link String }
+         */
+        public void setZipcode(String value) {
+            this.zipcode = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété xplace.
+         *
+         * @return possible object is
+         *         {@link String }
+         */
+        public String getXplace() {
+            return xplace;
+        }
+
+        /**
+         * Définit la valeur de la propriété xplace.
+         *
+         * @param value allowed object is
+         *              {@link String }
+         */
+        public void setXplace(String value) {
+            this.xplace = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété place.
+         *
+         * @return possible object is
+         *         {@link String }
+         */
+        public String getPlace() {
+            return place;
+        }
+
+        /**
+         * Définit la valeur de la propriété place.
+         *
+         * @param value allowed object is
+         *              {@link String }
+         */
+        public void setPlace(String value) {
+            this.place = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété xpensumvon.
+         *
+         * @return possible object is
+         *         {@link Integer }
+         */
+        public Integer getXpensumvon() {
+            return xpensumvon;
+        }
+
+        /**
+         * Définit la valeur de la propriété xpensumvon.
          *
          * @param value allowed object is
          *              {@link Integer }
          */
-        public void setContracttype(Integer value) {
-            this.contracttype = value;
+        public void setXpensumvon(Integer value) {
+            this.xpensumvon = value;
         }
 
         /**
-         * Ruft den Wert der xjobstatus-Eigenschaft ab.
+         * Obtient la valeur de la propriété pensumvon.
+         */
+        public int getPensumvon() {
+            return pensumvon;
+        }
+
+        /**
+         * Définit la valeur de la propriété pensumvon.
+         */
+        public void setPensumvon(int value) {
+            this.pensumvon = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété xpensumbis.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link Integer }
          */
-        public String getXjobstatus() {
-            return xjobstatus;
+        public Integer getXpensumbis() {
+            return xpensumbis;
         }
 
         /**
-         * Legt den Wert der xjobstatus-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXjobstatus(String value) {
-            this.xjobstatus = value;
-        }
-
-        /**
-         * Ruft den Wert der jobstatus-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link Integer }
-         */
-        public Integer getJobstatus() {
-            return jobstatus;
-        }
-
-        /**
-         * Legt den Wert der jobstatus-Eigenschaft fest.
+         * Définit la valeur de la propriété xpensumbis.
          *
          * @param value allowed object is
          *              {@link Integer }
          */
-        public void setJobstatus(Integer value) {
-            this.jobstatus = value;
+        public void setXpensumbis(Integer value) {
+            this.xpensumbis = value;
         }
 
         /**
-         * Ruft den Wert der xindustries-Eigenschaft ab.
+         * Obtient la valeur de la propriété pensumbis.
+         */
+        public int getPensumbis() {
+            return pensumbis;
+        }
+
+        /**
+         * Définit la valeur de la propriété pensumbis.
+         */
+        public void setPensumbis(int value) {
+            this.pensumbis = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété xjobduration.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
-        public String getXindustries() {
-            return xindustries;
+        public String getXjobduration() {
+            return xjobduration;
         }
 
         /**
-         * Legt den Wert der xindustries-Eigenschaft fest.
+         * Définit la valeur de la propriété xjobduration.
          *
          * @param value allowed object is
          *              {@link String }
          */
-        public void setXindustries(String value) {
-            this.xindustries = value;
+        public void setXjobduration(String value) {
+            this.xjobduration = value;
         }
 
         /**
-         * Ruft den Wert der industries-Eigenschaft ab.
+         * Obtient la valeur de la propriété jobduration.
+         */
+        public int getJobduration() {
+            return jobduration;
+        }
+
+        /**
+         * Définit la valeur de la propriété jobduration.
+         */
+        public void setJobduration(int value) {
+            this.jobduration = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété xeducation.
          *
          * @return possible object is
-         * {@link Integer }
+         *         {@link String }
          */
-        public Integer getIndustries() {
-            return industries;
+        public String getXeducation() {
+            return xeducation;
         }
 
         /**
-         * Legt den Wert der industries-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link Integer }
-         */
-        public void setIndustries(Integer value) {
-            this.industries = value;
-        }
-
-        /**
-         * Ruft den Wert der xplz-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXplz() {
-            return xplz;
-        }
-
-        /**
-         * Legt den Wert der xplz-Eigenschaft fest.
+         * Définit la valeur de la propriété xeducation.
          *
          * @param value allowed object is
          *              {@link String }
          */
-        public void setXplz(String value) {
-            this.xplz = value;
+        public void setXeducation(String value) {
+            this.xeducation = value;
         }
 
         /**
-         * Ruft den Wert der plz-Eigenschaft ab.
+         * Obtient la valeur de la propriété education.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
-        public String getPlz() {
-            return plz;
+        public String getEducation() {
+            return education;
         }
 
         /**
-         * Legt den Wert der plz-Eigenschaft fest.
+         * Définit la valeur de la propriété education.
          *
          * @param value allowed object is
          *              {@link String }
          */
-        public void setPlz(String value) {
-            this.plz = value;
+        public void setEducation(String value) {
+            this.education = value;
         }
 
         /**
-         * Ruft den Wert der xjoblocationcity-Eigenschaft ab.
+         * Obtient la valeur de la propriété xexperience.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
-        public String getXjoblocationcity() {
-            return xjoblocationcity;
+        public String getXexperience() {
+            return xexperience;
         }
 
         /**
-         * Legt den Wert der xjoblocationcity-Eigenschaft fest.
+         * Définit la valeur de la propriété xexperience.
          *
          * @param value allowed object is
          *              {@link String }
          */
-        public void setXjoblocationcity(String value) {
-            this.xjoblocationcity = value;
+        public void setXexperience(String value) {
+            this.xexperience = value;
         }
 
         /**
-         * Ruft den Wert der joblocationcity-Eigenschaft ab.
+         * Obtient la valeur de la propriété experience.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
-        public String getJoblocationcity() {
-            return joblocationcity;
+        public String getExperience() {
+            return experience;
         }
 
         /**
-         * Legt den Wert der joblocationcity-Eigenschaft fest.
+         * Définit la valeur de la propriété experience.
          *
          * @param value allowed object is
          *              {@link String }
          */
-        public void setJoblocationcity(String value) {
-            this.joblocationcity = value;
-        }
-
-        /**
-         * Ruft den Wert der xlocations-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXlocations() {
-            return xlocations;
-        }
-
-        /**
-         * Legt den Wert der xlocations-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXlocations(String value) {
-            this.xlocations = value;
-        }
-
-        /**
-         * Ruft den Wert der locations-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link Short }
-         */
-        public Short getLocations() {
-            return locations;
-        }
-
-        /**
-         * Legt den Wert der locations-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link Short }
-         */
-        public void setLocations(Short value) {
-            this.locations = value;
-        }
-
-        /**
-         * Ruft den Wert der xcareerlevel-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXcareerlevel() {
-            return xcareerlevel;
-        }
-
-        /**
-         * Legt den Wert der xcareerlevel-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXcareerlevel(String value) {
-            this.xcareerlevel = value;
-        }
-
-        /**
-         * Ruft den Wert der careerlevel-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link Integer }
-         */
-        public Integer getCareerlevel() {
-            return careerlevel;
-        }
-
-        /**
-         * Legt den Wert der careerlevel-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link Integer }
-         */
-        public void setCareerlevel(Integer value) {
-            this.careerlevel = value;
-        }
-
-        /**
-         * Ruft den Wert der xjobsummary-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXjobsummary() {
-            return xjobsummary;
-        }
-
-        /**
-         * Legt den Wert der xjobsummary-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXjobsummary(String value) {
-            this.xjobsummary = value;
-        }
-
-        /**
-         * Ruft den Wert der jobsummary-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getJobsummary() {
-            return jobsummary;
-        }
-
-        /**
-         * Legt den Wert der jobsummary-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setJobsummary(String value) {
-            this.jobsummary = value;
-        }
-
-        /**
-         * Ruft den Wert der xkeywords-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXkeywords() {
-            return xkeywords;
-        }
-
-        /**
-         * Legt den Wert der xkeywords-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXkeywords(String value) {
-            this.xkeywords = value;
-        }
-
-        /**
-         * Ruft den Wert der keywords-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getKeywords() {
-            return keywords;
-        }
-
-        /**
-         * Legt den Wert der keywords-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setKeywords(String value) {
-            this.keywords = value;
-        }
-
-        /**
-         * Ruft den Wert der rubrik-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getRubrik() {
-            return rubrik;
-        }
-
-        /**
-         * Legt den Wert der rubrik-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setRubrik(String value) {
-            this.rubrik = value;
-        }
-
-        /**
-         * Ruft den Wert der xrubrik-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXrubrik() {
-            return xrubrik;
-        }
-
-        /**
-         * Legt den Wert der xrubrik-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXrubrik(String value) {
-            this.xrubrik = value;
-        }
-
-        /**
-         * Ruft den Wert der xtmp10-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXtmp10() {
-            return xtmp10;
-        }
-
-        /**
-         * Legt den Wert der xtmp10-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXtmp10(String value) {
-            this.xtmp10 = value;
-        }
-
-        /**
-         * Ruft den Wert der tmp10-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getTmp10() {
-            return tmp10;
-        }
-
-        /**
-         * Legt den Wert der tmp10-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setTmp10(String value) {
-            this.tmp10 = value;
-        }
-
-        /**
-         * Ruft den Wert der xtmp20-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXtmp20() {
-            return xtmp20;
-        }
-
-        /**
-         * Legt den Wert der xtmp20-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXtmp20(String value) {
-            this.xtmp20 = value;
-        }
-
-        /**
-         * Ruft den Wert der tmp20-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getTmp20() {
-            return tmp20;
-        }
-
-        /**
-         * Legt den Wert der tmp20-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setTmp20(String value) {
-            this.tmp20 = value;
-        }
-
-        /**
-         * Ruft den Wert der xtmp30-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getXtmp30() {
-            return xtmp30;
-        }
-
-        /**
-         * Legt den Wert der xtmp30-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setXtmp30(String value) {
-            this.xtmp30 = value;
-        }
-
-        /**
-         * Ruft den Wert der tmp30-Eigenschaft ab.
-         *
-         * @return possible object is
-         * {@link String }
-         */
-        public String getTmp30() {
-            return tmp30;
-        }
-
-        /**
-         * Legt den Wert der tmp30-Eigenschaft fest.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
-        public void setTmp30(String value) {
-            this.tmp30 = value;
+        public void setExperience(String value) {
+            this.experience = value;
         }
 
     }
 
 
     /**
-     * <p>Java-Klasse für anonymous complex type.
+     * <p>Classe Java pour anonymous complex type.
      * <p/>
-     * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+     * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
      * <p/>
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="text_1" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="text_2" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="text_3" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="text_4" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="text_5" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="text_1" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="text_2" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="text_3" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="text_4" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="text_5" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *         &lt;element name="text_6" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+     *         &lt;element name="text_7" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      */
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -1620,7 +1378,9 @@ public class ProspectiveJob {
             "text2",
             "text3",
             "text4",
-            "text5"
+            "text5",
+            "text6",
+            "text7"
     })
     public static class Texte {
 
@@ -1634,19 +1394,23 @@ public class ProspectiveJob {
         protected String text4;
         @XmlElement(name = "text_5", required = true)
         protected String text5;
+        @XmlElement(name = "text_6")
+        protected String text6;
+        @XmlElement(name = "text_7")
+        protected String text7;
 
         /**
-         * Ruft den Wert der text1-Eigenschaft ab.
+         * Obtient la valeur de la propriété text1.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getText1() {
             return text1;
         }
 
         /**
-         * Legt den Wert der text1-Eigenschaft fest.
+         * Définit la valeur de la propriété text1.
          *
          * @param value allowed object is
          *              {@link String }
@@ -1656,17 +1420,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der text2-Eigenschaft ab.
+         * Obtient la valeur de la propriété text2.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getText2() {
             return text2;
         }
 
         /**
-         * Legt den Wert der text2-Eigenschaft fest.
+         * Définit la valeur de la propriété text2.
          *
          * @param value allowed object is
          *              {@link String }
@@ -1676,17 +1440,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der text3-Eigenschaft ab.
+         * Obtient la valeur de la propriété text3.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getText3() {
             return text3;
         }
 
         /**
-         * Legt den Wert der text3-Eigenschaft fest.
+         * Définit la valeur de la propriété text3.
          *
          * @param value allowed object is
          *              {@link String }
@@ -1696,17 +1460,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der text4-Eigenschaft ab.
+         * Obtient la valeur de la propriété text4.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getText4() {
             return text4;
         }
 
         /**
-         * Legt den Wert der text4-Eigenschaft fest.
+         * Définit la valeur de la propriété text4.
          *
          * @param value allowed object is
          *              {@link String }
@@ -1716,17 +1480,17 @@ public class ProspectiveJob {
         }
 
         /**
-         * Ruft den Wert der text5-Eigenschaft ab.
+         * Obtient la valeur de la propriété text5.
          *
          * @return possible object is
-         * {@link String }
+         *         {@link String }
          */
         public String getText5() {
             return text5;
         }
 
         /**
-         * Legt den Wert der text5-Eigenschaft fest.
+         * Définit la valeur de la propriété text5.
          *
          * @param value allowed object is
          *              {@link String }
@@ -1735,5 +1499,47 @@ public class ProspectiveJob {
             this.text5 = value;
         }
 
+        /**
+         * Obtient la valeur de la propriété text6.
+         *
+         * @return possible object is
+         *         {@link String }
+         */
+        public String getText6() {
+            return text6;
+        }
+
+        /**
+         * Définit la valeur de la propriété text6.
+         *
+         * @param value allowed object is
+         *              {@link String }
+         */
+        public void setText6(String value) {
+            this.text6 = value;
+        }
+
+        /**
+         * Obtient la valeur de la propriété text7.
+         *
+         * @return possible object is
+         *         {@link String }
+         */
+        public String getText7() {
+            return text7;
+        }
+
+        /**
+         * Définit la valeur de la propriété text7.
+         *
+         * @param value allowed object is
+         *              {@link String }
+         */
+        public void setText7(String value) {
+            this.text7 = value;
+        }
+
     }
+
 }
+

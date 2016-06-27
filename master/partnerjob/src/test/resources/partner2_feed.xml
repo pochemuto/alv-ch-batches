@@ -106,32 +106,28 @@ Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia
                     <![CDATA[Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>
 <br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)]]>
                 </text_5>
+                <text_6>
+                    <![CDATA[sixth text field]]>
+                </text_6>
+                <text_7>
+                    <![CDATA[seventh text field]]>
+                </text_7>
             </texte>
             <metadaten>
-                <xtmp_10>
-                    <![CDATA[Administration/Verwaltung/Management]]>
-                </xtmp_10>
-                <tmp_10>
-                    <![CDATA[10]]>
-                </tmp_10>
-                <xtmp_20>
-                    <![CDATA[3002]]>
-                </xtmp_20>
-                <tmp_20>
-                    <![CDATA[3002]]>
-                </tmp_20>
-                <xtmp_30>
-                    <![CDATA[80 - 100]]>
-                </xtmp_30>
-                <tmp_30>
-                    <![CDATA[0]]>
-                </tmp_30>
-                <xtmp_30_p>
-                    <![CDATA[80]]>
-                </xtmp_30_p>
-                <tmp_30_p>
-                    <![CDATA[0]]>
-                </tmp_30_p>
+                <xjobcategory>
+                    <![CDATA[ Administration/Verwaltung/Management ]]>
+                </xjobcategory>
+                <jobcategory>
+                    <![CDATA[ 1 ]]>
+                </jobcategory>
+                <xzipcode>
+                    <![CDATA[ 3002 ]]>
+                </xzipcode>
+                <zipcode>
+                    <![CDATA[ 3002 ]]>
+                </zipcode>
+                <pensumvon>80</pensumvon>
+                <pensumbis>100</pensumbis>
             </metadaten>
             <url_bewerber>
                 <![CDATA[]]>

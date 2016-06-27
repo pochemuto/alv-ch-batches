@@ -49,19 +49,15 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
         partnerJob.setBeschreibung(partnerJob.getBeschreibung().trim());
         partnerJob.setId(UUID.randomUUID().toString());
         partnerJob.setUntName(prospectiveJob.getKundenname().trim());
-        partnerJob.setBerufsgruppe(Long.valueOf(prospectiveJob.getMetadaten().getTmp10().trim()));
-        partnerJob.setArbeitsortPlz(prospectiveJob.getMetadaten().getXtmp20().trim());
+        partnerJob.setBerufsgruppe((long) prospectiveJob.getMetadaten().getJobcategory()); // FIXME switch to Integer in jOOQ
+        partnerJob.setArbeitsortPlz(prospectiveJob.getMetadaten().getZipcode().trim());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'-00.00.00.000000'");
         partnerJob.setAnmeldeDatum(sdf.format(prospectiveJob.getDatumStart().toGregorianCalendar().getTime()));
-        String[] quotaData = prospectiveJob.getMetadaten().getXtmp30().trim().split("-");
-        partnerJob.setPensumVon(Integer.valueOf(quotaData[0].trim()));
-        if (quotaData.length == 1) {
-            partnerJob.setPensumBis(Integer.valueOf(quotaData[0].trim()));
-        } else {
-            partnerJob.setPensumBis(Integer.valueOf(quotaData[1].trim()));
-        }
+        partnerJob.setPensumVon(prospectiveJob.getMetadaten().getPensumvon());
+        partnerJob.setPensumBis(prospectiveJob.getMetadaten().getPensumbis());
         partnerJob.setUrlDetail(prospectiveJob.getUrlDirektlink().trim());
         // not available in legacy database: partnerJob.setSprache(prospectiveJob.getSprache().trim());
+
         return partnerJob;
     }
 }
