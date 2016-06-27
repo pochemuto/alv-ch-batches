@@ -4,6 +4,8 @@ import ch.alv.batches.commons.test.SimpleTestApplication;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
 import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -63,6 +65,7 @@ public class ProspectiveIntegrationTest {
     private List<OstePartnerRecord> checkPartner1Jobs;
     private List<OstePartnerRecord> checkPartner2Jobs;
 
+    private static final Log logger = LogFactory.getLog(ProspectiveIntegrationTest.class);
 
     @BeforeClass
     public static void initStaticObjects() throws Exception {
@@ -134,6 +137,12 @@ public class ProspectiveIntegrationTest {
             // the random UUID must be ignored for the objects comparison
             result.setId("");
             check.setId("");
+
+            if (logger.isDebugEnabled() && result.compareTo(check)!= 0) {
+                logger.debug("CHECK:\n" + check);
+                logger.debug("\nRESULT:\n" + result);
+            }
+
             assertEquals(0, result.compareTo(check));
         }
     }
