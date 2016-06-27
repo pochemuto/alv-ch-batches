@@ -240,7 +240,9 @@ public class ProspectiveIntegrationTest {
                 "Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
                 "<b>Direktion für europäische Angelegenheiten DEA</b>\n" +
                 "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
-                "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)"
+                "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)\n" +
+                "sixth text field\n" +
+                "seventh text field"
         );
         job1.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
         job1.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
@@ -410,7 +412,9 @@ public class ProspectiveIntegrationTest {
                 "Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
                 "<b>Direktion für europäische Angelegenheiten DEA</b>" +
                 "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
-                "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)"
+                "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)\n" +
+                "sixth text field\n" +
+                "seventh text field"
         );
         j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");

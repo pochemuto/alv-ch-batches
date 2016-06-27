@@ -42,6 +42,12 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
                 prospectiveJob.getTexte().getText3().trim() + "\n" +
                 prospectiveJob.getTexte().getText4().trim() + "\n" +
                 prospectiveJob.getTexte().getText5().trim());
+        if (prospectiveJob.getTexte().getText6() != null) {
+            partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + prospectiveJob.getTexte().getText6().trim());
+        }
+        if (prospectiveJob.getTexte().getText7() != null) {
+            partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + prospectiveJob.getTexte().getText7().trim());
+        }
         if (partnerJob.getBeschreibung().length() > DESC_MAX_LENGTH) {
             partnerJob.setBeschreibung(partnerJob.getBeschreibung()
                     .substring(0, DESC_MAX_LENGTH - DESC_TRUNCATE_SUFFIX.length()) + DESC_TRUNCATE_SUFFIX);
