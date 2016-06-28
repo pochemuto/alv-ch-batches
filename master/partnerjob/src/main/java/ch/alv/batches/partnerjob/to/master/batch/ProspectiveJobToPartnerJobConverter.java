@@ -43,6 +43,10 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
         partnerJob.setAnmeldeDatum(AVAM_DATETIME_FORMAT.format(prospectiveJob.getDatumStart().toGregorianCalendar().getTime()));
         partnerJob.setUrlDetail(prospectiveJob.getUrlDirektlink().trim());
 
+        if (prospectiveJob.getUrlBewerber() != null) {
+            partnerJob.setUrlBewerbung(prospectiveJob.getUrlBewerber().trim());
+        }
+
         processJobDescriptionData(prospectiveJob.getTexte(), partnerJob);
         processMetaData(prospectiveJob.getMetadaten(), partnerJob);
 

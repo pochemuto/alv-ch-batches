@@ -259,6 +259,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
+        j.setUrlBewerbung("https://dream-jobs.com/id?392dfje92kd82390udk&lang=de");
         j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
         j.setAusbildungCode("23");
         j.setErfahrungCode("10");
@@ -300,6 +301,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumVon(80);
         j.setPensumBis(80);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E259D738-0559-E806-E9C3077F15A49B16");
+        j.setUrlBewerbung(null);
         j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
         j.setUnbefristetB(false);
         // j.setSprache("de");
@@ -338,6 +340,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumVon(40);
         j.setPensumBis(50);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6818-B845-086C-C7C94F50F21A3A7E");
+        j.setUrlBewerbung("https://recruitingapp-2630.umantis.com/Vacancies/24969/Application/CheckLogin?srcIDPMS=3492466&srcTextPMS=jobroom&lang=ita");
         j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
         j.setUnbefristetB(true);
         // j.setSprache("it");
@@ -376,6 +379,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6A4A-AA9A-1576-51595322160A0B4F");
+        j.setUrlBewerbung("https://recruitingapp-2630.umantis.com/Vacancies/24969/Application/CheckLogin?srcIDPMS=3492465&srcTextPMS=jobroom&lang=fre");
         j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
         // j.setSprache("fr");
         return j;
@@ -413,6 +417,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumVon(100);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6B83-9607-C2FE-2BA8743DC442BC94");
+        j.setUrlBewerbung("https://recruitingapp-2630.umantis.com/Vacancies/24969/Application/CheckLogin?srcIDPMS=3492464&srcTextPMS=jobroom&lang=ger");
         j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
         // j.setSprache("de");
         return j;
@@ -436,6 +441,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
+        j.setUrlBewerbung(null);
         j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
         // j.setSprache("de");
         return j;
