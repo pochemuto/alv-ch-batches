@@ -10,14 +10,13 @@ package ch.alv.batches.partnerjob.to.master.jaxb;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigInteger;
 
 /**
  * This class is a java representation of prospective's xml used to deliver
  * joboffers of the federal administration. Originally it has been generated with
  * help of the maven-jaxb plugin and then it has adopted to match convenience and
  * spring batch needs.
- *
- * @since: 1.0.0
  */
 @XmlRootElement(name = "inserat")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -33,18 +32,20 @@ public class ProspectiveJob {
     protected String companyprofileurl;
     @XmlElement(required = true)
     protected ProspectiveJob.Hierarchien hierarchien;
-    @XmlElement(name = "inserat_id")
-    protected int inseratId;
+    @XmlElement(name = "inserat_id", required = true)
+    protected BigInteger inseratId;
     @XmlElement(required = true)
     protected String medienname;
-    @XmlElement(name = "medien_id")
-    protected int medienId;
-    @XmlElement(name = "konto_id")
-    protected int kontoId;
+    @XmlElement(name = "medien_id", required = true)
+    protected BigInteger medienId;
+    @XmlElement(name = "konto_id", required = true)
+    protected BigInteger kontoId;
     @XmlElement(required = true)
     protected String kundenname;
-    protected int layout;
-    protected int logo;
+    @XmlElement(required = true)
+    protected BigInteger layout;
+    @XmlElement(required = true)
+    protected BigInteger logo;
     @XmlElement(required = true)
     protected String sprache;
     @XmlElement(name = "datum_start", required = true)
@@ -168,15 +169,21 @@ public class ProspectiveJob {
 
     /**
      * Obtient la valeur de la propriété inseratId.
+     *
+     * @return possible object is
+     *         {@link BigInteger }
      */
-    public int getInseratId() {
+    public BigInteger getInseratId() {
         return inseratId;
     }
 
     /**
      * Définit la valeur de la propriété inseratId.
+     *
+     * @param value allowed object is
+     *              {@link BigInteger }
      */
-    public void setInseratId(int value) {
+    public void setInseratId(BigInteger value) {
         this.inseratId = value;
     }
 
@@ -202,29 +209,41 @@ public class ProspectiveJob {
 
     /**
      * Obtient la valeur de la propriété medienId.
+     *
+     * @return possible object is
+     *         {@link BigInteger }
      */
-    public int getMedienId() {
+    public BigInteger getMedienId() {
         return medienId;
     }
 
     /**
      * Définit la valeur de la propriété medienId.
+     *
+     * @param value allowed object is
+     *              {@link BigInteger }
      */
-    public void setMedienId(int value) {
+    public void setMedienId(BigInteger value) {
         this.medienId = value;
     }
 
     /**
      * Obtient la valeur de la propriété kontoId.
+     *
+     * @return possible object is
+     *         {@link BigInteger }
      */
-    public int getKontoId() {
+    public BigInteger getKontoId() {
         return kontoId;
     }
 
     /**
      * Définit la valeur de la propriété kontoId.
+     *
+     * @param value allowed object is
+     *              {@link BigInteger }
      */
-    public void setKontoId(int value) {
+    public void setKontoId(BigInteger value) {
         this.kontoId = value;
     }
 
@@ -250,29 +269,41 @@ public class ProspectiveJob {
 
     /**
      * Obtient la valeur de la propriété layout.
+     *
+     * @return possible object is
+     *         {@link BigInteger }
      */
-    public int getLayout() {
+    public BigInteger getLayout() {
         return layout;
     }
 
     /**
      * Définit la valeur de la propriété layout.
+     *
+     * @param value allowed object is
+     *              {@link BigInteger }
      */
-    public void setLayout(int value) {
+    public void setLayout(BigInteger value) {
         this.layout = value;
     }
 
     /**
      * Obtient la valeur de la propriété logo.
+     *
+     * @return possible object is
+     *         {@link BigInteger }
      */
-    public int getLogo() {
+    public BigInteger getLogo() {
         return logo;
     }
 
     /**
      * Définit la valeur de la propriété logo.
+     *
+     * @param value allowed object is
+     *              {@link BigInteger }
      */
-    public void setLogo(int value) {
+    public void setLogo(BigInteger value) {
         this.logo = value;
     }
 
@@ -983,17 +1014,17 @@ public class ProspectiveJob {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
      *       &lt;sequence&gt;
      *         &lt;element name="xjobcategory" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="jobcategory" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="jobcategory" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
      *         &lt;element name="xzipcode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
      *         &lt;element name="zipcode" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
      *         &lt;element name="xplace" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
      *         &lt;element name="place" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="xpensumvon" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
-     *         &lt;element name="pensumvon" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
-     *         &lt;element name="xpensumbis" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
-     *         &lt;element name="pensumbis" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="xpensumvon" type="{http://www.w3.org/2001/XMLSchema}integer" minOccurs="0"/&gt;
+     *         &lt;element name="pensumvon" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
+     *         &lt;element name="xpensumbis" type="{http://www.w3.org/2001/XMLSchema}integer" minOccurs="0"/&gt;
+     *         &lt;element name="pensumbis" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
      *         &lt;element name="xjobduration" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="jobduration" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="jobduration" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
      *         &lt;element name="xeducation" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
      *         &lt;element name="education" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
      *         &lt;element name="xexperience" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -1027,20 +1058,24 @@ public class ProspectiveJob {
 
         @XmlElement(required = true)
         protected String xjobcategory;
-        protected int jobcategory;
+        @XmlElement(required = true)
+        protected BigInteger jobcategory;
         protected String xzipcode;
         @XmlElement(required = true)
         protected String zipcode;
         protected String xplace;
         @XmlElement(required = true)
         protected String place;
-        protected Integer xpensumvon;
-        protected int pensumvon;
-        protected Integer xpensumbis;
-        protected int pensumbis;
+        protected BigInteger xpensumvon;
+        @XmlElement(required = true)
+        protected BigInteger pensumvon;
+        protected BigInteger xpensumbis;
+        @XmlElement(required = true)
+        protected BigInteger pensumbis;
         @XmlElement(required = true)
         protected String xjobduration;
-        protected int jobduration;
+        @XmlElement(required = true)
+        protected BigInteger jobduration;
         @XmlElement(required = true)
         protected String xeducation;
         @XmlElement(required = true)
@@ -1072,15 +1107,21 @@ public class ProspectiveJob {
 
         /**
          * Obtient la valeur de la propriété jobcategory.
+         *
+         * @return possible object is
+         *         {@link BigInteger }
          */
-        public int getJobcategory() {
+        public BigInteger getJobcategory() {
             return jobcategory;
         }
 
         /**
          * Définit la valeur de la propriété jobcategory.
+         *
+         * @param value allowed object is
+         *              {@link BigInteger }
          */
-        public void setJobcategory(int value) {
+        public void setJobcategory(BigInteger value) {
             this.jobcategory = value;
         }
 
@@ -1168,9 +1209,9 @@ public class ProspectiveJob {
          * Obtient la valeur de la propriété xpensumvon.
          *
          * @return possible object is
-         *         {@link Integer }
+         *         {@link BigInteger }
          */
-        public Integer getXpensumvon() {
+        public BigInteger getXpensumvon() {
             return xpensumvon;
         }
 
@@ -1178,23 +1219,29 @@ public class ProspectiveJob {
          * Définit la valeur de la propriété xpensumvon.
          *
          * @param value allowed object is
-         *              {@link Integer }
+         *              {@link BigInteger }
          */
-        public void setXpensumvon(Integer value) {
+        public void setXpensumvon(BigInteger value) {
             this.xpensumvon = value;
         }
 
         /**
          * Obtient la valeur de la propriété pensumvon.
+         *
+         * @return possible object is
+         *         {@link BigInteger }
          */
-        public int getPensumvon() {
+        public BigInteger getPensumvon() {
             return pensumvon;
         }
 
         /**
          * Définit la valeur de la propriété pensumvon.
+         *
+         * @param value allowed object is
+         *              {@link BigInteger }
          */
-        public void setPensumvon(int value) {
+        public void setPensumvon(BigInteger value) {
             this.pensumvon = value;
         }
 
@@ -1202,9 +1249,9 @@ public class ProspectiveJob {
          * Obtient la valeur de la propriété xpensumbis.
          *
          * @return possible object is
-         *         {@link Integer }
+         *         {@link BigInteger }
          */
-        public Integer getXpensumbis() {
+        public BigInteger getXpensumbis() {
             return xpensumbis;
         }
 
@@ -1212,23 +1259,29 @@ public class ProspectiveJob {
          * Définit la valeur de la propriété xpensumbis.
          *
          * @param value allowed object is
-         *              {@link Integer }
+         *              {@link BigInteger }
          */
-        public void setXpensumbis(Integer value) {
+        public void setXpensumbis(BigInteger value) {
             this.xpensumbis = value;
         }
 
         /**
          * Obtient la valeur de la propriété pensumbis.
+         *
+         * @return possible object is
+         *         {@link BigInteger }
          */
-        public int getPensumbis() {
+        public BigInteger getPensumbis() {
             return pensumbis;
         }
 
         /**
          * Définit la valeur de la propriété pensumbis.
+         *
+         * @param value allowed object is
+         *              {@link BigInteger }
          */
-        public void setPensumbis(int value) {
+        public void setPensumbis(BigInteger value) {
             this.pensumbis = value;
         }
 
@@ -1254,15 +1307,21 @@ public class ProspectiveJob {
 
         /**
          * Obtient la valeur de la propriété jobduration.
+         *
+         * @return possible object is
+         *         {@link BigInteger }
          */
-        public int getJobduration() {
+        public BigInteger getJobduration() {
             return jobduration;
         }
 
         /**
          * Définit la valeur de la propriété jobduration.
+         *
+         * @param value allowed object is
+         *              {@link BigInteger }
          */
-        public void setJobduration(int value) {
+        public void setJobduration(BigInteger value) {
             this.jobduration = value;
         }
 
@@ -1542,4 +1601,3 @@ public class ProspectiveJob {
     }
 
 }
-

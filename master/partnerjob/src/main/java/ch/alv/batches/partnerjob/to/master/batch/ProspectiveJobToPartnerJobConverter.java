@@ -39,30 +39,68 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
         partnerJob.setId(UUID.randomUUID().toString());
         partnerJob.setQuelle(partnerCode);
         partnerJob.setBezeichnung(prospectiveJob.getStellentitel().trim());
-        processBeschreibung(prospectiveJob, partnerJob);
         partnerJob.setUntName(prospectiveJob.getKundenname().trim());
-        partnerJob.setBerufsgruppe((long) prospectiveJob.getMetadaten().getJobcategory()); // FIXME switch to Integer in jOOQ
-        partnerJob.setArbeitsortPlz(prospectiveJob.getMetadaten().getZipcode().trim());
         partnerJob.setAnmeldeDatum(AVAM_DATETIME_FORMAT.format(prospectiveJob.getDatumStart().toGregorianCalendar().getTime()));
-        partnerJob.setPensumVon(prospectiveJob.getMetadaten().getPensumvon());
-        partnerJob.setPensumBis(prospectiveJob.getMetadaten().getPensumbis());
         partnerJob.setUrlDetail(prospectiveJob.getUrlDirektlink().trim());
-        // not available in legacy database: partnerJob.setSprache(prospectiveJob.getSprache().trim());
+
+        processJobDescriptionData(prospectiveJob.getTexte(), partnerJob);
+        processMetaData(prospectiveJob.getMetadaten(), partnerJob);
+
+        // TODO: not available (yet) in legacy database: partnerJob.setSprache(prospectiveJob.getSprache().trim());
 
         return partnerJob;
     }
 
-    private void processBeschreibung(ProspectiveJob prospectiveJob, OstePartnerRecord partnerJob) {
-        partnerJob.setBeschreibung(prospectiveJob.getTexte().getText1().trim() + "\n" +
-                prospectiveJob.getTexte().getText2().trim() + "\n" +
-                prospectiveJob.getTexte().getText3().trim() + "\n" +
-                prospectiveJob.getTexte().getText4().trim() + "\n" +
-                prospectiveJob.getTexte().getText5().trim());
-        if (prospectiveJob.getTexte().getText6() != null) {
-            partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + prospectiveJob.getTexte().getText6().trim());
+    private void processMetaData(ProspectiveJob.Metadaten metaData, OstePartnerRecord partnerJob) {
+
+        if (metaData.getJobcategory() != null) {
+            partnerJob.setBerufsgruppe(metaData.getJobcategory().longValue()); // FIXME switch to Integer in jOOQ
         }
-        if (prospectiveJob.getTexte().getText7() != null) {
-            partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + prospectiveJob.getTexte().getText7().trim());
+        if (metaData.getZipcode() != null) {
+            partnerJob.setArbeitsortPlz(metaData.getZipcode().trim());
+        }
+        if (metaData.getPlace() != null) {
+            // TODO: this field is not available yet in OSTE_PARTNER table:
+            // partnerJob.setArbeitsort(metaData.getPlace().trim());
+        }
+        if (metaData.getPensumvon() != null) {
+            partnerJob.setPensumVon(metaData.getPensumvon().intValue());
+        }
+        if (metaData.getPensumbis() != null) {
+            partnerJob.setPensumBis(metaData.getPensumbis().intValue());
+        }
+        if (metaData.getEducation() != null) {
+            partnerJob.setAusbildungCode(metaData.getEducation());
+        }
+        if (metaData.getExperience() != null) {
+            partnerJob.setErfahrungCode(metaData.getExperience());
+        }
+        if (metaData.getJobduration() != null) {
+            partnerJob.setUnbefristetB(metaData.getJobduration().intValue() != 0);
+        }
+
+        //
+        // And finally let's try to sanitize as good as we can...
+        //
+
+        if (partnerJob.getPensumVon() != null && partnerJob.getPensumBis() == null) {
+            partnerJob.setPensumBis(partnerJob.getPensumVon());
+        } else if (partnerJob.getPensumBis() != null && partnerJob.getPensumVon() == null) {
+            partnerJob.setPensumVon(partnerJob.getPensumBis());
+        }
+    }
+
+    private void processJobDescriptionData(ProspectiveJob.Texte textData, OstePartnerRecord partnerJob) {
+        partnerJob.setBeschreibung(textData.getText1().trim() + "\n" +
+                textData.getText2().trim() + "\n" +
+                textData.getText3().trim() + "\n" +
+                textData.getText4().trim() + "\n" +
+                textData.getText5().trim());
+        if (textData.getText6() != null) {
+            partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + textData.getText6().trim());
+        }
+        if (textData.getText7() != null) {
+            partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + textData.getText7().trim());
         }
         if (partnerJob.getBeschreibung().length() > DESC_MAX_LENGTH) {
             partnerJob.setBeschreibung(partnerJob.getBeschreibung()

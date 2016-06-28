@@ -260,6 +260,9 @@ public class ProspectiveIntegrationTest {
         job1.setPensumBis(100);
         job1.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
         job1.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        job1.setAusbildungCode("23");
+        job1.setErfahrungCode("10");
+        job1.setUnbefristetB(true);
         // job1.setSprache("de");
         return job1;
     }
@@ -298,6 +301,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(80);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E259D738-0559-E806-E9C3077F15A49B16");
         j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        j.setUnbefristetB(false);
         // j.setSprache("de");
         return j;
     }
@@ -335,6 +339,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(50);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6818-B845-086C-C7C94F50F21A3A7E");
         j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
+        j.setUnbefristetB(true);
         // j.setSprache("it");
         return j;
     }
@@ -405,7 +410,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
-        j.setPensumVon(80);
+        j.setPensumVon(100);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6B83-9607-C2FE-2BA8743DC442BC94");
         j.setAnmeldeDatum("2015-06-12-00.00.00.000000");

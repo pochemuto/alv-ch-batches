@@ -103,7 +103,11 @@
                     <![CDATA[8038]]>
                 </zipcode>
                 <pensumvon>80</pensumvon>
+                <!-- intentionally avoid to provide this data to force auto-sanitize import filter
                 <pensumbis>80</pensumbis>
+                -->
+                <xjobduration><![CDATA[befristet]]></xjobduration>
+                <jobduration><![CDATA[0]]></jobduration>
             </metadaten>
             <url_bewerber>
                 <![CDATA[]]>
@@ -210,7 +214,9 @@
                 <zipcode>
                     <![CDATA[8032]]>
                 </zipcode>
+                <!-- intentionally avoid to provide this data to force auto-sanitize import filter
                 <pensumvon>80</pensumvon>
+                -->
                 <pensumbis>100</pensumbis>
             </metadaten>
             <url_bewerber>
@@ -430,6 +436,8 @@
                 </zipcode>
                 <pensumvon>40</pensumvon>
                 <pensumbis>50</pensumbis>
+                <xjobduration><![CDATA[unbefristet]]></xjobduration>
+                <jobduration>3948</jobduration> <!-- Verify that a C-Like boolean logic is applied for weak typing -->
             </metadaten>
             <url_bewerber>
                 <![CDATA[https://recruitingapp-2630.umantis.com/Vacancies/24969/Application/CheckLogin?srcIDPMS=3492466&srcTextPMS=jobroom&lang=ita]]>
@@ -532,6 +540,12 @@
                 </zipcode>
                 <pensumvon>80</pensumvon>
                 <pensumbis>100</pensumbis>
+                <xeducation><![CDATA[Berufsmaturität]]></xeducation>
+                <education><![CDATA[23]]></education>
+                <xexperience><![CDATA[1 - 3 Jahre]]></xexperience>
+                <experience><![CDATA[10]]></experience>
+                <xjobduration><![CDATA[unbefristet]]></xjobduration>
+                <jobduration><![CDATA[1]]></jobduration>
             </metadaten>
             <url_bewerber>
                 <![CDATA[]]>

@@ -22,13 +22,13 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element type="xs:int" name="inserat_id"/>
+                                        <xs:element type="xs:integer" name="inserat_id"/>
                                         <xs:element type="xs:string" name="medienname"/>
-                                        <xs:element type="xs:int" name="medien_id"/>
-                                        <xs:element type="xs:int" name="konto_id"/>
+                                        <xs:element type="xs:integer" name="medien_id"/>
+                                        <xs:element type="xs:integer" name="konto_id"/>
                                         <xs:element type="xs:string" name="kundenname"/>
-                                        <xs:element type="xs:int" name="layout"/>
-                                        <xs:element type="xs:int" name="logo"/>
+                                        <xs:element type="xs:integer" name="layout"/>
+                                        <xs:element type="xs:integer" name="logo"/>
                                         <xs:element type="xs:string" name="sprache"/>
                                         <xs:element type="xs:date" name="datum_start"/>
                                         <xs:element type="xs:date" name="datum_ende"/>
@@ -74,17 +74,17 @@
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element type="xs:string" name="xjobcategory"/>
-                                                    <xs:element type="xs:int" name="jobcategory"/>
+                                                    <xs:element type="xs:integer" name="jobcategory"/>
                                                     <xs:element type="xs:string" name="xzipcode" minOccurs="0"/>
                                                     <xs:element type="xs:string" name="zipcode" minOccurs="1"/>
                                                     <xs:element type="xs:string" name="xplace" minOccurs="0"/>
                                                     <xs:element type="xs:string" name="place"/>
-                                                    <xs:element type="xs:int" name="xpensumvon" minOccurs="0"/>
-                                                    <xs:element type="xs:int" name="pensumvon" minOccurs="1"/>
-                                                    <xs:element type="xs:int" name="xpensumbis" minOccurs="0"/>
-                                                    <xs:element type="xs:int" name="pensumbis" minOccurs="1"/>
+                                                    <xs:element type="xs:integer" name="xpensumvon" minOccurs="0"/>
+                                                    <xs:element type="xs:integer" name="pensumvon" minOccurs="1"/>
+                                                    <xs:element type="xs:integer" name="xpensumbis" minOccurs="0"/>
+                                                    <xs:element type="xs:integer" name="pensumbis" minOccurs="1"/>
                                                     <xs:element type="xs:string" name="xjobduration"/>
-                                                    <xs:element type="xs:int" name="jobduration" minOccurs="1"/>
+                                                    <xs:element type="xs:integer" name="jobduration" minOccurs="1"/>
                                                     <xs:element type="xs:string" name="xeducation"/>
                                                     <xs:element type="xs:string" name="education"/>
                                                     <xs:element type="xs:string" name="xexperience"/>

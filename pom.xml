@@ -331,9 +331,12 @@
                                         <outputSchema></outputSchema>
                                     </schema>
                                 </schemata>
-                                <customTypes>
-                                </customTypes>
+                                <customTypes/>
                                 <forcedTypes>
+                                    <forcedType>
+                                        <name>BOOLEAN</name>
+                                        <expressions>^.*_B$</expressions>
+                                    </forcedType>
                                 </forcedTypes>
                             </database>
                             <generate>
