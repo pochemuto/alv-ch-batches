@@ -242,29 +242,29 @@ public class ProspectiveIntegrationTest {
     }
 
     private OstePartnerRecord initJob1() {
-        OstePartnerRecord job1 = new OstePartnerRecord();
-        job1.setQuelle(PARTNER_CODE_1);
-        job1.setBezeichnung("Teststelle Partner1");
-        job1.setBeschreibung(
+        OstePartnerRecord j = new OstePartnerRecord();
+        j.setQuelle(PARTNER_CODE_1);
+        j.setBezeichnung("Teststelle Partner1");
+        j.setBeschreibung(
                 "Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
-                "<b>Direktion für europäische Angelegenheiten DEA</b>\n" +
-                "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
-                "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)\n" +
-                "sixth text field\n" +
-                "seventh text field"
+                        "<b>Direktion für europäische Angelegenheiten DEA</b>\n" +
+                        "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
+                        "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)\n" +
+                        "sixth text field\n" +
+                        "seventh text field"
         );
-        job1.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
-        job1.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
-        job1.setArbeitsortPlz("3002");
-        job1.setPensumVon(80);
-        job1.setPensumBis(100);
-        job1.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
-        job1.setAnmeldeDatum("2015-06-11-00.00.00.000000");
-        job1.setAusbildungCode("23");
-        job1.setErfahrungCode("10");
-        job1.setUnbefristetB(true);
-        // job1.setSprache("de");
-        return job1;
+        j.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
+        j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
+        j.setArbeitsortPlz("3002");
+        j.setPensumVon(80);
+        j.setPensumBis(100);
+        j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
+        j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        j.setAusbildungCode("23");
+        j.setErfahrungCode("10");
+        j.setUnbefristetB(true);
+        // j.setSprache("de");
+        return j;
     }
 
     private OstePartnerRecord initJob2() {
