@@ -253,7 +253,7 @@ public class ProspectiveIntegrationTest {
                         "sixth text field\n" +
                         "seventh text field"
         );
-        j.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("3002");
         j.setPensumVon(80);
@@ -294,7 +294,7 @@ public class ProspectiveIntegrationTest {
                 "Fachliche Auskünfte erteilt Ihnen gerne:<br/>\n" +
                 "<br/>Eidgenössische Zollverwaltung<br/>HR-Center Basel<br/>Elisabethenstrasse 31<br/>4010 Basel<br/>Telefon: +41 58 469 11 30<br/>www.gwk.ch"
         );
-        j.setBerufsgruppe(2L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(2);
         j.setUntName("Eidgenössische Zollverwaltung EZV");
         j.setArbeitsortPlz("8038");
         j.setPensumVon(80);
@@ -332,7 +332,7 @@ public class ProspectiveIntegrationTest {
                 "<br/>\n" +
                 "<br/>Per ulteriori informazioni è a disposizione signor Fabian Mahnig, caposezione, <br/>tel. 058 462 23 13."
         );
-        j.setBerufsgruppe(12L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(12);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(40);
@@ -370,7 +370,7 @@ public class ProspectiveIntegrationTest {
                 "<br/>\n" +
                 "<br/>Pour tout renseignement complémentaire, n'hésitez pas à contacter Monsieur Fabian Mahnig, chef de section, <br/>tél. 058 462 23 13."
         );
-        j.setBerufsgruppe(14L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(14);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(80);
@@ -407,7 +407,7 @@ public class ProspectiveIntegrationTest {
                 "<br/>\n" +
                 "<br/>Für zusätzliche Informationen steht Ihnen Herr Fabian Mahnig, Sektionsleiter, Tel. 058 462 23 13, gerne zur Verfügung."
         );
-        j.setBerufsgruppe(1L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
         j.setPensumVon(100);
@@ -430,7 +430,7 @@ public class ProspectiveIntegrationTest {
                 "sixth text field\n" +
                 "seventh text field"
         );
-        j.setBerufsgruppe(10L); // FIXME as Integer (see ALV-5050)
+        j.setBerufsgruppe(10);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("3002");
         j.setPensumVon(80);

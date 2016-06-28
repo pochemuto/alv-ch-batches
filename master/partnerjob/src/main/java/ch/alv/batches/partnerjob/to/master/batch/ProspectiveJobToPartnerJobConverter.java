@@ -54,13 +54,13 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
     private void processMetaData(ProspectiveJob.Metadaten metaData, OstePartnerRecord partnerJob) {
 
         if (metaData.getJobcategory() != null) {
-            partnerJob.setBerufsgruppe(metaData.getJobcategory().longValue()); // FIXME switch to Integer in jOOQ
+            partnerJob.setBerufsgruppe(metaData.getJobcategory().intValue());
         }
         if (metaData.getZipcode() != null) {
             partnerJob.setArbeitsortPlz(metaData.getZipcode().trim());
         }
         if (metaData.getPlace() != null) {
-            // TODO: this field is not available yet in OSTE_PARTNER table:
+            // This field is not available yet in OSTE_PARTNER table, and is not required to be imported for the moment.
             // partnerJob.setArbeitsort(metaData.getPlace().trim());
         }
         if (metaData.getPensumvon() != null) {
