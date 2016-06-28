@@ -58,7 +58,7 @@
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
                             <name>org.jooq.util.oracle.OracleDatabase</name>
-                            <includes>^OSTE_PARTNER.*</includes>
+                            <includes>^OSTE_PARTNER.*$</includes>
                         </database>
                         <target>
                             <packageName>ch.alv.batches.partnerjob.to.master.jooq</packageName>
