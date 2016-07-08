@@ -1,53 +1,30 @@
 package ch.alv.batches.boom;
 
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import javax.sql.DataSource;
 
 @SpringBootApplication
 @ComponentScan("ch.alv.batches.commons.config, "
         + "ch.alv.batches.commons.web, "
-        + "ch.alv.batches.company.to.master, "
-        + "ch.alv.batches.cadastre.to.master, "
+//        + "ch.alv.batches.company.to.master, "
         + "ch.alv.batches.boom, "
-        + "ch.alv.batches.legacy.to.master, "
-        + "ch.alv.batches.master.to.jobdesk, "
         + "ch.alv.batches.partnerjob.to.master"
 )
 public class BoomApplication {
 
-    // FIXME configuration attributes managed in module?
-    @Value(("${ch.alv.jobdesk.elasticsearch.java_api.host:localhost}"))
-    private String jobdeskElasticsearchHost;
-    @Value(("${ch.alv.jobdesk.elasticsearch.java_api.port:9300}"))
-    private int jobdeskElasticsearchPort;
-
+    @Primary
     @Bean
-    Client jobdeskElasticSearch() {
-        final ImmutableSettings.Builder settings = ImmutableSettings.settingsBuilder();
-        TransportClient transportClient = new TransportClient(settings);
-        transportClient = transportClient.addTransportAddress(
-                new InetSocketTransportAddress(jobdeskElasticsearchHost, jobdeskElasticsearchPort));
-        return transportClient;
-    }
-
-    // Mmmmh, this could also just "link" to master datasource bean... as primary
-    @Primary // FIXME put this stuff in a common ? (and deal a) embedded, b) persisted)
-    @Bean
-    @ConfigurationProperties(prefix="spring.datasource")
     public DataSource defaultSpringDataSource() {
-        return DataSourceBuilder.create().build();
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        EmbeddedDatabase db = builder.setName("alv-in-memory").build();
+        return db;
     }
 
     public static void main(String[] args) {

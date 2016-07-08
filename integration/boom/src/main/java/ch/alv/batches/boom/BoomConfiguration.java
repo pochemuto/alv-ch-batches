@@ -1,7 +1,6 @@
 package ch.alv.batches.boom;
 
-import ch.alv.batches.legacy.to.master.LegacyToMasterConfiguration;
-import ch.alv.batches.master.to.jobdesk.FullMasterToJobdeskConfiguration;
+import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -12,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.Resource;
 import java.io.IOException;
 
+import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.*;
+
 /**
  *
  */
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class BoomConfiguration {
 
     public final static String BOOM_PREFIX = "boom";
-    public final static String BOOM_JOBDESK_FULLRELOAD = BOOM_PREFIX + "ReloadJobdeskJob";
+    public final static String BOOM_PARTNERJOB_FULL = BOOM_PREFIX + "-full-" + IMPORT_PARTNERJOB_JOB;
 
     @Resource
     private JobBuilderFactory jobs;
@@ -27,21 +28,17 @@ public class BoomConfiguration {
     @Resource
     private StepBuilderFactory steps;
 
-    @Resource(name = LegacyToMasterConfiguration.IMPORT_X28_JOBS)
-    private Job legacyDataImportJob;
 
-    @Resource(name = FullMasterToJobdeskConfiguration.BATCH_JOB_JOBDESK_FULLRELOAD)
-    private Job jobdeskFullReloadJob;
+    @Resource(name = IMPORT_PARTNERJOB_JOB)
+    private Job partnerjobsImportJob;
 
-    @Bean(name = BOOM_JOBDESK_FULLRELOAD)
-    public Job getYup() throws IOException {
-        return jobs.get(BOOM_JOBDESK_FULLRELOAD)
-                .incrementer(new RunIdIncrementer())
-                //.preventRestart()
-                .start(steps.get(BOOM_JOBDESK_FULLRELOAD + "-" + legacyDataImportJob.getName())
-                        .job(legacyDataImportJob).build())
-                .next(steps.get(BOOM_JOBDESK_FULLRELOAD + "-" + jobdeskFullReloadJob.getName())
-                        .job(jobdeskFullReloadJob).build())
-                .build();
-    }
+    // TODO a meta-job that import all partners in sequence ...?
+//    @Bean(name = BOOM_PARTNERJOB_FULL)
+//    public Job getYup() throws IOException {
+//        return jobs.get(BOOM_PARTNERJOB_FULL)
+//                .incrementer(new RunIdIncrementer())
+//                //.preventRestart()
+//                ...........
+//                .build();
+//    }
 }

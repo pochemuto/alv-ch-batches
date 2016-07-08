@@ -21,25 +21,13 @@
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>ch.alv.batches</groupId>
-            <artifactId>cadastre-to-master</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.alv.batches</groupId>
-            <artifactId>company-to-master</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.alv.batches</groupId>
-            <artifactId>legacy-to-master</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>ch.alv.batches</groupId>-->
+            <!--<artifactId>company-to-master</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>ch.alv.batches</groupId>
             <artifactId>partnerjob-to-master</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.alv.batches</groupId>
-            <artifactId>master-to-jobdesk</artifactId>
         </dependency>
 
         <!-- test dependencies -->
