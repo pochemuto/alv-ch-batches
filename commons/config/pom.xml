@@ -18,7 +18,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jooq.trial</groupId>
+            <groupId>org.jooq.pro</groupId>
             <artifactId>jooq</artifactId>
         </dependency>
         <dependency>

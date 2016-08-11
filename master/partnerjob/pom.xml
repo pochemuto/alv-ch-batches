@@ -51,7 +51,7 @@
                 <artifactId>properties-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.jooq.trial</groupId>
+                <groupId>org.jooq.pro</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <configuration>
                     <generator>

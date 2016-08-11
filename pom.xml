@@ -42,7 +42,7 @@
         <jetty.version>7.6.17.v20150415</jetty.version>
         <jna.version>4.2.0</jna.version>
         <joda-time.version>2.8.1</joda-time.version>
-        <jooq.version>3.8.2</jooq.version>
+        <jooq.version>3.8.4</jooq.version>
         <jooq.jdbc.driver>org.postgresql.Driver</jooq.jdbc.driver>
         <mock-ftp.version>2.6</mock-ftp.version>
         <oracle.version>12.1.0.1</oracle.version>
@@ -218,13 +218,8 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate.validator.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.jooq</groupId>-->
-                <!--<artifactId>jooq</artifactId>-->
-                <!--<version>${jooq.version}</version>-->
-            <!--</dependency>-->
             <dependency>
-                <groupId>org.jooq.trial</groupId>
+                <groupId>org.jooq.pro</groupId>
                 <artifactId>jooq</artifactId>
                 <version>${jooq.version}</version>
             </dependency>
@@ -302,7 +297,7 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.jooq.trial</groupId>
+                    <groupId>org.jooq.pro</groupId>
                     <artifactId>jooq-codegen-maven</artifactId>
                     <version>${jooq.version}</version>
                     <executions>

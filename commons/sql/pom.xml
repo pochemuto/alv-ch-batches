@@ -35,17 +35,17 @@
         <!-- external dependencies -->
 
         <dependency>
-            <groupId>org.jooq.trial</groupId>
+            <groupId>org.jooq.pro</groupId>
             <artifactId>jooq</artifactId>
             <version>${jooq.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jooq.trial</groupId>
+            <groupId>org.jooq.pro</groupId>
             <artifactId>jooq-meta</artifactId>
             <version>${jooq.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jooq.trial</groupId>
+            <groupId>org.jooq.pro</groupId>
             <artifactId>jooq-codegen</artifactId>
             <version>${jooq.version}</version>
         </dependency>
@@ -67,7 +67,7 @@
                 <!--<artifactId>properties-maven-plugin</artifactId>-->
             <!--</plugin>-->
             <!--<plugin>-->
-                <!--<groupId>org.jooq.trial</groupId>-->
+                <!--<groupId>org.jooq.pro</groupId>-->
                 <!--<artifactId>jooq-codegen-maven</artifactId>-->
                 <!--<configuration>-->
                     <!--<generator>-->
