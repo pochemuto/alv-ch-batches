@@ -175,7 +175,7 @@ public class ProspectiveIntegrationTest {
 
         assertEquals(partner1CountBeforeImport, partner1CountAfterImport);
 
-        assertEquals(1, jooq.fetchCount(jooq.selectFrom(OSTE_PARTNER).
+        assertEquals(2, jooq.fetchCount(jooq.selectFrom(OSTE_PARTNER).
                 where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2)))
         );
     }
@@ -260,7 +260,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
         j.setUrlBewerbung("https://dream-jobs.com/id?392dfje92kd82390udk&lang=de");
-        j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        j.setAnmeldeDatum("2016-06-11-00.00.00.000000");
         j.setAusbildungCode("23");
         j.setErfahrungCode("10");
         j.setUnbefristetB(true);
@@ -442,7 +442,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
         j.setUrlBewerbung(null);
-        j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        j.setAnmeldeDatum("2016-06-11-00.00.00.000000");
         // j.setSprache("de");
         return j;
     }
