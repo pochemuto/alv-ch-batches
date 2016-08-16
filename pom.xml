@@ -330,7 +330,7 @@
                                 <forcedTypes>
                                     <forcedType>
                                         <name>BOOLEAN</name>
-                                        <expressions>^.*_B$</expressions>
+                                        <expression>^.*_B$</expression>
                                     </forcedType>
                                 </forcedTypes>
                             </database>
