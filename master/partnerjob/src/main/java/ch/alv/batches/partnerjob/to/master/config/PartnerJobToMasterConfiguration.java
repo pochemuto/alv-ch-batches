@@ -3,7 +3,7 @@ package ch.alv.batches.partnerjob.to.master.config;
 import ch.alv.batches.commons.sql.JooqBatchWriter;
 import ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobToPartnerJobConverter;
 import ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobXmlItemReader;
-import ch.alv.batches.partnerjob.to.master.jaxb.ProspectiveJob;
+import ch.alv.batches.partnerjob.to.master.jaxb.prospective.Inserat;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
 import org.jooq.DSLContext;
 import org.springframework.batch.core.Job;
@@ -99,14 +99,14 @@ public class PartnerJobToMasterConfiguration implements InitializingBean {
 
     private Step fetchAndImportNewPartnerJobsStep() throws MalformedURLException, URISyntaxException, SQLException {
         Jaxb2Marshaller unmarshaller = new Jaxb2Marshaller();
-        unmarshaller.setPackagesToScan("ch.alv.batches.partnerjob.to.master.jaxb");
+        unmarshaller.setPackagesToScan("ch.alv.batches.partnerjob.to.master.jaxb.prospective");
 
         ProspectiveJobXmlItemReader partnerjobXmlReader = new ProspectiveJobXmlItemReader(sources);
         partnerjobXmlReader.setFragmentRootElementName("inserat");
         partnerjobXmlReader.setUnmarshaller(unmarshaller);
 
         return steps.get("fetchAndImportNewPartnerJobsStep")
-                .<ProspectiveJob, OstePartnerRecord>chunk(prospectiveChunkSize)
+                .<Inserat, OstePartnerRecord>chunk(prospectiveChunkSize)
                 .reader(partnerjobXmlReader)
                 .processor(new ProspectiveJobToPartnerJobConverter())
                 .writer(new JooqBatchWriter(jooq))

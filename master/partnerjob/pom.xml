@@ -66,31 +66,33 @@
                     </generator>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.jvnet.jaxb2.maven2</groupId>-->
-                <!--<artifactId>maven-jaxb2-plugin</artifactId>-->
-                <!--<version>0.12.3</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>generate-sources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>generate</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--&lt;!&ndash; the package for the generated java classes &ndash;&gt;-->
-                            <!--<generatePackage>ch.alv.batches.partnerjob.to.master.jaxb</generatePackage>-->
-                            <!--&lt;!&ndash; If the following not specified all xsd in resources are included &ndash;&gt;-->
-                            <!--<schemaIncludes>-->
-                                <!--<include>prospective-jobs.xsd</include>-->
-                            <!--</schemaIncludes>-->
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.13.1</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <!-- force source comments to be written in english, instead of the developer's locale -->
+                            <locale>en</locale>
 
-                            <!--&lt;!&ndash; if you don't want old output &ndash;&gt;-->
-                            <!--<removeOldOutput>true</removeOldOutput>-->
-                            <!--<verbose>true</verbose>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+                            <!-- If the following not specified all xsd in resources are included -->
+                            <schemaIncludes>
+                                <include>prospective-jobs.xsd</include>
+                            </schemaIncludes>
+
+                            <!-- if you don't want old output -->
+                            <removeOldOutput>true</removeOldOutput>
+
+                            <verbose>true</verbose>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

@@ -1,7 +1,8 @@
 package ch.alv.batches.partnerjob.to.master.batch;
 
+
 import ch.alv.batches.partnerjob.to.master.config.Partner;
-import ch.alv.batches.partnerjob.to.master.jaxb.ProspectiveJob;
+import ch.alv.batches.partnerjob.to.master.jaxb.prospective.Inserat;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE;
 
-public class ProspectiveJobXmlItemReader extends StaxEventItemReader<ProspectiveJob> {
+public class ProspectiveJobXmlItemReader extends StaxEventItemReader<Inserat> {
 
     private String partnerCode = null;
 

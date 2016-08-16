@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings
+        version="2.0"
+        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+
+    <!-- Note that the mandatory jaxb:bindings version attribute above cannot be set to 2.2,
+         while values like 1.0, 2.0, 2.1 are accepted.
+         See also http://stackoverflow.com/questions/4552640/what-is-the-meaning-of-jxbbindings-version
+    -->
+
+    <jaxb:globalBindings>
+        <!-- Force @XmlRootElement use in generated classes -->
+        <xjc:simple/>
+    </jaxb:globalBindings>
+
+    <!-- Configure xsd-namespace-to-java-package mappings
+         as recommended in https://github.com/highsource/maven-jaxb2-plugin/wiki/Configure-Target-Packages-in-Binding-Files
+    -->
+    <jaxb:bindings
+            scd="x-schema::prospective"
+            xmlns:prospective="prospective-spec">
+        <jaxb:schemaBindings>
+            <jaxb:package name="ch.alv.batches.partnerjob.to.master.jaxb.prospective"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+</jaxb:bindings>

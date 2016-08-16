@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:prospective="prospective-spec"
+           targetNamespace="prospective-spec">
+
     <xs:element name="interface">
         <xs:complexType>
             <xs:sequence>
@@ -7,100 +12,104 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element type="xs:integer" name="ordercount"/>
-                            <xs:element name="inserat" maxOccurs="unbounded" minOccurs="0">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element type="xs:string" name="poster_url" />
-                                        <xs:element type="xs:string" name="order_id"/>
-                                        <xs:element type="xs:short" name="organization_id"/>
-                                        <xs:element type="xs:string" name="COMPANY_PROFILE_URL"/>
-                                        <xs:element name="hierarchien">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element type="xs:string" name="hierarchieid"/>
-                                                    <xs:element type="xs:string" name="hierarchietext"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element type="xs:integer" name="inserat_id"/>
-                                        <xs:element type="xs:string" name="medienname"/>
-                                        <xs:element type="xs:integer" name="medien_id"/>
-                                        <xs:element type="xs:integer" name="konto_id"/>
-                                        <xs:element type="xs:string" name="kundenname"/>
-                                        <xs:element type="xs:integer" name="layout"/>
-                                        <xs:element type="xs:integer" name="logo"/>
-                                        <xs:element type="xs:string" name="sprache"/>
-                                        <xs:element type="xs:date" name="datum_start"/>
-                                        <xs:element type="xs:date" name="datum_ende"/>
-                                        <xs:element type="xs:date" name="datum_mutation"/>
-                                        <xs:element name="kontakt">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element type="xs:string" name="firma"/>
-                                                    <xs:element type="xs:string" name="abteilung"/>
-                                                    <xs:element type="xs:string" name="anrede"/>
-                                                    <xs:element type="xs:string" name="titel"/>
-                                                    <xs:element type="xs:string" name="name"/>
-                                                    <xs:element type="xs:string" name="vorname"/>
-                                                    <xs:element type="xs:string" name="adresse1"/>
-                                                    <xs:element type="xs:string" name="adresse2"/>
-                                                    <xs:element type="xs:string" name="adresse3"/>
-                                                    <xs:element type="xs:short" name="plz"/>
-                                                    <xs:element type="xs:string" name="ort"/>
-                                                    <xs:element type="xs:string" name="land"/>
-                                                    <xs:element type="xs:string" name="land_iso2"/>
-                                                    <xs:element type="xs:string" name="land_iso3"/>
-                                                    <xs:element type="xs:string" name="telefon"/>
-                                                    <xs:element type="xs:string" name="mail"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element type="xs:string" name="stellentitel"/>
-                                        <xs:element type="xs:string" name="vorspann"/>
-                                        <xs:element name="texte">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element type="xs:string" name="text_1"/>
-                                                    <xs:element type="xs:string" name="text_2"/>
-                                                    <xs:element type="xs:string" name="text_3"/>
-                                                    <xs:element type="xs:string" name="text_4"/>
-                                                    <xs:element type="xs:string" name="text_5"/>
-                                                    <xs:element type="xs:string" name="text_6" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="text_7" minOccurs="0"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="metadaten">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element type="xs:string" name="xjobcategory"/>
-                                                    <xs:element type="xs:integer" name="jobcategory"/>
-                                                    <xs:element type="xs:string" name="xzipcode" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="zipcode" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="xplace" minOccurs="0"/>
-                                                    <xs:element type="xs:string" name="place"/>
-                                                    <xs:element type="xs:integer" name="xpensumvon" minOccurs="0"/>
-                                                    <xs:element type="xs:integer" name="pensumvon" minOccurs="1"/>
-                                                    <xs:element type="xs:integer" name="xpensumbis" minOccurs="0"/>
-                                                    <xs:element type="xs:integer" name="pensumbis" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="xjobduration"/>
-                                                    <xs:element type="xs:integer" name="jobduration" minOccurs="1"/>
-                                                    <xs:element type="xs:string" name="xeducation"/>
-                                                    <xs:element type="xs:string" name="education"/>
-                                                    <xs:element type="xs:string" name="xexperience"/>
-                                                    <xs:element type="xs:string" name="experience"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element type="xs:string" name="url_bewerber"/>
-                                        <xs:element type="xs:anyURI" name="url_direktlink"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
+                            <xs:element name="inserat" maxOccurs="unbounded" minOccurs="0" type="prospective:inserat"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <!-- This definition is required to get XmlRootElement annotation on the corresponding JAXB-generated class -->
+    <xs:element name="inserat" type="prospective:inserat" />
+
+    <xs:complexType name="inserat">
+        <xs:sequence>
+            <xs:element type="xs:string" name="poster_url" />
+            <xs:element type="xs:string" name="order_id"/>
+            <xs:element type="xs:short" name="organization_id"/>
+            <xs:element type="xs:string" name="COMPANY_PROFILE_URL"/>
+            <xs:element name="hierarchien">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="hierarchieid"/>
+                        <xs:element type="xs:string" name="hierarchietext"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element type="xs:integer" name="inserat_id"/>
+            <xs:element type="xs:string" name="medienname"/>
+            <xs:element type="xs:integer" name="medien_id"/>
+            <xs:element type="xs:integer" name="konto_id"/>
+            <xs:element type="xs:string" name="kundenname"/>
+            <xs:element type="xs:integer" name="layout"/>
+            <xs:element type="xs:integer" name="logo"/>
+            <xs:element type="xs:string" name="sprache"/>
+            <xs:element type="xs:date" name="datum_start"/>
+            <xs:element type="xs:date" name="datum_ende"/>
+            <xs:element type="xs:date" name="datum_mutation"/>
+            <xs:element name="kontakt">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="firma"/>
+                        <xs:element type="xs:string" name="abteilung"/>
+                        <xs:element type="xs:string" name="anrede"/>
+                        <xs:element type="xs:string" name="titel"/>
+                        <xs:element type="xs:string" name="name"/>
+                        <xs:element type="xs:string" name="vorname"/>
+                        <xs:element type="xs:string" name="adresse1"/>
+                        <xs:element type="xs:string" name="adresse2"/>
+                        <xs:element type="xs:string" name="adresse3"/>
+                        <xs:element type="xs:short" name="plz"/>
+                        <xs:element type="xs:string" name="ort"/>
+                        <xs:element type="xs:string" name="land"/>
+                        <xs:element type="xs:string" name="land_iso2"/>
+                        <xs:element type="xs:string" name="land_iso3"/>
+                        <xs:element type="xs:string" name="telefon"/>
+                        <xs:element type="xs:string" name="mail"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element type="xs:string" name="stellentitel"/>
+            <xs:element type="xs:string" name="vorspann"/>
+            <xs:element name="texte">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="text_1"/>
+                        <xs:element type="xs:string" name="text_2"/>
+                        <xs:element type="xs:string" name="text_3"/>
+                        <xs:element type="xs:string" name="text_4"/>
+                        <xs:element type="xs:string" name="text_5"/>
+                        <xs:element type="xs:string" name="text_6" minOccurs="0"/>
+                        <xs:element type="xs:string" name="text_7" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="metadaten">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="xjobcategory"/>
+                        <xs:element type="xs:integer" name="jobcategory"/>
+                        <xs:element type="xs:string" name="xzipcode" minOccurs="0"/>
+                        <xs:element type="xs:string" name="zipcode" minOccurs="1"/>
+                        <xs:element type="xs:string" name="xplace" minOccurs="0"/>
+                        <xs:element type="xs:string" name="place"/>
+                        <xs:element type="xs:integer" name="xpensumvon" minOccurs="0"/>
+                        <xs:element type="xs:integer" name="pensumvon" minOccurs="1"/>
+                        <xs:element type="xs:integer" name="xpensumbis" minOccurs="0"/>
+                        <xs:element type="xs:integer" name="pensumbis" minOccurs="1"/>
+                        <xs:element type="xs:string" name="xjobduration"/>
+                        <xs:element type="xs:integer" name="jobduration" minOccurs="1"/>
+                        <xs:element type="xs:string" name="xeducation"/>
+                        <xs:element type="xs:string" name="education"/>
+                        <xs:element type="xs:string" name="xexperience"/>
+                        <xs:element type="xs:string" name="experience"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element type="xs:string" name="url_bewerber"/>
+            <xs:element type="xs:anyURI" name="url_direktlink"/>
+        </xs:sequence>
+    </xs:complexType>
+
 </xs:schema>

@@ -1,6 +1,6 @@
 package ch.alv.batches.partnerjob.to.master.batch;
 
-import ch.alv.batches.partnerjob.to.master.jaxb.ProspectiveJob;
+import ch.alv.batches.partnerjob.to.master.jaxb.prospective.Inserat;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.StepExecution;
@@ -14,10 +14,10 @@ import java.util.UUID;
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE;
 
 /**
- * Contains all logic that transforms a raw {@link ProspectiveJob} object into
+ * Contains all logic that transforms a raw {@link Inserat} object into
  * its proper internal state as an {@link OstePartnerRecord}.
  */
-public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<ProspectiveJob, OstePartnerRecord> {
+public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Inserat, OstePartnerRecord> {
 
     // TODO: convert these constants as configurable parameters
     public static final int DESC_MAX_LENGTH = 10000;
@@ -33,7 +33,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
     }
 
     @Override
-    public OstePartnerRecord process(ProspectiveJob prospectiveJob) throws Exception {
+    public OstePartnerRecord process(Inserat prospectiveJob) throws Exception {
 
         OstePartnerRecord partnerJob = new OstePartnerRecord();
 
@@ -58,7 +58,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
         return partnerJob;
     }
 
-    private void processUrls(ProspectiveJob prospectiveJob, OstePartnerRecord partnerJob) {
+    private void processUrls(Inserat prospectiveJob, OstePartnerRecord partnerJob) {
 
         if (prospectiveJob.getUrlDirektlink() != null) {
             partnerJob.setUrlDetail(prospectiveJob.getUrlDirektlink().trim());
@@ -69,7 +69,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
 
     }
 
-    private void processMetaData(ProspectiveJob.Metadaten metaData, OstePartnerRecord partnerJob) {
+    private void processMetaData(Inserat.Metadaten metaData, OstePartnerRecord partnerJob) {
 
         if (metaData != null) {
             if (metaData.getJobcategory() != null) {
@@ -111,7 +111,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Prospe
 
     }
 
-    private void processJobDescriptionData(ProspectiveJob.Texte textData, OstePartnerRecord partnerJob) {
+    private void processJobDescriptionData(Inserat.Texte textData, OstePartnerRecord partnerJob) {
 
         if (textData != null) {
             partnerJob.setBeschreibung(textData.getText1().trim() + "\n" +
