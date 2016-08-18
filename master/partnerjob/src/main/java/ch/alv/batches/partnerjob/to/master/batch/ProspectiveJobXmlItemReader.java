@@ -2,6 +2,7 @@ package ch.alv.batches.partnerjob.to.master.batch;
 
 
 import ch.alv.batches.partnerjob.to.master.config.Partner;
+import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
 import ch.alv.batches.partnerjob.to.master.jaxb.prospective.Inserat;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.StepExecution;
@@ -12,8 +13,6 @@ import org.springframework.core.io.UrlResource;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE;
 
 public class ProspectiveJobXmlItemReader extends StaxEventItemReader<Inserat> {
 
@@ -32,7 +31,7 @@ public class ProspectiveJobXmlItemReader extends StaxEventItemReader<Inserat> {
         this.setResource(null);
 
         Map<String, JobParameter> parameters = stepExecution.getJobParameters().getParameters();
-        partnerCode = parameters.get(BATCH_JOB_PARAMETER_PARTNER_CODE).getValue().toString();
+        partnerCode = parameters.get(PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE).getValue().toString();
         if (partners.containsKey(partnerCode)) {
             this.setResource(new UrlResource(partners.get(partnerCode).getUri()));
         }

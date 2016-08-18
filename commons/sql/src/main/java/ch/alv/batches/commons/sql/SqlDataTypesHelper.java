@@ -5,7 +5,9 @@ import org.joda.time.LocalDate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class SqlDataTypesHelper {
+public final class SqlDataTypesHelper {
+
+    private SqlDataTypesHelper() { }
 
     public static java.sql.Date fromJavaUtilDate(Date d) {
         return new java.sql.Date(d.getTime());

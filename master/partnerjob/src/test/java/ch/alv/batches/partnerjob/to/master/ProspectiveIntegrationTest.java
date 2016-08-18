@@ -13,7 +13,11 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.jooq.DSLContext;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
@@ -38,7 +42,10 @@ import static ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobToPartnerJ
 import static ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobToPartnerJobConverter.DESC_TRUNCATE_SUFFIX;
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE;
 import static ch.alv.batches.partnerjob.to.master.jooq.Tables.OSTE_PARTNER;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SimpleTestApplication.class)
@@ -107,7 +114,7 @@ public class ProspectiveIntegrationTest {
             JobInstanceAlreadyCompleteException,
             IOException,
             SQLException {
-        
+
         assertNotNull(importPartnerjobsJob);
 
         Map<String, JobParameter> parameters = new HashMap<>();

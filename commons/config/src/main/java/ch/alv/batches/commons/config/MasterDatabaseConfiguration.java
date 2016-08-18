@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class MasterDatabaseConfiguration {
 
     @Bean(name = "alvchMasterDataSource")
-    @ConfigurationProperties(prefix="ch.alv.master.database")
+    @ConfigurationProperties(prefix = "ch.alv.master.database")
     public DataSource masterDataSource() {
         return DataSourceBuilder.create().build();
     }

@@ -5,12 +5,10 @@ import org.apache.commons.io.FileUtils;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.node.Node;
+import org.elasticsearch.node.NodeBuilder;
 
 import java.io.File;
 import java.io.IOException;
-
-import static org.elasticsearch.common.settings.ImmutableSettings.settingsBuilder;
-import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
 public class EmbeddedElasticsearchNode {
 
@@ -32,12 +30,12 @@ public class EmbeddedElasticsearchNode {
         this.indexType = indexType;
         this.httpEnabled = httpEnabled;
 
-        final ImmutableSettings.Builder elasticsearchSettings = settingsBuilder()
+        final ImmutableSettings.Builder elasticsearchSettings = ImmutableSettings.settingsBuilder()
                 .put("http.enabled", this.httpEnabled)
                 .put("index.store.type", this.indexType)
                 .put("path.data", this.dataDirectory);
 
-        node = nodeBuilder()
+        node = NodeBuilder.nodeBuilder()
                 .local(true)
                 .settings(elasticsearchSettings.build())
                 .node();

@@ -1,5 +1,6 @@
 package ch.alv.batches.partnerjob.to.master.batch;
 
+import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
 import ch.alv.batches.partnerjob.to.master.jaxb.prospective.Inserat;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
 import org.springframework.batch.core.JobParameter;
@@ -10,8 +11,6 @@ import org.springframework.batch.item.ItemProcessor;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.UUID;
-
-import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE;
 
 /**
  * Contains all logic that transforms a raw {@link Inserat} object into
@@ -29,7 +28,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Insera
     @BeforeStep
     public void saveStepExecution(StepExecution stepExecution) {
         Map<String, JobParameter> parameters = stepExecution.getJobParameters().getParameters();
-        partnerCode = parameters.get(BATCH_JOB_PARAMETER_PARTNER_CODE).getValue().toString();
+        partnerCode = parameters.get(PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE).getValue().toString();
     }
 
     @Override

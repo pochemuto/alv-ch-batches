@@ -45,7 +45,7 @@ public class SpringBatchWebIntegrationTest {
     }
 
     @Test
-    public void testGetJobNames(){
+    public void testGetJobNames() {
         List jobNames = restTemplate.getForObject(batchMonitoringBaseUrl + "/jobs", List.class);
         assertTrue(jobNames.contains(SpringBatchWebTestApplicationConfiguration.TEST_DUMMY_JOB_NAME));
     }

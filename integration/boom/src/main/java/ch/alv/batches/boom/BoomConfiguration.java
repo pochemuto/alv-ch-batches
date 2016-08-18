@@ -1,17 +1,13 @@
 package ch.alv.batches.boom;
 
-import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
-import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.*;
+import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
 
 /**
  *

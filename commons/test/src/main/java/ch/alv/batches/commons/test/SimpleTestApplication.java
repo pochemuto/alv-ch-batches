@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 @ComponentScan("ch.alv.batches")
 @EnableBatchProcessing(modular = false)
 public class SimpleTestApplication {
-    
+
     @Primary
     @Bean
     public DataSource defaultSpringDataSource() {
