@@ -39,9 +39,11 @@ logging:
     ch:
       alv: INFO
 
-    # FIXME: why are there so many unwanted DEBUG console output..?
     org:
+      #jooq: DEBUG
+
       springframework:
+        batch: INFO
         context:
           annotation:
             # Skip invalid warnings, see https://jira.spring.io/browse/BATCH-2161

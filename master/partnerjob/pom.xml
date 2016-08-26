@@ -83,6 +83,7 @@
                             <!-- If the following not specified all xsd in resources are included -->
                             <schemaIncludes>
                                 <include>prospective-jobs.xsd</include>
+                                <include>ubs-jobs.xsd</include>
                             </schemaIncludes>
 
                             <!-- if you don't want old output -->

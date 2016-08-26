@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<interface xmlns="prospective-spec"><!-- FIXME -->
+<interface xmlns="http://jobarea.ch/jobroom/partner/prospective">
     <inserate>
         <ordercount>5</ordercount>
         <inserat>
@@ -29,9 +29,9 @@
             <layout>0</layout>
             <logo>0</logo>
             <sprache>de</sprache>
-            <datum_start>2015-06-11</datum_start>
-            <datum_ende>2015-07-11</datum_ende>
-            <datum_mutation>2015-06-11</datum_mutation>
+            <datum_start>2016-08-11</datum_start>
+            <datum_ende>2016-09-11</datum_ende>
+            <datum_mutation>2016-08-11</datum_mutation>
             <kontakt>
                 <firma>Eidgenössisches Finanzdepartement</firma>
                 <abteilung>HR-Center Basel</abteilung>
@@ -143,9 +143,9 @@
             <layout>0</layout>
             <logo>0</logo>
             <sprache>de</sprache>
-            <datum_start>2015-06-12</datum_start>
-            <datum_ende>2015-07-12</datum_ende>
-            <datum_mutation>2015-06-12</datum_mutation>
+            <datum_start>2016-08-12</datum_start>
+            <datum_ende>2016-09-12</datum_ende>
+            <datum_mutation>2016-08-12</datum_mutation>
             <kontakt>
                 <firma>Eidgenössisches Departement für auswärtige Angelegenheiten</firma>
                 <abteilung/>
@@ -253,9 +253,9 @@
             <layout>0</layout>
             <logo>0</logo>
             <sprache>fr</sprache>
-            <datum_start>2015-06-12</datum_start>
-            <datum_ende>2015-07-12</datum_ende>
-            <datum_mutation>2015-06-12</datum_mutation>
+            <datum_start>2016-08-12</datum_start>
+            <datum_ende>2016-09-12</datum_ende>
+            <datum_mutation>2016-08-12</datum_mutation>
             <kontakt>
                 <firma>Département fédéral des affaires étrangères DAE</firma>
                 <abteilung/>
@@ -362,9 +362,9 @@
             <layout>0</layout>
             <logo>0</logo>
             <sprache>it</sprache>
-            <datum_start>2015-06-12</datum_start>
-            <datum_ende>2015-07-12</datum_ende>
-            <datum_mutation>2015-06-12</datum_mutation>
+            <datum_start>2016-08-12</datum_start>
+            <datum_ende>2016-09-12</datum_ende>
+            <datum_mutation>2016-08-12</datum_mutation>
             <kontakt>
                 <firma>Dipartimento federale degli affari esteri DAE</firma>
                 <abteilung/>

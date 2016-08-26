@@ -32,7 +32,7 @@ public class ProspectiveJobXmlItemReader extends StaxEventItemReader<Inserat> {
 
         Map<String, JobParameter> parameters = stepExecution.getJobParameters().getParameters();
         partnerCode = parameters.get(PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE).getValue().toString();
-        if (partners.containsKey(partnerCode)) {
+        if (partners.containsKey(partnerCode) && partners.get(partnerCode).getMode() == Partner.Mode.PROSPECTIVE) {
             this.setResource(new UrlResource(partners.get(partnerCode).getUri()));
         }
     }

@@ -3,7 +3,8 @@ package ch.alv.batches.partnerjob.to.master.config;
 public class Partner {
 
     public enum Mode {
-        HTTP("HTTP");
+        PROSPECTIVE("prospective"),
+        UBS("ubs");
 
         private final String mode;
 
@@ -21,7 +22,6 @@ public class Partner {
     }
 
     private String code;
-    private String name;
     private Mode mode;
     private String uri;
 
@@ -31,14 +31,6 @@ public class Partner {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Mode getMode() {

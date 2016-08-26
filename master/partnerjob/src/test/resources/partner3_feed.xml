@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface xmlns="prospective-spec"><!-- FIXME -->
+<interface xmlns="http://jobarea.ch/jobroom/partner/prospective">
     <inserate>
         <ordercount>3</ordercount>
         <inserat>
@@ -15,9 +15,9 @@
             <layout>0</layout>
             <logo>0</logo>
             <sprache>de</sprache>
-            <datum_start>2016-06-21</datum_start>
-            <datum_ende>2016-07-21</datum_ende>
-            <datum_mutation>2016-06-22</datum_mutation>
+            <datum_start>2016-08-21</datum_start>
+            <datum_ende>2016-09-21</datum_ende>
+            <datum_mutation>2016-08-22</datum_mutation>
             <kontakt>
                 <firma>Kanton Aargau</firma>
                 <abteilung></abteilung>
@@ -80,9 +80,9 @@
             <layout>0</layout>
             <logo>0</logo>
             <sprache>de</sprache>
-            <datum_start>2016-06-21</datum_start>
-            <datum_ende>2016-07-21</datum_ende>
-            <datum_mutation>2016-06-22</datum_mutation>
+            <datum_start>2016-08-21</datum_start>
+            <datum_ende>2016-09-21</datum_ende>
+            <datum_mutation>2016-08-22</datum_mutation>
             <kontakt>
                 <firma>Kanton Aargau</firma>
                 <abteilung></abteilung>
@@ -145,9 +145,9 @@
             <layout>0</layout>
             <logo>0</logo>
             <sprache>de</sprache>
-            <datum_start>2016-06-22</datum_start>
-            <datum_ende>2016-07-22</datum_ende>
-            <datum_mutation>2016-06-22</datum_mutation>
+            <datum_start>2016-08-22</datum_start>
+            <datum_ende>2016-09-22</datum_ende>
+            <datum_mutation>2016-08-22</datum_mutation>
             <kontakt>
                 <firma>Kanton Aargau</firma>
                 <abteilung></abteilung>

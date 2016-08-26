@@ -19,9 +19,16 @@
     -->
     <jaxb:bindings
             scd="x-schema::prospective"
-            xmlns:prospective="prospective-spec">
+            xmlns:prospective="http://jobarea.ch/jobroom/partner/prospective">
         <jaxb:schemaBindings>
             <jaxb:package name="ch.alv.batches.partnerjob.to.master.jaxb.prospective"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings
+            scd="x-schema::ubs"
+            xmlns:ubs="http://jobarea.ch/jobroom/partner/ubs">
+        <jaxb:schemaBindings>
+            <jaxb:package name="ch.alv.batches.partnerjob.to.master.jaxb.ubs"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 

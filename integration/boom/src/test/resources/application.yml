@@ -33,13 +33,14 @@ ch:
     partnerjob:
       sources:
         xyz:
-          name: Partner XYZ
-          mode: HTTP
+          mode: prospective
           uri: http://your.partner.xyz/jobs-feed.xml
         abc:
-          name: ABC AG
-          mode: HTTP
+          mode: prospective
           uri: http://other.partner.abc/jobs?oo=O_o
+        ubs:
+          mode: ubs
+          uri: /path/to/feed.xml
 
     jobdesk:
       java_api:

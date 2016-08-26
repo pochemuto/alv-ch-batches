@@ -4,8 +4,6 @@ import ch.alv.batches.commons.test.SimpleTestApplication;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
 import ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -38,9 +36,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobToPartnerJobConverter.DESC_MAX_LENGTH;
-import static ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobToPartnerJobConverter.DESC_TRUNCATE_SUFFIX;
+import static ch.alv.batches.partnerjob.to.master.batch.PartnerJobImport.DESC_MAX_LENGTH;
+import static ch.alv.batches.partnerjob.to.master.batch.PartnerJobImport.DESC_TRUNCATE_SUFFIX;
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.BATCH_JOB_PARAMETER_PARTNER_CODE;
+import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_PROSPECTIVEJOBS_JOB;
 import static ch.alv.batches.partnerjob.to.master.jooq.Tables.OSTE_PARTNER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -55,8 +54,8 @@ public class ProspectiveIntegrationTest {
     @Resource
     private PartnerJobToMasterConfiguration configuration;
 
-    @Resource
-    private Job importPartnerjobsJob;
+    @Resource(name = IMPORT_PROSPECTIVEJOBS_JOB)
+    private Job prospectiveImportJob;
 
     @Resource
     private SpringBatchTestHelper springBatchHelper;
@@ -71,8 +70,6 @@ public class ProspectiveIntegrationTest {
 
     private List<OstePartnerRecord> checkPartner1Jobs;
     private List<OstePartnerRecord> checkPartner2Jobs;
-
-    private static final Log logger = LogFactory.getLog(ProspectiveIntegrationTest.class);
 
     @BeforeClass
     public static void initStaticObjects() throws Exception {
@@ -115,12 +112,12 @@ public class ProspectiveIntegrationTest {
             IOException,
             SQLException {
 
-        assertNotNull(importPartnerjobsJob);
+        assertNotNull(prospectiveImportJob);
 
         Map<String, JobParameter> parameters = new HashMap<>();
         parameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter(PARTNER_CODE_1));
 
-        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importPartnerjobsJob, parameters));
+        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(prospectiveImportJob, parameters));
 
         List<OstePartnerRecord> fetchedJobs = jooq.selectFrom(OSTE_PARTNER)
                 .where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_1))
@@ -145,9 +142,9 @@ public class ProspectiveIntegrationTest {
             result.setId("");
             check.setId("");
 
-            if (logger.isDebugEnabled() && result.compareTo(check)!= 0) {
-                logger.debug("CHECK:\n" + check);
-                logger.debug("\nRESULT:\n" + result);
+            if (logger.isDebugEnabled() && (result.compareTo(check) != 0)) {
+                logger.error("CHECK:\n" + check);
+                logger.error("\nRESULT:\n" + result);
             }
 
             assertEquals(0, result.compareTo(check));
@@ -170,11 +167,11 @@ public class ProspectiveIntegrationTest {
         Map<String, JobParameter> validParameters = new HashMap<>();
         validParameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter(PARTNER_CODE_2));
 
-        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importPartnerjobsJob, validParameters));
+        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(prospectiveImportJob, validParameters));
 
         Map<String, JobParameter> wrongParameters = new HashMap<>();
         wrongParameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter("unknown_code"));
-        assertEquals(ExitStatus.FAILED, springBatchHelper.runJob(importPartnerjobsJob, wrongParameters));
+        assertEquals(ExitStatus.FAILED, springBatchHelper.runJob(prospectiveImportJob, wrongParameters));
 
         Integer partner1CountAfterImport = jooq.fetchCount(
                 jooq.selectFrom(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_1))
@@ -198,7 +195,7 @@ public class ProspectiveIntegrationTest {
         Map<String, JobParameter> parameters = new HashMap<>();
         parameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter(PARTNER_CODE_2));
 
-        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importPartnerjobsJob, parameters));
+        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(prospectiveImportJob, parameters));
 
         OstePartnerRecord fetchedJob = jooq.selectFrom(OSTE_PARTNER)
                 .where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2))
@@ -222,7 +219,7 @@ public class ProspectiveIntegrationTest {
         Map<String, JobParameter> validParameters = new HashMap<>();
         validParameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter(PARTNER_CODE_2));
 
-        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importPartnerjobsJob, validParameters));
+        assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(prospectiveImportJob, validParameters));
 
         int initialCount = jooq.fetchCount(
                 jooq.selectFrom(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2))
@@ -236,7 +233,7 @@ public class ProspectiveIntegrationTest {
         Map<String, JobParameter> invalidParameters = new HashMap<>();
         invalidParameters.put(BATCH_JOB_PARAMETER_PARTNER_CODE, new JobParameter(PARTNER_CODE_2));
 
-        ExitStatus jobResult = springBatchHelper.runJob(importPartnerjobsJob, invalidParameters);
+        ExitStatus jobResult = springBatchHelper.runJob(prospectiveImportJob, invalidParameters);
         int count = jooq.fetchCount(
                 jooq.selectFrom(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2))
         );
@@ -309,7 +306,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(80);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E259D738-0559-E806-E9C3077F15A49B16");
         j.setUrlBewerbung(null);
-        j.setAnmeldeDatum("2015-06-11-00.00.00.000000");
+        j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         j.setUnbefristetB(false);
         // j.setSprache("de");
         return j;
@@ -348,7 +345,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(50);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6818-B845-086C-C7C94F50F21A3A7E");
         j.setUrlBewerbung("https://recruitingapp-2630.umantis.com/Vacancies/24969/Application/CheckLogin?srcIDPMS=3492466&srcTextPMS=jobroom&lang=ita");
-        j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
+        j.setAnmeldeDatum("2016-08-12-00.00.00.000000");
         j.setUnbefristetB(true);
         // j.setSprache("it");
         return j;
@@ -387,7 +384,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6A4A-AA9A-1576-51595322160A0B4F");
         j.setUrlBewerbung("https://recruitingapp-2630.umantis.com/Vacancies/24969/Application/CheckLogin?srcIDPMS=3492465&srcTextPMS=jobroom&lang=fre");
-        j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
+        j.setAnmeldeDatum("2016-08-12-00.00.00.000000");
         // j.setSprache("fr");
         return j;
     }
@@ -425,7 +422,7 @@ public class ProspectiveIntegrationTest {
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6B83-9607-C2FE-2BA8743DC442BC94");
         j.setUrlBewerbung("https://recruitingapp-2630.umantis.com/Vacancies/24969/Application/CheckLogin?srcIDPMS=3492464&srcTextPMS=jobroom&lang=ger");
-        j.setAnmeldeDatum("2015-06-12-00.00.00.000000");
+        j.setAnmeldeDatum("2016-08-12-00.00.00.000000");
         // j.setSprache("de");
         return j;
     }

@@ -8,17 +8,19 @@ ch:
   alv:
     batches:
       chunkSizes:
-        prospective: 20
+        partnerjob: 2
 
     partnerjob:
       sources:
 
+        ubs:
+          mode: ubs
+          uri:  src/test/resources/ubs_feed.xml
+
         partner1:
-          name: "crazy white-on-red-cross jobs"
-          mode: HTTP
+          mode: prospective
           uri:  http://localhost:8180/partner1_feed.xml
 
         partner2:
-          name: "awesome yellow jobs"
-          mode: HTTP
+          mode: prospective
           uri:  http://localhost:8180/partner2_feed.xml

@@ -8,20 +8,14 @@ import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemProcessor;
 
-import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * Contains all logic that transforms a raw {@link Inserat} object into
+ * Contains all logic that transforms a raw {@link prospective.Inserat} object into
  * its proper internal state as an {@link OstePartnerRecord}.
  */
 public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Inserat, OstePartnerRecord> {
-
-    // TODO: convert these constants as configurable parameters
-    public static final int DESC_MAX_LENGTH = 10000;
-    public static final String DESC_TRUNCATE_SUFFIX = " [...]";
-    private static final SimpleDateFormat AVAM_DATETIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'-00.00.00.000000'");
 
     private String partnerCode = null;
 
@@ -43,7 +37,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Insera
         partnerJob.setQuelle(partnerCode);
         partnerJob.setBezeichnung(prospectiveJob.getStellentitel().trim());
         partnerJob.setUntName(prospectiveJob.getKundenname().trim());
-        partnerJob.setAnmeldeDatum(AVAM_DATETIME_FORMAT.format(prospectiveJob.getDatumStart().toGregorianCalendar().getTime()));
+        partnerJob.setAnmeldeDatum(PartnerJobImport.DB_DATETIME_FORMAT.format(prospectiveJob.getDatumStart().toGregorianCalendar().getTime()));
 
         //
         // Optional Fields
@@ -77,9 +71,8 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Insera
             if (metaData.getZipcode() != null) {
                 partnerJob.setArbeitsortPlz(metaData.getZipcode().trim());
             }
-            if (metaData.getPlace() != null) {
-                // This field is not available yet in OSTE_PARTNER table, and is not required to be imported for the moment.
-                // partnerJob.setArbeitsort(metaData.getPlace().trim());
+            if (metaData.getXplace() != null) {
+                partnerJob.setArbeitsortText(metaData.getXplace().trim());
             }
             if (metaData.getPensumvon() != null) {
                 partnerJob.setPensumVon(metaData.getPensumvon().intValue());
@@ -113,22 +106,18 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Insera
     private void processJobDescriptionData(Inserat.Texte textData, OstePartnerRecord partnerJob) {
 
         if (textData != null) {
-            partnerJob.setBeschreibung(textData.getText1().trim() + "\n" +
+            String description = textData.getText1().trim() + "\n" +
                     textData.getText2().trim() + "\n" +
                     textData.getText3().trim() + "\n" +
                     textData.getText4().trim() + "\n" +
-                    textData.getText5().trim());
+                    textData.getText5().trim();
             if (textData.getText6() != null) {
-                partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + textData.getText6().trim());
+                description += "\n" + textData.getText6().trim();
             }
             if (textData.getText7() != null) {
-                partnerJob.setBeschreibung(partnerJob.getBeschreibung() + "\n" + textData.getText7().trim());
+                description += "\n" + textData.getText7().trim();
             }
-            if (partnerJob.getBeschreibung().length() > DESC_MAX_LENGTH) {
-                partnerJob.setBeschreibung(partnerJob.getBeschreibung()
-                        .substring(0, DESC_MAX_LENGTH - DESC_TRUNCATE_SUFFIX.length()) + DESC_TRUNCATE_SUFFIX);
-            }
-            partnerJob.setBeschreibung(partnerJob.getBeschreibung().trim());
+            partnerJob.setBeschreibung(PartnerJobImport.abbreviateDescription(description));
         }
 
     }

@@ -3,7 +3,8 @@ package ch.alv.batches.partnerjob.to.master.config;
 import ch.alv.batches.commons.sql.JooqBatchWriter;
 import ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobToPartnerJobConverter;
 import ch.alv.batches.partnerjob.to.master.batch.ProspectiveJobXmlItemReader;
-import ch.alv.batches.partnerjob.to.master.jaxb.prospective.Inserat;
+import ch.alv.batches.partnerjob.to.master.batch.UbsJobToPartnerJobConverter;
+import ch.alv.batches.partnerjob.to.master.batch.UbsJobXmlItemReader;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
 import org.jooq.DSLContext;
 import org.springframework.batch.core.Job;
@@ -33,8 +34,8 @@ import static ch.alv.batches.partnerjob.to.master.jooq.Tables.OSTE_PARTNER;
 
 /**
  * Import partner's job offers into OSTE_PARTNER table from the following kind of sources:
- *  - Remote XML file grabbed via http
- *  - (more to come...)
+ *  - Remote XML file grabbed via http for partners using 'prospective' data provider
+ *  - Local XML file for partners using 'ubs' data provider
  */
 @Configuration
 @EnableConfigurationProperties
@@ -42,7 +43,9 @@ import static ch.alv.batches.partnerjob.to.master.jooq.Tables.OSTE_PARTNER;
 @ComponentScan("ch.alv.batches.commons")
 public class PartnerJobToMasterConfiguration implements InitializingBean {
 
-    public final static String IMPORT_PARTNERJOB_JOB = "partnerJobsImportJob";
+    public final static String IMPORT_UBSJOBS_JOB = "ubsImportJob";
+
+    public final static String IMPORT_PROSPECTIVEJOBS_JOB = "prospectiveImportJob";
 
     public final static String BATCH_JOB_PARAMETER_PARTNER_CODE = "partnerCode";
 
@@ -68,15 +71,24 @@ public class PartnerJobToMasterConfiguration implements InitializingBean {
         this.sources = sources;
     }
 
-
-
-    @Bean(name = IMPORT_PARTNERJOB_JOB)
-    public Job importPartnerJobsJob() throws IOException, URISyntaxException, SQLException {
-        return jobs.get(IMPORT_PARTNERJOB_JOB)
+    @Bean(name = IMPORT_PROSPECTIVEJOBS_JOB)
+    public Job importProspectiveJobsJob() throws IOException, URISyntaxException, SQLException {
+        return jobs.get(IMPORT_PROSPECTIVEJOBS_JOB)
                 .incrementer(new RunIdIncrementer())
                 .preventRestart()
-                .flow(deleteExistingPartnerJobsStep())
-                .next(fetchAndImportNewPartnerJobsStep())
+                .flow(deleteExistingProspectiveJobsStep())
+                .next(fetchAndImportNewProspectiveJobsStep())
+                .end()
+                .build();
+    }
+
+    @Bean(name = IMPORT_UBSJOBS_JOB)
+    public Job importUbsJobsJob() throws IOException, URISyntaxException, SQLException {
+        return jobs.get(IMPORT_UBSJOBS_JOB)
+                .incrementer(new RunIdIncrementer())
+                .preventRestart()
+                .flow(deleteExistingUbsJobsStep())
+                .next(fetchAndImportNewUbsJobsStep())
                 .end()
                 .build();
     }
@@ -85,30 +97,57 @@ public class PartnerJobToMasterConfiguration implements InitializingBean {
         sources.keySet().forEach(k -> sources.get(k).setCode(k));
     }
 
-    private Step deleteExistingPartnerJobsStep() {
+    private Step deleteExistingProspectiveJobsStep() {
         Tasklet t = (contribution, context) -> {
             String partnerCode = (String) context.getStepContext().getJobParameters().get(BATCH_JOB_PARAMETER_PARTNER_CODE);
             jooq.delete(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(partnerCode)).execute();
             return RepeatStatus.FINISHED;
         };
 
-        return steps.get("deleteExistingPartnerJobsStep")
+        return steps.get("deleteExistingProspectiveJobsStep")
                 .tasklet(t)
                 .build();
     }
 
-    private Step fetchAndImportNewPartnerJobsStep() throws MalformedURLException, URISyntaxException, SQLException {
+    private Step deleteExistingUbsJobsStep() {
+        Tasklet t = (contribution, context) -> {
+            jooq.delete(OSTE_PARTNER).where(OSTE_PARTNER.QUELLE.equal(Partner.Mode.UBS.toString())).execute();
+            return RepeatStatus.FINISHED;
+        };
+
+        return steps.get("deleteExistingUbsJobsStep")
+                .tasklet(t)
+                .build();
+    }
+
+    private Step fetchAndImportNewProspectiveJobsStep() throws MalformedURLException, URISyntaxException, SQLException {
         Jaxb2Marshaller unmarshaller = new Jaxb2Marshaller();
         unmarshaller.setPackagesToScan("ch.alv.batches.partnerjob.to.master.jaxb.prospective");
 
-        ProspectiveJobXmlItemReader partnerjobXmlReader = new ProspectiveJobXmlItemReader(sources);
-        partnerjobXmlReader.setFragmentRootElementName("inserat");
-        partnerjobXmlReader.setUnmarshaller(unmarshaller);
+        ProspectiveJobXmlItemReader prospectiveXmlReader = new ProspectiveJobXmlItemReader(sources);
+        prospectiveXmlReader.setFragmentRootElementName("inserat");
+        prospectiveXmlReader.setUnmarshaller(unmarshaller);
 
-        return steps.get("fetchAndImportNewPartnerJobsStep")
-                .<Inserat, OstePartnerRecord>chunk(prospectiveChunkSize)
-                .reader(partnerjobXmlReader)
+        return steps.get("fetchAndImportNewProspectiveJobsStep")
+                .<ch.alv.batches.partnerjob.to.master.jaxb.prospective.Inserat, OstePartnerRecord>chunk(prospectiveChunkSize)
+                .reader(prospectiveXmlReader)
                 .processor(new ProspectiveJobToPartnerJobConverter())
+                .writer(new JooqBatchWriter(jooq))
+                .build();
+    }
+
+    private Step fetchAndImportNewUbsJobsStep() throws MalformedURLException, URISyntaxException, SQLException {
+        Jaxb2Marshaller unmarshaller = new Jaxb2Marshaller();
+        unmarshaller.setPackagesToScan("ch.alv.batches.partnerjob.to.master.jaxb.ubs");
+
+        UbsJobXmlItemReader ubsXmlReader = new UbsJobXmlItemReader(sources);
+        ubsXmlReader.setFragmentRootElementName("inserat");
+        ubsXmlReader.setUnmarshaller(unmarshaller);
+
+        return steps.get("fetchAndImportNewUbsJobsStep")
+                .<ch.alv.batches.partnerjob.to.master.jaxb.ubs.Inserat, OstePartnerRecord>chunk(prospectiveChunkSize)
+                .reader(ubsXmlReader)
+                .processor(new UbsJobToPartnerJobConverter())
                 .writer(new JooqBatchWriter(jooq))
                 .build();
     }

@@ -11,7 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_PARTNERJOB_JOB;
+import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_PROSPECTIVEJOBS_JOB;
+import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_UBSJOBS_JOB;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -27,10 +28,12 @@ public class BoomIntegrationTest {
 
     @Test
     public void testFindAndExecuteJobs() throws InterruptedException {
-        List<String> jobNames = restTemplate.getForObject("http://localhost:" + port + "/batch/monitoring/jobs", List.class);
-        assertEquals(1, jobNames.size());
+        List jobNames = restTemplate.getForObject("http://localhost:" + port + "/batch/monitoring/jobs", List.class);
+        assertEquals(2, jobNames.size());
 //        assertTrue(jobNames.contains(IMPORT_COMPANIES_JOB));
-        assertTrue(jobNames.contains(IMPORT_PARTNERJOB_JOB));
+        assertTrue(jobNames.contains(IMPORT_PROSPECTIVEJOBS_JOB));
+        assertTrue(jobNames.contains(IMPORT_UBSJOBS_JOB));
+
 
 //        Thread.sleep(5000);
 //
