@@ -162,7 +162,7 @@ Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia
             <kundenname>Eidgenössisches Departement für auswärtige Angelegenheiten</kundenname>
             <layout>0</layout>
             <logo>0</logo>
-            <sprache>de</sprache>
+            <sprache>fr</sprache>
             <datum_start>2016-08-11</datum_start>
             <datum_ende>2016-09-11</datum_ende>
             <datum_mutation>2016-08-11</datum_mutation>
@@ -185,7 +185,7 @@ Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia
                 <mail/>
             </kontakt>
             <stellentitel>
-                <![CDATA[Teststelle Partner2]]>
+                <![CDATA[Place vacante de test Partner2]]>
             </stellentitel>
             <vorspann>
                 <![CDATA[Dies ist die Kurzbeschreibung, die verwendet werden kann.]]>

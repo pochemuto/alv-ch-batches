@@ -31,10 +31,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static ch.alv.batches.partnerjob.to.master.batch.PartnerJobImport.DESC_MAX_LENGTH;
 import static ch.alv.batches.partnerjob.to.master.batch.PartnerJobImport.DESC_TRUNCATE_SUFFIX;
@@ -42,7 +43,6 @@ import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfi
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_PROSPECTIVEJOBS_JOB;
 import static ch.alv.batches.partnerjob.to.master.jooq.Tables.OSTE_PARTNER;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -68,8 +68,8 @@ public class ProspectiveIntegrationTest {
 
     private static Server server;
 
-    private List<OstePartnerRecord> checkPartner1Jobs;
-    private List<OstePartnerRecord> checkPartner2Jobs;
+    private Set<OstePartnerRecord> checkPartner1Jobs;
+    private Set<OstePartnerRecord> checkPartner2Jobs;
 
     @BeforeClass
     public static void initStaticObjects() throws Exception {
@@ -92,15 +92,16 @@ public class ProspectiveIntegrationTest {
 
     @Before
     public void initTestObjects() {
-        checkPartner1Jobs = new ArrayList<>();
+        checkPartner1Jobs = new TreeSet<>();
         checkPartner1Jobs.add(initJob1());
         checkPartner1Jobs.add(initJob2());
         checkPartner1Jobs.add(initJob3());
         checkPartner1Jobs.add(initJob4());
         checkPartner1Jobs.add(initJob5());
 
-        checkPartner2Jobs = new ArrayList<>();
+        checkPartner2Jobs = new TreeSet<>();
         checkPartner2Jobs.add(initJob6());
+        checkPartner2Jobs.add(initJob7());
     }
 
     @Test
@@ -121,34 +122,9 @@ public class ProspectiveIntegrationTest {
 
         List<OstePartnerRecord> fetchedJobs = jooq.selectFrom(OSTE_PARTNER)
                 .where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_1))
-                .fetch()
-                .sortAsc(OSTE_PARTNER.URL_DETAIL);
+                .fetch();
 
-        assertEquals(5, fetchedJobs.size());
-
-        ArrayList<String> uuidList = new ArrayList<>();
-
-        while (!fetchedJobs.isEmpty() && !checkPartner1Jobs.isEmpty()) {
-
-            OstePartnerRecord result = fetchedJobs.remove(0);
-            OstePartnerRecord check = checkPartner1Jobs.remove(0);
-
-            String id = result.getId();
-            assertEquals(36, id.length());
-            assertFalse(uuidList.contains(id));
-            uuidList.add(id);
-
-            // the random UUID must be ignored for the objects comparison
-            result.setId("");
-            check.setId("");
-
-            if (logger.isDebugEnabled() && (result.compareTo(check) != 0)) {
-                logger.error("CHECK:\n" + check);
-                logger.error("\nRESULT:\n" + result);
-            }
-
-            assertEquals(0, result.compareTo(check));
-        }
+        assertEquals(checkPartner1Jobs, new TreeSet<>(fetchedJobs));
     }
 
     @Test
@@ -179,9 +155,11 @@ public class ProspectiveIntegrationTest {
 
         assertEquals(partner1CountBeforeImport, partner1CountAfterImport);
 
-        assertEquals(2, jooq.fetchCount(jooq.selectFrom(OSTE_PARTNER).
-                where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2)))
-        );
+        List<OstePartnerRecord> fetchedJobs = jooq.selectFrom(OSTE_PARTNER)
+                .where(OSTE_PARTNER.QUELLE.equal(PARTNER_CODE_2))
+                .fetch();
+
+        assertEquals(checkPartner2Jobs, new TreeSet<>(fetchedJobs));
     }
 
     @Test
@@ -248,6 +226,7 @@ public class ProspectiveIntegrationTest {
     private OstePartnerRecord initJob1() {
         OstePartnerRecord j = new OstePartnerRecord();
         j.setQuelle(PARTNER_CODE_1);
+        j.setId("2f8d967a-6376-3049-a8ba-61910ab4fd79");
         j.setBezeichnung("Teststelle Partner1");
         j.setBeschreibung(
                 "Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
@@ -275,6 +254,7 @@ public class ProspectiveIntegrationTest {
     private OstePartnerRecord initJob2() {
         OstePartnerRecord j = new OstePartnerRecord();
         j.setQuelle(PARTNER_CODE_1);
+        j.setId("86649288-e5b3-3b89-ad95-88d10a4fd4da");
         j.setBezeichnung("Grenzwächter/Grenzwächterin mit eidgenössischem Fachausweis");
         j.setBeschreibung(
                 "Wollen Sie einen Beitrag für die Wirtschaft, die Sicherheit und Gesundheit der Schweizer Bevölkerung leisten?<br/>\n" +
@@ -315,6 +295,7 @@ public class ProspectiveIntegrationTest {
     private OstePartnerRecord initJob3() {
         OstePartnerRecord j = new OstePartnerRecord();
         j.setQuelle(PARTNER_CODE_1);
+        j.setId("2b91d860-788f-33ef-8b52-fc5c55c7e2cb");
         j.setBezeichnung("Collaboratore/trice scientifico/a, Sezione Affari economici e finanziari, DAE");
         j.setBeschreibung(
                 "Il Dipartimento federale degli affari esteri DFAE tutela gli interessi di politica estera della Svizzera.<br/>\n" +
@@ -354,6 +335,7 @@ public class ProspectiveIntegrationTest {
     private OstePartnerRecord initJob4() {
         OstePartnerRecord j = new OstePartnerRecord();
         j.setQuelle(PARTNER_CODE_1);
+        j.setId("24e2ef60-fce2-35db-a577-e932d861dec4");
         j.setBezeichnung("Collaborateur/trice scientifique au sein de la Section Affaires économiques et financières, DAE");
         j.setBeschreibung(
                 "Le Département fédéral des affaires étrangères DFAE sauvegarde les intérêts de la Suisse en matière de politique extérieure.<br/>\n" +
@@ -392,6 +374,7 @@ public class ProspectiveIntegrationTest {
     private OstePartnerRecord initJob5() {
         OstePartnerRecord j = new OstePartnerRecord();
         j.setQuelle(PARTNER_CODE_1);
+        j.setId("7952e4ce-9914-38fb-9d58-47fda2c33037");
         j.setBezeichnung("Wissenschaftliche/r Mitarbeiter/in, Sektion Wirtschafts-und Finanzfragen, DEA");
         j.setBeschreibung(
                 "Das Eidgenössische Departement für auswärtige Angelegenheiten EDA wahrt die aussenpolitischen Interessen der Schweiz.<br/>\n" +
@@ -430,25 +413,106 @@ public class ProspectiveIntegrationTest {
     private OstePartnerRecord initJob6() {
         OstePartnerRecord j = new OstePartnerRecord();
         j.setQuelle(PARTNER_CODE_2);
+        j.setId("7d88bd4c-1afe-3015-b09c-8eba7484ac19");
         j.setBezeichnung("Teststelle Partner2");
         j.setBeschreibung(
-                "Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
-                "<b>Direktion für europäische Angelegenheiten DEA</b>" +
-                "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
-                "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)\n" +
-                "sixth text field\n" +
-                "seventh text field"
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae [...]"
         );
-        j.setBerufsgruppe(10);
+        j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("3002");
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
         j.setUrlBewerbung(null);
-        j.setAnmeldeDatum("2016-06-11-00.00.00.000000");
+        j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         // j.setSprache("de");
         return j;
     }
 
+    private OstePartnerRecord initJob7() {
+        OstePartnerRecord j = new OstePartnerRecord();
+        j.setQuelle(PARTNER_CODE_2);
+        j.setId("9f74feec-606d-368b-9109-e226bc628007");
+        j.setBezeichnung("Place vacante de test Partner2");
+        j.setBeschreibung(
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.\n" +
+                "\n" +
+                "    Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit [...]"
+        );
+        j.setBerufsgruppe(1);
+        j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
+        j.setArbeitsortPlz("3002");
+        j.setPensumVon(80);
+        j.setPensumBis(100);
+        j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
+        j.setUrlBewerbung(null);
+        j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
+        // j.setSprache("fr");
+        return j;
+    }
 }

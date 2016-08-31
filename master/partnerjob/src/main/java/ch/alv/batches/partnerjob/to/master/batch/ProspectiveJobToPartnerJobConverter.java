@@ -33,7 +33,8 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Insera
         //
         // Mandatory Fields
         //
-        partnerJob.setId(UUID.randomUUID().toString());
+        String id = partnerCode + "-" + prospectiveJob.getInseratId() + "-" + prospectiveJob.getSprache();
+        partnerJob.setId(UUID.nameUUIDFromBytes(id.getBytes()).toString());
         partnerJob.setQuelle(partnerCode);
         partnerJob.setBezeichnung(prospectiveJob.getStellentitel().trim());
         partnerJob.setUntName(prospectiveJob.getKundenname().trim());
