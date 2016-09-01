@@ -67,7 +67,7 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
         OstePartnerRecord partnerJob = new OstePartnerRecord();
 
         //
-        // Mandatory Fields
+        // Mandatory Fields (no defensive programming, see also ALV #5214)
         //
         String id = ubsJob.getKundenname() + "-" + ubsJob.getInseratId() + "-" + ubsJob.getSprache();
         partnerJob.setId(UUID.nameUUIDFromBytes(id.getBytes()).toString());
@@ -75,7 +75,6 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
         partnerJob.setQuelle(partnerCode);
         partnerJob.setBezeichnung(ubsJob.getStellentitel().trim());
         partnerJob.setUntName(ubsJob.getKundenname().trim());
-        // FIXME deal with invalid input...?
         partnerJob.setAnmeldeDatum(PartnerJobImport.DB_DATETIME_FORMAT.format(ubsJob.getDatumStart().toGregorianCalendar().getTime()));
 
         //

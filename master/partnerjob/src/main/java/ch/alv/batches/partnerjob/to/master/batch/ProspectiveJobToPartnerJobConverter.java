@@ -31,7 +31,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Insera
         OstePartnerRecord partnerJob = new OstePartnerRecord();
 
         //
-        // Mandatory Fields
+        // Mandatory Fields (no defensive programming, see also ALV #5214)
         //
         String id = partnerCode + "-" + prospectiveJob.getInseratId() + "-" + prospectiveJob.getSprache();
         partnerJob.setId(UUID.nameUUIDFromBytes(id.getBytes()).toString());
