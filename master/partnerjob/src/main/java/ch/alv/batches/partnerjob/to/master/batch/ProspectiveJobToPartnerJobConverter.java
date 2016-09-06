@@ -71,6 +71,7 @@ public class ProspectiveJobToPartnerJobConverter implements ItemProcessor<Insera
             }
             if (metaData.getZipcode() != null) {
                 partnerJob.setArbeitsortPlz(metaData.getZipcode().trim());
+                partnerJob.setArbeitsortLand("CH");
             }
             if (metaData.getXplace() != null) {
                 partnerJob.setArbeitsortText(metaData.getXplace().trim());

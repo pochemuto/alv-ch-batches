@@ -239,6 +239,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("3002");
+        j.setArbeitsortLand("CH");
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
@@ -282,6 +283,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(2);
         j.setUntName("Eidgenössische Zollverwaltung EZV");
         j.setArbeitsortPlz("8038");
+        j.setArbeitsortLand("CH");
         j.setPensumVon(80);
         j.setPensumBis(80);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E259D738-0559-E806-E9C3077F15A49B16");
@@ -322,6 +324,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(12);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
+        j.setArbeitsortLand("CH");
         j.setPensumVon(40);
         j.setPensumBis(50);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6818-B845-086C-C7C94F50F21A3A7E");
@@ -362,6 +365,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(14);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
+        j.setArbeitsortLand("CH");
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6A4A-AA9A-1576-51595322160A0B4F");
@@ -401,6 +405,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("8032");
+        j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E69C6B83-9607-C2FE-2BA8743DC442BC94");
@@ -454,6 +459,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("3002");
+        j.setArbeitsortLand("CH");
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");
@@ -507,6 +513,7 @@ public class ProspectiveIntegrationTest {
         j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
         j.setArbeitsortPlz("3002");
+        j.setArbeitsortLand("CH");
         j.setPensumVon(80);
         j.setPensumBis(100);
         j.setUrlDetail("http://oh.merkur.prospective.ch/?view=E2589F54-0FEB-BEF7-6B440689168A5A71");

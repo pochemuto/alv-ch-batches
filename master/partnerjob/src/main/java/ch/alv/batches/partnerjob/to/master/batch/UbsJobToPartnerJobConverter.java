@@ -103,17 +103,24 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     private void processMetaData(Inserat.Metadaten metaData, OstePartnerRecord partnerJob) {
 
         if (metaData != null) {
-
-            if (metaData.getLocation() != null) {
-                partnerJob.setArbeitsortText(metaData.getLocation().trim());
-            }
-            // TODO set country as well
-
+            processJobLocation(metaData.getLocation(), partnerJob);
             processJobCategories(metaData.getJobcategory(), partnerJob);
-
             processJobDurations(metaData.getJobduration(), partnerJob);
         }
 
+    }
+
+    private void processJobLocation(String jobLocation, OstePartnerRecord partnerJob) {
+        final String SWITZERLAND_REGEX = "^Switzerland - ";
+        if (jobLocation != null) {
+            if (jobLocation.matches(SWITZERLAND_REGEX + ".+")) {
+                partnerJob.setArbeitsortText(jobLocation.split(SWITZERLAND_REGEX, 2)[1].trim());
+                partnerJob.setArbeitsortLand("CH");
+            } else {
+                partnerJob.setArbeitsortText(jobLocation);
+                partnerJob.setArbeitsortLand(null); // For now, a null value is interpreted as "not in Switzerland"
+            }
+        }
     }
 
     private void processJobDurations(String ubsJobDurations, OstePartnerRecord partnerJob) {
