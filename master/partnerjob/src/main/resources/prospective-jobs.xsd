@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema attributeFormDefault="unqualified"
            elementFormDefault="qualified"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:prospective="http://jobarea.ch/jobroom/partner/prospective"
-           targetNamespace="http://jobarea.ch/jobroom/partner/prospective">
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <xs:element name="interface">
         <xs:complexType>
@@ -12,7 +10,7 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element type="xs:integer" name="ordercount"/>
-                            <xs:element name="inserat" maxOccurs="unbounded" minOccurs="0" type="prospective:inserat"/>
+                            <xs:element name="inserat" maxOccurs="unbounded" minOccurs="0" type="inserat"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -21,7 +19,7 @@
     </xs:element>
 
     <!-- This definition is required to get XmlRootElement annotation on the corresponding JAXB-generated class -->
-    <xs:element name="inserat" type="prospective:inserat" />
+    <xs:element name="inserat" type="inserat" />
 
     <xs:complexType name="inserat">
         <xs:sequence>

@@ -77,16 +77,10 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <!-- force source comments to be written in english, instead of the developer's locale -->
+                            <!-- Always generate code comments in english, instead of the developer's locale -->
                             <locale>en</locale>
 
-                            <!-- If the following not specified all xsd in resources are included -->
-                            <schemaIncludes>
-                                <include>prospective-jobs.xsd</include>
-                                <include>ubs-jobs.xsd</include>
-                            </schemaIncludes>
-
-                            <!-- if you don't want old output -->
+                            <!-- Don't keep anything from precedent generated code -->
                             <removeOldOutput>true</removeOldOutput>
 
                             <verbose>true</verbose>

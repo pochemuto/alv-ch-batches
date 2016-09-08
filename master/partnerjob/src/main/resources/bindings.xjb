@@ -14,19 +14,12 @@
         <xjc:simple/>
     </jaxb:globalBindings>
 
-    <!-- Configure xsd-namespace-to-java-package mappings
-         as recommended in https://github.com/highsource/maven-jaxb2-plugin/wiki/Configure-Target-Packages-in-Binding-Files
-    -->
-    <jaxb:bindings
-            scd="x-schema::prospective"
-            xmlns:prospective="http://jobarea.ch/jobroom/partner/prospective">
+    <jaxb:bindings schemaLocation="prospective-jobs.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="ch.alv.batches.partnerjob.to.master.jaxb.prospective"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings
-            scd="x-schema::ubs"
-            xmlns:ubs="http://jobarea.ch/jobroom/partner/ubs">
+    <jaxb:bindings schemaLocation="ubs-jobs.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="ch.alv.batches.partnerjob.to.master.jaxb.ubs"/>
         </jaxb:schemaBindings>
