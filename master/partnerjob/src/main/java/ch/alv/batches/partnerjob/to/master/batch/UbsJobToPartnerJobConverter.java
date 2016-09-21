@@ -111,7 +111,7 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     }
 
     private void processJobLocation(String jobLocation, OstePartnerRecord partnerJob) {
-        final String SWITZERLAND_REGEX = "^Switzerland - ";
+        final String SWITZERLAND_REGEX = "^(Switzerland|Schweiz|Suisse|Svizzera) - ";
         if (jobLocation != null) {
             if (jobLocation.matches(SWITZERLAND_REGEX + ".+")) {
                 partnerJob.setArbeitsortText(jobLocation.split(SWITZERLAND_REGEX, 2)[1].trim());
