@@ -3,6 +3,7 @@ package ch.alv.batches.partnerjob.to.master.batch;
 import ch.alv.batches.partnerjob.to.master.jaxb.ubs.Inserat;
 import ch.alv.batches.partnerjob.to.master.jooq.tables.records.OstePartnerRecord;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -103,23 +104,33 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     private void processMetaData(Inserat.Metadaten metaData, OstePartnerRecord partnerJob) {
 
         if (metaData != null) {
-            processJobLocation(metaData.getLocation(), partnerJob);
+            processJobLocation(metaData.getLocation(), metaData.getCity(), partnerJob);
             processJobCategories(metaData.getJobcategory(), partnerJob);
             processJobDurations(metaData.getJobduration(), partnerJob);
         }
 
     }
 
-    private void processJobLocation(String jobLocation, OstePartnerRecord partnerJob) {
+    private void processJobLocation(String jobLocation, String jobCity, OstePartnerRecord partnerJob) {
         final String SWITZERLAND_REGEX = "^(Switzerland|Schweiz|Suisse|Svizzera) - ";
-        if (jobLocation != null) {
+
+        if (!StringUtils.isEmpty(jobLocation)) {
             if (jobLocation.matches(SWITZERLAND_REGEX + ".+")) {
-                partnerJob.setArbeitsortText(jobLocation.split(SWITZERLAND_REGEX, 2)[1].trim());
+                String location = jobLocation.split(SWITZERLAND_REGEX, 2)[1].trim();
+                partnerJob.setArbeitsortText(composeLocation(jobCity, location));
                 partnerJob.setArbeitsortLand("CH");
             } else {
-                partnerJob.setArbeitsortText(jobLocation);
+                partnerJob.setArbeitsortText(composeLocation(jobCity, jobLocation));
                 partnerJob.setArbeitsortLand(null); // For now, a null value is interpreted as "not in Switzerland"
             }
+        }
+    }
+
+    private static String composeLocation(String city, String location) {
+        if (location.compareToIgnoreCase(city) == 0 || StringUtils.isEmpty(city)) {
+            return location;
+        } else {
+            return location + " - " + city;
         }
     }
 

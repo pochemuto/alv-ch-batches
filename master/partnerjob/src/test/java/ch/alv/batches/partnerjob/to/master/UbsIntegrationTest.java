@@ -64,6 +64,7 @@ public class UbsIntegrationTest {
         checkUbsJobs.add(initJob6InGerman());
         checkUbsJobs.add(initJob6InFrench());
         checkUbsJobs.add(initJob6InItalian());
+        checkUbsJobs.add(initJob7());
     }
 
     @Test
@@ -86,7 +87,7 @@ public class UbsIntegrationTest {
                 .fetch()
                 .sortAsc(OSTE_PARTNER.BEZEICHNUNG);
 
-        assertEquals(13, fetchedJobs.size());
+        assertEquals(14, fetchedJobs.size());
 
 // Debugging Helper:
 //        for (OstePartnerRecord c: checkUbsJobs) {
@@ -98,7 +99,7 @@ public class UbsIntegrationTest {
 //            }
 //        }
 
-        assertEquals(checkUbsJobs, new TreeSet<>(fetchedJobs.subList(0, 10)));
+        assertEquals(checkUbsJobs, new TreeSet<>(fetchedJobs.subList(0, 11)));
     }
 
     private OstePartnerRecord initJob1() {
@@ -145,7 +146,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("United Kingdom");
+        j.setArbeitsortText("United Kingdom - London");
         j.setArbeitsortLand(null);  // identification of foreign countries is not supported yet
         j.setPensumVon(0);
         j.setPensumBis(100);
@@ -201,7 +202,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(1);
         j.setUntName("UBS");
-        j.setArbeitsortText("Poland");
+        j.setArbeitsortText("Poland - Kraków");
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(0);
         j.setPensumBis(100);
@@ -382,6 +383,34 @@ public class UbsIntegrationTest {
         j.setAnmeldeDatum("2016-08-20-00.00.00.000000");
         j.setUnbefristetB(true);
         // j.setSprache("it");
+        return j;
+    }
+
+    private OstePartnerRecord initJob7() {
+        OstePartnerRecord j = new OstePartnerRecord();
+        j.setId("e3ccab11-dec1-3c60-96ea-105fa815f3bf");
+        j.setQuelle(UBS_CODE);
+        j.setBezeichnung("7. Fusion Testing Professional FR/2");
+        j.setBeschreibung(
+                "<S1>Votre fonction</S1><P>Client Advisor</P>\n" +
+                "<S1>Votre équipe</S1>\n" +
+                "<S1>Votre expérience et vos compétences</S1>\n" +
+                "<S1>A propos de nous</S1>\n" +
+                "<S1>Nous offrons</S1>UBS bietet Ihnen ein leistungsorientiertes Umfeld, attraktive Karrierechancen und eine offene Unternehmenskultur, die den Beitrag jedes Einzelnen schätzt und belohnt.\n" +
+                "<S1>Passez à l’étape suivante</S1>Vous sentez-vous concerné(e)? N'hésitez pas à nous envoyer votre candidature en ligne\n" +
+                "<S1>Disclaimer / Policy Statements</S1>UBS ist ein Arbeitgeber, der Chancengleichheit fördert. Wir respektieren jeden Mitarbeiter als Individuum sowie unterschiedliche Kulturen, Perspektiven, Fähigkeiten und Erfahrungen unseres Personals."
+        );
+        j.setBerufsgruppe(2);
+        j.setUntName("UBS");
+        j.setArbeitsortText("Central Plateau - Herzogenbuchsee");
+        j.setArbeitsortLand("CH");
+        j.setPensumVon(100);
+        j.setPensumBis(100);
+        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room");
+        j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room");
+        j.setAnmeldeDatum("2016-08-29-00.00.00.000000");
+        j.setUnbefristetB(true);
+        // j.setSprache("fr");
         return j;
     }
 }

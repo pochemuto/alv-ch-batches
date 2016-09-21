@@ -521,7 +521,7 @@
                 <role_family><![CDATA[Business Support & General Mgmt]]></role_family>
                 <role_profile><![CDATA[Executive/Team Assistant NO (ZS0181)]]></role_profile>
                 <location><![CDATA[Hong Kong]]></location>
-                <city><![CDATA[Hong Kong]]></city>
+                <city><![CDATA[hong kong]]></city>
             </metadaten>
             <url_bewerber>
                 <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49881BR&Codes=Ijob-room]]>
@@ -588,7 +588,7 @@
                 <role_family><![CDATA[Business Support & General Mgmt]]></role_family>
                 <role_profile><![CDATA[Executive/Team Assistant NO (ZS0181)]]></role_profile>
                 <location><![CDATA[Hong Kong]]></location>
-                <city><![CDATA[Hong Kong]]></city>
+                <city><![CDATA[]]></city>
             </metadaten>
             <url_bewerber>
                 <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5050&areq=49881BR&Codes=Ijob-room]]>
@@ -863,5 +863,67 @@
                 <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49739BR&Codes=Ijob-room]]>
             </url_direktlink>
         </inserat>
+        <inserat>
+            <hierarchien>
+                <hierarchieid><![CDATA[]]></hierarchieid>
+                <hierarchietext><![CDATA[]]></hierarchietext>
+            </hierarchien>
+            <inserat_id>49391BR</inserat_id>
+            <medienname>Job-Room.ch (Schnittstelle)</medienname>
+            <medien_id>1234</medien_id>
+            <konto_id>999</konto_id>
+            <kundenname>UBS</kundenname>
+            <layout>0</layout>
+            <logo>0</logo>
+            <sprache>fr</sprache>
+            <datum_start>2016-08-29</datum_start>
+            <datum_ende/>
+            <datum_mutation/>
+            <kontakt>
+                <firma/>
+                <abteilung><![CDATA[Corporate Center]]></abteilung>
+                <anrede/>
+                <titel/>
+                <name/>
+                <vorname/>
+                <adresse1/>
+                <adresse2/>
+                <adresse3/>
+                <plz/>
+                <ort/>
+                <land/>
+                <land_iso2/>
+                <land_iso3/>
+                <telefon/>
+                <mail/>
+            </kontakt>
+            <stellentitel><![CDATA[7. Fusion Testing Professional FR/2]]></stellentitel>
+            <vorspann/>
+            <texte>
+                <text_1><![CDATA[<S1>Votre fonction</S1><P>Client Advisor</P>]]></text_1>
+                <text_2><![CDATA[<S1>Votre équipe</S1>]]></text_2>
+                <text_3><![CDATA[<S1>Votre expérience et vos compétences</S1>]]></text_3>
+                <text_4><![CDATA[<S1>A propos de nous</S1>]]></text_4>
+                <text_5>
+                    <![CDATA[<S1>Nous offrons</S1>UBS bietet Ihnen ein leistungsorientiertes Umfeld, attraktive Karrierechancen und eine offene Unternehmenskultur, die den Beitrag jedes Einzelnen schätzt und belohnt.]]></text_5>
+                <text_6>
+                    <![CDATA[<S1>Passez à l’étape suivante</S1>Vous sentez-vous concerné(e)? N'hésitez pas à nous envoyer votre candidature en ligne]]></text_6>
+                <text_7>
+                    <![CDATA[<S1>Disclaimer / Policy Statements</S1>UBS ist ein Arbeitgeber, der Chancengleichheit fördert. Wir respektieren jeden Mitarbeiter als Individuum sowie unterschiedliche Kulturen, Perspektiven, Fähigkeiten und Erfahrungen unseres Personals.]]></text_7>
+            </texte>
+            <metadaten>
+                <jobcategory><![CDATA[Client Advisors/Relationship Managers]]></jobcategory>
+                <jobduration><![CDATA[Full Time]]></jobduration>
+                <role_family><![CDATA[Private Clients]]></role_family>
+                <role_profile><![CDATA[Client Manager Private Clients Basis No (ZS1911)]]></role_profile>
+                <location><![CDATA[Switzerland - Central Plateau]]></location>
+                <city><![CDATA[Herzogenbuchsee]]></city>
+            </metadaten>
+            <url_bewerber>
+                <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room]]></url_bewerber>
+            <url_direktlink>
+                <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room]]></url_direktlink>
+        </inserat>
+
     </inserate>
 </interface>
