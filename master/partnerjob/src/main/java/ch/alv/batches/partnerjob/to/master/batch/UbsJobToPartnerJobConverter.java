@@ -189,13 +189,10 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
                     textData.getText2().trim() + "\n" +
                     textData.getText3().trim() + "\n" +
                     textData.getText4().trim() + "\n" +
-                    textData.getText5().trim();
-            if (textData.getText6() != null) {
-                description += "\n" + textData.getText6().trim();
-            }
-            if (textData.getText7() != null) {
-                description += "\n" + textData.getText7().trim();
-            }
+                    textData.getText5().trim() + "\n" +
+                    textData.getText6().trim() + "\n" +
+                    textData.getText7().trim();
+
             partnerJob.setBeschreibung(PartnerJobImport.abbreviateDescription(description));
         }
 

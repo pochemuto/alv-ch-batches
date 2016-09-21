@@ -78,8 +78,6 @@
                         <xs:element type="xs:string" name="text_3"/>
                         <xs:element type="xs:string" name="text_4"/>
                         <xs:element type="xs:string" name="text_5"/>
-                        <xs:element type="xs:string" name="text_6" minOccurs="0"/>
-                        <xs:element type="xs:string" name="text_7" minOccurs="0"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
