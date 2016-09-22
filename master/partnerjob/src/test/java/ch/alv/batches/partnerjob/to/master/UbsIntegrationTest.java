@@ -122,7 +122,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49739BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49739BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49739BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         j.setUnbefristetB(false);
@@ -150,7 +150,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand(null);  // identification of foreign countries is not supported yet
         j.setPensumVon(0);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49740BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49740BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49740BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -178,7 +178,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49822BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49822BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49822BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -206,7 +206,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(0);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49832BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49832BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49832BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         j.setUnbefristetB(false);
@@ -234,7 +234,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49881BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49881BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49881BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -262,7 +262,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5050&areq=49881BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5050&areq=49881BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5050&areq=49881BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-11-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -291,7 +291,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49926BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49926BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49926BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-20-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -320,7 +320,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5050&areq=49926BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5050&areq=49926BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5050&areq=49926BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-20-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -349,7 +349,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49926BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49926BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49926BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-20-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -378,7 +378,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5048&areq=49926BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5048&areq=49926BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5048&areq=49926BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-20-00.00.00.000000");
         j.setUnbefristetB(true);
@@ -406,7 +406,7 @@ public class UbsIntegrationTest {
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
-        j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room");
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room");
         j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room");
         j.setAnmeldeDatum("2016-08-29-00.00.00.000000");
         j.setUnbefristetB(true);

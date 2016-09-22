@@ -92,11 +92,12 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
 
     private void processUrls(Inserat prospectiveJob, OstePartnerRecord partnerJob) {
 
-        if (prospectiveJob.getUrlDirektlink() != null) {
-            partnerJob.setUrlDetail(prospectiveJob.getUrlDirektlink().trim());
-        }
         if (prospectiveJob.getUrlBewerber() != null) {
             partnerJob.setUrlBewerbung(prospectiveJob.getUrlBewerber().trim());
+        }
+        if (prospectiveJob.getUrlDirektlink() != null && !prospectiveJob.getUrlDirektlink().trim().equals(partnerJob.getUrlBewerbung())) {
+            // Only import the "Job Detail URL" information if its value is different from the "Application URL"
+            partnerJob.setUrlDetail(prospectiveJob.getUrlDirektlink().trim());
         }
 
     }
