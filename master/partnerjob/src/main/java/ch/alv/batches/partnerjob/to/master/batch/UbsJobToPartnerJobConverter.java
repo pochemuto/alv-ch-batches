@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Contains all logic that transforms a raw {@link ch.alv.batches.partnerjob.to.master.jaxb.ubs.Inserat} object into
@@ -20,6 +22,8 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     private String partnerCode = "ubs";
 
     private static final String UBS_MULTIVALUED_STRING_SEPARATOR_REGEX = "\\|";
+    private static final String UBS_SWITZERLAND_REGEX = "^(Switzerland|Schweiz|Suisse|Svizzera) - ";
+
 
     private static final Integer JOBROOM_CATEGORY_ADMIN_MANAGEMENT = 1;
     private static final Integer JOBROOM_CATEGORY_FINANCE_LAW = 2;
@@ -105,33 +109,48 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     private void processMetaData(Inserat.Metadaten metaData, OstePartnerRecord partnerJob) {
 
         if (metaData != null) {
-            processJobLocation(metaData.getLocation(), metaData.getCity(), partnerJob);
+            processJobLocations(metaData.getLocation(), metaData.getCity(), partnerJob);
             processJobCategories(metaData.getJobcategory(), partnerJob);
             processJobDurations(metaData.getJobduration(), partnerJob);
         }
 
     }
 
-    private void processJobLocation(String jobLocation, String jobCity, OstePartnerRecord partnerJob) {
-        final String SWITZERLAND_REGEX = "^(Switzerland|Schweiz|Suisse|Svizzera) - ";
+    private static void  processJobLocations(String jobLocations, String jobCities, OstePartnerRecord partnerJob) {
+        if (!StringUtils.isEmpty(jobLocations)) {
 
-        if (!StringUtils.isEmpty(jobLocation)) {
-            if (jobLocation.matches(SWITZERLAND_REGEX + ".+")) {
-                String location = jobLocation.split(SWITZERLAND_REGEX, 2)[1].trim();
-                partnerJob.setArbeitsortText(composeLocation(jobCity, location));
+            if (jobLocations.matches(UBS_SWITZERLAND_REGEX + ".+")) {
+                // A vacancy with multiple locations incluging Switzerland, will be considered as located in Swizterland
                 partnerJob.setArbeitsortLand("CH");
             } else {
-                partnerJob.setArbeitsortText(composeLocation(jobCity, jobLocation));
                 partnerJob.setArbeitsortLand(null); // For now, a null value is interpreted as "not in Switzerland"
+            }
+
+            List<String> locations = Arrays.asList(jobLocations.trim().split(UBS_MULTIVALUED_STRING_SEPARATOR_REGEX));
+            if (locations.size() > 0) {
+                List<String> cleantLocations = locations.stream().map(UbsJobToPartnerJobConverter::getJobLocation).sorted().collect(Collectors.toList());
+                String locationsText = cleantLocations.stream().collect(Collectors.joining(", "));
+
+                if (!StringUtils.isEmpty(jobCities)) {
+                    List<String> cities = Arrays.asList(jobCities.trim().split(UBS_MULTIVALUED_STRING_SEPARATOR_REGEX));
+                    String citiesText = cities.stream()
+                            // TODO decide whether h.filter(x -> !cleantLocations.contains(x)), or not (+ case insensitiveness)
+                            .sorted().collect(Collectors.joining(", "));
+                    if (citiesText.length() > 0) {
+                        locationsText += " - " + citiesText;
+                    }
+                }
+
+                partnerJob.setArbeitsortText(locationsText);
             }
         }
     }
 
-    private static String composeLocation(String city, String location) {
-        if (location.compareToIgnoreCase(city) == 0 || StringUtils.isEmpty(city)) {
-            return location;
+    private static String getJobLocation(String jobLocation) {
+        if (!StringUtils.isEmpty(jobLocation)) {
+            return jobLocation.replaceAll(UBS_SWITZERLAND_REGEX, "");
         } else {
-            return location + " - " + city;
+            return "";
         }
     }
 

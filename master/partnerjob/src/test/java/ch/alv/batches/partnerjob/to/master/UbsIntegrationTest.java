@@ -118,7 +118,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("Zürich");
+        j.setArbeitsortText("Bern, Graubünden, Zürich - Zürich");
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
@@ -146,7 +146,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("United Kingdom - London");
+        j.setArbeitsortText("United Kingdom, Zürich - London, Zürich");
         j.setArbeitsortLand(null);  // identification of foreign countries is not supported yet
         j.setPensumVon(0);
         j.setPensumBis(100);
