@@ -118,7 +118,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("Bern, Graubünden, Zürich - Zürich");
+        j.setArbeitsortText("Zürich");
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);
@@ -146,8 +146,8 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("United Kingdom, Zürich - London, Zürich");
-        j.setArbeitsortLand(null);  // identification of foreign countries is not supported yet
+        j.setArbeitsortText("London, Zürich");
+        j.setArbeitsortLand("CH");  // With multiple locations, the presence of any Swiss location forces the "CH" country
         j.setPensumVon(0);
         j.setPensumBis(100);
         // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49740BR&Codes=Ijob-room");
@@ -202,7 +202,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(1);
         j.setUntName("UBS");
-        j.setArbeitsortText("Poland - Kraków");
+        j.setArbeitsortText("Kraków");
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(0);
         j.setPensumBis(100);
@@ -230,7 +230,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("Hong Kong");
+        j.setArbeitsortText("hong kong");
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(100);
         j.setPensumBis(100);
@@ -258,7 +258,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("Hong Kong");
+        j.setArbeitsortText("Hong Kong, New York, Paris"); // falls back to location value(s) if city element is empty
         j.setArbeitsortLand(null); // identification of foreign countries is not supported yet
         j.setPensumVon(100);
         j.setPensumBis(100);
@@ -402,7 +402,7 @@ public class UbsIntegrationTest {
         );
         j.setBerufsgruppe(2);
         j.setUntName("UBS");
-        j.setArbeitsortText("Central Plateau - Herzogenbuchsee");
+        j.setArbeitsortText("Herzogenbuchsee");
         j.setArbeitsortLand("CH");
         j.setPensumVon(100);
         j.setPensumBis(100);

@@ -117,33 +117,28 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     }
 
     private static void  processJobLocations(String jobLocations, String jobCities, OstePartnerRecord partnerJob) {
-        if (!StringUtils.isEmpty(jobLocations)) {
 
+        if (!StringUtils.isEmpty(jobLocations)) {
             if (jobLocations.matches(UBS_SWITZERLAND_REGEX + ".+")) {
                 // A vacancy with multiple locations incluging Switzerland, will be considered as located in Swizterland
                 partnerJob.setArbeitsortLand("CH");
             } else {
                 partnerJob.setArbeitsortLand(null); // For now, a null value is interpreted as "not in Switzerland"
             }
+        }
 
+        if (!StringUtils.isEmpty(jobCities)) {
+            List<String> cities = Arrays.asList(jobCities.trim().split(UBS_MULTIVALUED_STRING_SEPARATOR_REGEX));
+            if (cities.size() > 0) {
+                partnerJob.setArbeitsortText(cities.stream().sorted().collect(Collectors.joining(", ")));
+            }
+        } else if (!StringUtils.isEmpty(jobLocations)) {
             List<String> locations = Arrays.asList(jobLocations.trim().split(UBS_MULTIVALUED_STRING_SEPARATOR_REGEX));
             if (locations.size() > 0) {
-                List<String> cleantLocations = locations.stream().map(UbsJobToPartnerJobConverter::getJobLocation).sorted().collect(Collectors.toList());
-                String locationsText = cleantLocations.stream().collect(Collectors.joining(", "));
-
-                if (!StringUtils.isEmpty(jobCities)) {
-                    List<String> cities = Arrays.asList(jobCities.trim().split(UBS_MULTIVALUED_STRING_SEPARATOR_REGEX));
-                    String citiesText = cities.stream()
-                            // TODO decide whether h.filter(x -> !cleantLocations.contains(x)), or not (+ case insensitiveness)
-                            .sorted().collect(Collectors.joining(", "));
-                    if (citiesText.length() > 0) {
-                        locationsText += " - " + citiesText;
-                    }
-                }
-
-                partnerJob.setArbeitsortText(locationsText);
+                partnerJob.setArbeitsortText(locations.stream().sorted().collect(Collectors.joining(", ")));
             }
         }
+
     }
 
     private static String getJobLocation(String jobLocation) {

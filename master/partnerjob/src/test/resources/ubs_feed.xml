@@ -587,7 +587,7 @@
                 <jobduration><![CDATA[Full Time]]></jobduration>
                 <role_family><![CDATA[Business Support & General Mgmt]]></role_family>
                 <role_profile><![CDATA[Executive/Team Assistant NO (ZS0181)]]></role_profile>
-                <location><![CDATA[Hong Kong]]></location>
+                <location><![CDATA[Paris|Hong Kong|New York]]></location>
                 <city><![CDATA[]]></city>
             </metadaten>
             <url_bewerber>
@@ -788,8 +788,8 @@
                 <jobduration><![CDATA[Full Time|Part Time]]></jobduration>
                 <role_family><![CDATA[Project Management]]></role_family>
                 <role_profile><![CDATA[Project Manager AD (ZS0143)]]></role_profile>
-                <location><![CDATA[United Kingdom|Switzerland - Zürich]]></location>
-                <city><![CDATA[London|Zürich]]></city>
+                <location><![CDATA[Switzerland - Zürich|United Kingdom|]]></location>
+                <city><![CDATA[Zürich|London]]></city>
             </metadaten>
             <url_bewerber>
                 <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=49740BR&Codes=Ijob-room]]></url_bewerber>
