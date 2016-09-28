@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Contains all logic that transforms a raw {@link ch.alv.batches.partnerjob.to.master.jaxb.ubs.Inserat} object into
