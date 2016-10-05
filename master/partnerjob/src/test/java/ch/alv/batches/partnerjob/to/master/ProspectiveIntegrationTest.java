@@ -230,11 +230,9 @@ public class ProspectiveIntegrationTest {
         j.setBezeichnung("Teststelle Partner1");
         j.setBeschreibung(
                 "Eidgenössisches Departement für<br/>auswärtige Angelegenheiten EDA<br/>\n" +
-                        "<b>Direktion für europäische Angelegenheiten DEA</b>\n" +
-                        "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
-                        "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)\n" +
-                        "sixth text field\n" +
-                        "seventh text field"
+                "<b>Direktion für europäische Angelegenheiten DEA</b>\n" +
+                "Ihre Bewerbung senden Sie bitte an<br/>folgende Adresse:<br/>Direktion für europäische Angelegenheiten DEA, Freiburgstrasse 130, 3003 Bern<br/>\n" +
+                "<br/>Ergänzende Auskünfte erteilt Ihnen gerne (individuelle Eingabe)"
         );
         j.setBerufsgruppe(1);
         j.setUntName("Eidgenössisches Departement für auswärtige Angelegenheiten");
