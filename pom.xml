@@ -62,7 +62,7 @@
         <module>commons/test</module>
         <module>commons/web</module>
 
-        <module>integration/boom</module>
+        <module>integration/jobroom-data</module>
 
         <!--<module>jobdesk/master</module>-->
 

@@ -1,4 +1,4 @@
-package ch.alv.batches.boom;
+package ch.alv.batches.jobroom.data;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,10 +14,10 @@ import javax.sql.DataSource;
 @ComponentScan("ch.alv.batches.commons.config, "
         + "ch.alv.batches.commons.web, "
 //        + "ch.alv.batches.company.to.master, "
-        + "ch.alv.batches.boom, "
+        + "ch.alv.batches.jobroom.data.jobroom_data, "
         + "ch.alv.batches.partnerjob.to.master"
 )
-public class BoomApplication {
+public class JobRoomDataApplication {
 
     @Primary
     @Bean
@@ -28,7 +28,7 @@ public class BoomApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(BoomApplication.class);
+        SpringApplication app = new SpringApplication(JobRoomDataApplication.class);
         app.run(args);
     }
 

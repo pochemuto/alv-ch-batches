@@ -1,4 +1,4 @@
-package ch.alv.batches.boom;
+package ch.alv.batches.jobroom.data;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +17,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = BoomApplication.class)
+@SpringApplicationConfiguration(classes = JobRoomDataApplication.class)
 @WebIntegrationTest
-public class BoomIntegrationTest {
+public class JobRoomDataIntegrationTest {
 
     private RestTemplate restTemplate = new TestRestTemplate();
 

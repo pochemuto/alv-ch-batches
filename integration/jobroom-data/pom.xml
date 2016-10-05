@@ -12,8 +12,8 @@
         <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>boom</artifactId>
-    <name>alv-ch-batches.boom</name>
+    <artifactId>jobroom-data</artifactId>
+    <name>alv-ch-batches.jobroom-data</name>
 
     <dependencies>
 

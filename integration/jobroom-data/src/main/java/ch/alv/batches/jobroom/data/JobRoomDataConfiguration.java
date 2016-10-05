@@ -1,4 +1,4 @@
-package ch.alv.batches.boom;
+package ch.alv.batches.jobroom.data;
 
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -10,9 +10,9 @@ import javax.annotation.Resource;
  *
  */
 @Configuration
-public class BoomConfiguration {
+public class JobRoomDataConfiguration {
 
-//    public final static String BOOM_PREFIX = "boom";
+//    public final static String BOOM_PREFIX = "jobroom_data";
 //    public final static String BOOM_PARTNERJOB_FULL = BOOM_PREFIX + "-full-" + IMPORT_PROSPECTIVEJOBS_JOB;
 
     @Resource
