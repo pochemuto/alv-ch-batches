@@ -50,7 +50,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <simpleflatmapper.version>1.10.3</simpleflatmapper.version>
-        <tomcat-version>8.0.35</tomcat-version>
+        <tomcat-version>8.0.37</tomcat-version>
         <spring.version>4.2.6.RELEASE</spring.version>
         <spring-batch.version>3.0.7.RELEASE</spring-batch.version>
         <spring-boot-starter-batch-web.version>1.3.7.RELEASE</spring-boot-starter-batch-web.version>
