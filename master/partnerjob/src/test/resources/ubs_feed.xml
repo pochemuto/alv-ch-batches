@@ -59,7 +59,7 @@
                 <jobduration><![CDATA[Full Time]]></jobduration>
                 <role_family><![CDATA[Business Support & General Mgmt]]></role_family>
                 <role_profile><![CDATA[Executive/Team Assistant NO (ZS0181)]]></role_profile>
-                <location><![CDATA[Switzerland - Bern]]></location>
+                <location><![CDATA[Switzerland|Switzerland - Bern]]></location>
                 <city><![CDATA[Bern]]></city>
             </metadaten>
             <url_bewerber>
@@ -924,6 +924,69 @@
             <url_direktlink>
                 <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5049&areq=49391BR&Codes=Ijob-room]]></url_direktlink>
         </inserat>
-
+        <inserat>
+            <hierarchien>
+                <hierarchieid><![CDATA[]]></hierarchieid>
+                <hierarchietext><![CDATA[]]></hierarchietext>
+            </hierarchien>
+            <inserat_id>132558BR</inserat_id>
+            <medienname>Job-Room.ch (Schnittstelle)</medienname>
+            <medien_id>1234</medien_id>
+            <konto_id>999</konto_id>
+            <kundenname>UBS</kundenname>
+            <layout>0</layout>
+            <logo>0</logo>
+            <sprache>en</sprache>
+            <datum_start>2016-10-12</datum_start>
+            <datum_ende/>
+            <datum_mutation/>
+            <kontakt>
+                <firma/>
+                <abteilung><![CDATA[Corporate Center]]></abteilung>
+                <anrede/>
+                <titel/>
+                <name/>
+                <vorname/>
+                <adresse1/>
+                <adresse2/>
+                <adresse3/>
+                <plz/>
+                <ort/>
+                <land/>
+                <land_iso2/>
+                <land_iso3/>
+                <telefon/>
+                <mail/>
+            </kontakt>
+            <stellentitel><![CDATA[8. Financial Accounting and Reporting Specialist]]></stellentitel>
+            <vorspann/>
+            <texte>
+                <text_1>
+                    <![CDATA[<S1>Your role</S1>Function Description:<br/><br/>Group Accounting (GA) is a Group wide function with a global presence<br/><br/>• GA is responsible for the preparation and analysis of underlying information in the UBS' Financial Statements, ensuring compliance with IFRS and other relevant requirements and aiming to achieve best in class financial reporting.<br/>• It is also responsible for the preparation of Group and standalone regulatory filings, including those related to capital adequacy and liquidity and funding, to our primary regulators FINMA and SNB and the establishment of internal accounting control documentation for senior management. <br/>• As part of its external financial and regulatory scope of responsibilities, the team coordinates the production of UBS's quarterly and annual reports, acting as the main information channel between the firm and its many and varied stakeholders as well as performs analytical reviews at Group and standalone level to ensure that disclosed financial information is materially correct.<br/>• By ensuring that UBS's quarterly and annual reporting products as well as regulatory filings are accurate and of the highest quality, the team plays a vital role in protecting the firm's financial reputation, ensuring compliance with international reporting and regulatory requirements thereby enhancing the firm's standing with its stakeholders and within the financial industry as a whole.<br/>• It is also responsible for the implementation of significant accounting changes, capital adequacy and Swiss GAAP policy setting including financial and management reporting.<br/><br/>Description: <br/><br/>The role offers a qualified accounting expert to work in a challenging, dynamic and international environment. The person will be a subject matter expert responsible for certain external and regulatory disclosures including the implementation of changes associated with new requirements. The role also includes performing analytical reviews and deep dives where required.<br/><br/>Responsibilities:<br/><br/>Some of the key responsibilities will include:<br/>• Own the design and preparation of certain disclosures in UBS's interim and annual reports and regulatory filings in accordance with multi-GAAP (IFRS, Swiss GAAP and Basel III Capital Adequacy) requirements.<br/>• Work closely with other finance teams globally in order to ensure a robust front-to-back process and content integrity of the Financial Statements.<br/>• Drive topical disclosures on a quarterly and annual basis related to significant events, transactions or new ad-hoc disclosure requirements<br/>• Establish, develop and maintain sound controls and governance procedures around financial disclosures and regulatory filings<br/>• Pro-actively develop and maintain internal reporting products that serve as control documentation with regards to external disclosures and regulatory filings<br/>• Prepare presentations for UBS's senior Finance bodies (such as the Audit Committee, the Disclosure Committee, the Group Accounting and Controlling Governance Committee).<br/>• Driving and managing changes to processes as well as coordinating the implementation of new requirements / content in UBS's quarterly and annual reports and regulatory filings.<br/>• Interact with offshore personnel located in India with regards to the production of external reports and regulatory filings<br/><br/>Requirements:                    <br/>For our ongoing demand of qualified Financial Accountant we are looking for a candidate with the following skill set:<br/>•Qualified Accountant or equivalent<br/>•Min. 3 years of experience in a in corporate environment (Big 4 experience is an advantage)<br/>•Very good written and spoken English. German knowledge is an advantage. <br/>•Very good knowledge of MS Excel and, ideally, SAP BW<br/>•Very good communication skills and ability to work in teams<br/><br/>Additional assets:<br/>•Work experience in an accounting function in the financial services industry]]></text_1>
+                <text_2>
+                    <![CDATA[<S1>Your team</S1>• As part of its external financial and regulatory scope of responsibilities, the team coordinates the production of UBS's quarterly and annual reports, acting as the main information channel between the firm and its many and varied stakeholders as well as performs analytical reviews at Group and standalone level to ensure that disclosed financial information is materially correct.]]></text_2>
+                <text_3>
+                    <![CDATA[<S1>Your experience and skills</S1>Requirements:                    <br/>For our ongoing demand of qualified Financial Accountant we are looking for a candidate with the following skill set:<br/>•Qualified Accountant or equivalent<br/>•Min. 3 years of experience in a in corporate environment (Big 4 experience is an advantage)<br/>•Very good written and spoken English. German knowledge is an advantage. <br/>•Very good knowledge of MS Excel and, ideally, SAP BW<br/>•Very good communication skills and ability to work in teams<br/><br/>Additional assets:<br/>•Work experience in an accounting function in the financial services industry would be an advantage<br/>•Proactive and flexible personality with ability to  complete multiple tasks under tight deadlines<br/>•Excellent organizational skills <br/>•Ability to prioritize own workload on a daily basis <br/>•Professional and positive attitude <br/>•Preference for working in an international environment]]></text_3>
+                <text_4></text_4>
+                <text_5>
+                    <![CDATA[<S1>What we offer</S1>UBS offers talented individuals around the world a challenging, diverse and supportive working environment in which passion, commitment and hard work are valued and rewarded.<BR><BR>Why UBS? Watch the <A tabIndex=4000 href="http://bcove.me/js2rj32b" target=_blank>video</A>]]></text_5>
+                <text_6>
+                    <![CDATA[<S1>Take the next step</S1>Fitting in at UBS means being passionate and motivated about what you do. If you like collaborating, are used to challenging others and being challenged in return, then you have the right attitude to thrive in our environment. Want to become part of our team? Apply now.]]></text_6>
+                <text_7>
+                    <![CDATA[<S1>Disclaimer / Policy Statements</S1>UBS is an Equal Opportunity Employer. We respect and seek to empower each individual and support the diverse cultures, perspectives, skills and experiences within our workforce.]]></text_7>
+            </texte>
+            <metadaten>
+                <jobcategory><![CDATA[Financial Controlling &amp; Accounting]]></jobcategory>
+                <jobduration><![CDATA[Full Time]]></jobduration>
+                <role_family><![CDATA[Finance]]></role_family>
+                <role_profile><![CDATA[Senior Financial & Regulatory Reporting  Specialist DI (ZS0644)]]></role_profile>
+                <location><![CDATA[Switzerland]]></location>
+                <city><![CDATA[Zurich-Flughafen]]></city>
+            </metadaten>
+            <url_bewerber>
+                <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=132558BR&Codes=Ijob-room]]></url_bewerber>
+            <url_direktlink>
+                <![CDATA[https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=132558BR&Codes=Ijob-room]]></url_direktlink>
+        </inserat>
     </inserate>
 </interface>

@@ -65,6 +65,7 @@ public class UbsIntegrationTest {
         checkUbsJobs.add(initJob6InFrench());
         checkUbsJobs.add(initJob6InItalian());
         checkUbsJobs.add(initJob7());
+        checkUbsJobs.add(initJob8());
     }
 
     @Test
@@ -87,7 +88,7 @@ public class UbsIntegrationTest {
                 .fetch()
                 .sortAsc(OSTE_PARTNER.BEZEICHNUNG);
 
-        assertEquals(14, fetchedJobs.size());
+        assertEquals(15, fetchedJobs.size());
 
 // Debugging Helper:
 //        for (OstePartnerRecord c: checkUbsJobs) {
@@ -99,7 +100,10 @@ public class UbsIntegrationTest {
 //            }
 //        }
 
-        assertEquals(checkUbsJobs, new TreeSet<>(fetchedJobs.subList(0, 11)));
+            }
+        }
+
+        assertEquals(checkUbsJobs, new TreeSet<>(fetchedJobs.subList(0, 12)));
     }
 
     private OstePartnerRecord initJob1() {
@@ -411,6 +415,33 @@ public class UbsIntegrationTest {
         j.setAnmeldeDatum("2016-08-29-00.00.00.000000");
         j.setUnbefristetB(true);
         // j.setSprache("fr");
+        return j;
+    }
+
+    private OstePartnerRecord initJob8() {
+        OstePartnerRecord j = new OstePartnerRecord();
+        j.setId("f68d3173-d82e-318a-83d0-3ecc80262a71");
+        j.setQuelle(UBS_CODE);
+        j.setBezeichnung("8. Financial Accounting and Reporting Specialist");
+        j.setBeschreibung(
+                "<S1>Your role</S1>Function Description:<br/><br/>Group Accounting (GA) is a Group wide function with a global presence<br/><br/>• GA is responsible for the preparation and analysis of underlying information in the UBS' Financial Statements, ensuring compliance with IFRS and other relevant requirements and aiming to achieve best in class financial reporting.<br/>• It is also responsible for the preparation of Group and standalone regulatory filings, including those related to capital adequacy and liquidity and funding, to our primary regulators FINMA and SNB and the establishment of internal accounting control documentation for senior management. <br/>• As part of its external financial and regulatory scope of responsibilities, the team coordinates the production of UBS's quarterly and annual reports, acting as the main information channel between the firm and its many and varied stakeholders as well as performs analytical reviews at Group and standalone level to ensure that disclosed financial information is materially correct.<br/>• By ensuring that UBS's quarterly and annual reporting products as well as regulatory filings are accurate and of the highest quality, the team plays a vital role in protecting the firm's financial reputation, ensuring compliance with international reporting and regulatory requirements thereby enhancing the firm's standing with its stakeholders and within the financial industry as a whole.<br/>• It is also responsible for the implementation of significant accounting changes, capital adequacy and Swiss GAAP policy setting including financial and management reporting.<br/><br/>Description: <br/><br/>The role offers a qualified accounting expert to work in a challenging, dynamic and international environment. The person will be a subject matter expert responsible for certain external and regulatory disclosures including the implementation of changes associated with new requirements. The role also includes performing analytical reviews and deep dives where required.<br/><br/>Responsibilities:<br/><br/>Some of the key responsibilities will include:<br/>• Own the design and preparation of certain disclosures in UBS's interim and annual reports and regulatory filings in accordance with multi-GAAP (IFRS, Swiss GAAP and Basel III Capital Adequacy) requirements.<br/>• Work closely with other finance teams globally in order to ensure a robust front-to-back process and content integrity of the Financial Statements.<br/>• Drive topical disclosures on a quarterly and annual basis related to significant events, transactions or new ad-hoc disclosure requirements<br/>• Establish, develop and maintain sound controls and governance procedures around financial disclosures and regulatory filings<br/>• Pro-actively develop and maintain internal reporting products that serve as control documentation with regards to external disclosures and regulatory filings<br/>• Prepare presentations for UBS's senior Finance bodies (such as the Audit Committee, the Disclosure Committee, the Group Accounting and Controlling Governance Committee).<br/>• Driving and managing changes to processes as well as coordinating the implementation of new requirements / content in UBS's quarterly and annual reports and regulatory filings.<br/>• Interact with offshore personnel located in India with regards to the production of external reports and regulatory filings<br/><br/>Requirements:                    <br/>For our ongoing demand of qualified Financial Accountant we are looking for a candidate with the following skill set:<br/>•Qualified Accountant or equivalent<br/>•Min. 3 years of experience in a in corporate environment (Big 4 experience is an advantage)<br/>•Very good written and spoken English. German knowledge is an advantage. <br/>•Very good knowledge of MS Excel and, ideally, SAP BW<br/>•Very good communication skills and ability to work in teams<br/><br/>Additional assets:<br/>•Work experience in an accounting function in the financial services industry\n" +
+                "<S1>Your team</S1>• As part of its external financial and regulatory scope of responsibilities, the team coordinates the production of UBS's quarterly and annual reports, acting as the main information channel between the firm and its many and varied stakeholders as well as performs analytical reviews at Group and standalone level to ensure that disclosed financial information is materially correct.\n" +
+                "<S1>Your experience and skills</S1>Requirements:                    <br/>For our ongoing demand of qualified Financial Accountant we are looking for a candidate with the following skill set:<br/>•Qualified Accountant or equivalent<br/>•Min. 3 years of experience in a in corporate environment (Big 4 experience is an advantage)<br/>•Very good written and spoken English. German knowledge is an advantage. <br/>•Very good knowledge of MS Excel and, ideally, SAP BW<br/>•Very good communication skills and ability to work in teams<br/><br/>Additional assets:<br/>•Work experience in an accounting function in the financial services industry would be an advantage<br/>•Proactive and flexible personality with ability to  complete multiple tasks under tight deadlines<br/>•Excellent organizational skills <br/>•Ability to prioritize own workload on a daily basis <br/>•Professional and positive attitude <br/>•Preference for working in an international environment\n" +
+                "<S1>What we offer</S1>UBS offers talented individuals around the world a challenging, diverse and supportive working environment in which passion, commitment and hard work are valued and rewarded.<BR><BR>Why UBS? Watch the <A tabIndex=4000 href=\"http://bcove.me/js2rj32b\" target=_blank>video</A>\n" +
+                "<S1>Take the next step</S1>Fitting in at UBS means being passionate and motivated about what you do. If you like collaborating, are used to challenging others and being challenged in return, then you have the right attitude to thrive in our environment. Want to become part of our team? Apply now.\n" +
+                "<S1>Disclaimer / Policy Statements</S1>UBS is an Equal Opportunity Employer. We respect and seek to empower each individual and support the diverse cultures, perspectives, skills and experiences within our workforce."
+        );
+        j.setBerufsgruppe(2);
+        j.setUntName("UBS");
+        j.setArbeitsortText("Zurich-Flughafen");
+        j.setArbeitsortLand("CH");
+        j.setPensumVon(100);
+        j.setPensumBis(100);
+        // j.setUrlDetail("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=132558BR&Codes=Ijob-room");
+        j.setUrlBewerbung("https://test.host.com/webapp/cim_jobdetail.asp?partnerid=25008&siteid=5012&areq=132558BR&Codes=Ijob-room");
+        j.setAnmeldeDatum("2016-10-12-00.00.00.000000");
+        j.setUnbefristetB(true);
+        // j.setSprache("en");
         return j;
     }
 }

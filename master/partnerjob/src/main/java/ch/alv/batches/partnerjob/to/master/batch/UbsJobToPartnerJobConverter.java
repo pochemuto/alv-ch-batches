@@ -21,7 +21,7 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     private String partnerCode = "ubs";
 
     private static final String UBS_MULTIVALUED_STRING_SEPARATOR_REGEX = "\\|";
-    private static final String UBS_SWITZERLAND_REGEX = "^(Switzerland|Schweiz|Suisse|Svizzera) - ";
+    private static final String UBS_SWITZERLAND_REGEX = "^(Switzerland|Schweiz|Suisse|Svizzera)( - )?";
 
 
     private static final Integer JOBROOM_CATEGORY_ADMIN_MANAGEMENT = 1;
@@ -118,7 +118,7 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     private static void  processJobLocations(String jobLocations, String jobCities, OstePartnerRecord partnerJob) {
 
         if (!StringUtils.isEmpty(jobLocations)) {
-            if (jobLocations.matches(UBS_SWITZERLAND_REGEX + ".+")) {
+            if (jobLocations.matches(UBS_SWITZERLAND_REGEX + ".*")) {
                 // A vacancy with multiple locations incluging Switzerland, will be considered as located in Swizterland
                 partnerJob.setArbeitsortLand("CH");
             } else {
@@ -138,14 +138,6 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
             }
         }
 
-    }
-
-    private static String getJobLocation(String jobLocation) {
-        if (!StringUtils.isEmpty(jobLocation)) {
-            return jobLocation.replaceAll(UBS_SWITZERLAND_REGEX, "");
-        } else {
-            return "";
-        }
     }
 
     private void processJobDurations(String ubsJobDurations, OstePartnerRecord partnerJob) {
@@ -210,16 +202,28 @@ public class UbsJobToPartnerJobConverter implements ItemProcessor<Inserat, OsteP
     private void processJobDescriptionData(Inserat.Texte textData, OstePartnerRecord partnerJob) {
 
         if (textData != null) {
-            String description = textData.getText1().trim() + "\n" +
-                    textData.getText2().trim() + "\n" +
-                    textData.getText3().trim() + "\n" +
-                    textData.getText4().trim() + "\n" +
-                    textData.getText5().trim() + "\n" +
-                    textData.getText6().trim() + "\n" +
-                    textData.getText7().trim();
+            String description = "";
+
+            description = appendText(textData.getText1(), description);
+            description = appendText(textData.getText2(), description);
+            description = appendText(textData.getText3(), description);
+            description = appendText(textData.getText4(), description);
+            description = appendText(textData.getText5(), description);
+            description = appendText(textData.getText6(), description);
+            description = appendText(textData.getText7(), description);
 
             partnerJob.setBeschreibung(PartnerJobImport.abbreviateDescription(description));
         }
 
+    }
+
+    private static String appendText(String newText, String wholeText) {
+        if (!StringUtils.isEmpty(newText)) {
+            if (!StringUtils.isEmpty(wholeText)) {
+                wholeText += "\n";
+            }
+            wholeText += newText.trim();
+        }
+        return wholeText;
     }
 }
