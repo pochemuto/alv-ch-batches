@@ -103,15 +103,17 @@ public class FullMasterToJobdeskConfiguration {
             if (checkExistingAlias.exists()) {
                 // Remove previous "import" alias
                 final IndicesAliasesResponse indicesAliasesResponse = elasticsearchClient.admin().indices().aliases(
-                        new IndicesAliasesRequest()
-                                .removeAlias("*", importAlias)
+                        new IndicesAliasesRequest().addAliasAction(
+                                IndicesAliasesRequest.AliasActions.remove().index("*").alias(importAlias)
+                        )
                 ).actionGet();
             }
 
             // Create new "import" alias
             final IndicesAliasesResponse indicesAliasesResponse = elasticsearchClient.admin().indices().aliases(
-                    new IndicesAliasesRequest()
-                            .addAlias(importAlias, newIndexName)
+                    new IndicesAliasesRequest().addAliasAction(
+                            IndicesAliasesRequest.AliasActions.add().index(newIndexName).alias(importAlias)
+                    )
             ).actionGet();
 
 
@@ -141,10 +143,10 @@ public class FullMasterToJobdeskConfiguration {
                 //
                 final IndicesAliasesResponse indicesAliasesResponse = elasticsearchClient.admin().indices().aliases(
                         new IndicesAliasesRequest()
-                                .addAlias(toBeDeletedAlias, activeAlias)
-                                .removeAlias("*", activeAlias)
-                                .addAlias(activeAlias, importAlias))
-                        .actionGet();
+                                .addAliasAction(IndicesAliasesRequest.AliasActions.add().index(activeAlias).alias(toBeDeletedAlias))
+                                .addAliasAction(IndicesAliasesRequest.AliasActions.remove().index("*").alias(activeAlias))
+                                .addAliasAction(IndicesAliasesRequest.AliasActions.add().index(importAlias).alias(activeAlias))
+                ).actionGet();
 
                 //
                 // Change the "current" alias to point to the new index ^ ^
@@ -161,8 +163,8 @@ public class FullMasterToJobdeskConfiguration {
                 // Simply create the new alias
                 final IndicesAliasesResponse indicesAliasesResponse = elasticsearchClient.admin().indices().aliases(
                         new IndicesAliasesRequest()
-                                .addAlias(activeAlias, importAlias))
-                        .actionGet();
+                                .addAliasAction(IndicesAliasesRequest.AliasActions.add().index(importAlias).alias(activeAlias))
+                ).actionGet();
             }
 
 

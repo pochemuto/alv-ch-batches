@@ -212,22 +212,22 @@
             },
             "url": {
               "type": "string"
-            }
-          },
-          "poAddress": {
-            "type": "object",
-            "properties": {
-              "poBox": {
-                "type": "string"
-              },
-              "zip": {
-                "type": "string"
-              },
-              "location": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
+            },
+            "poAddress": {
+              "type": "object",
+              "properties": {
+                "poBox": {
+                  "type": "string"
+                },
+                "zip": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                }
               }
             }
           }

@@ -1,9 +1,11 @@
 package ch.alv.batches.boom;
 
+
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @SpringBootApplication
 @ComponentScan("ch.alv.batches.commons.config, "
@@ -32,13 +36,17 @@ public class BoomApplication {
     private String jobdeskElasticsearchHost;
     @Value(("${ch.alv.jobdesk.elasticsearch.java_api.port:9300}"))
     private int jobdeskElasticsearchPort;
+    @Value(("${ch.alv.jobdesk.elasticsearch.java_api.cluster:elasticsearch}"))
+    private String jobdeskElasticsearchCluster;
 
     @Bean
-    Client jobdeskElasticSearch() {
-        final ImmutableSettings.Builder settings = ImmutableSettings.settingsBuilder();
-        TransportClient transportClient = new TransportClient(settings);
+    Client jobdeskElasticSearch() throws UnknownHostException {
+        Settings settings = Settings.builder()
+                .put("cluster.name", jobdeskElasticsearchCluster).build();
+        TransportClient transportClient = new PreBuiltTransportClient(settings);
+
         transportClient = transportClient.addTransportAddress(
-                new InetSocketTransportAddress(jobdeskElasticsearchHost, jobdeskElasticsearchPort));
+                new InetSocketTransportAddress(InetAddress.getByName(jobdeskElasticsearchHost), jobdeskElasticsearchPort));
         return transportClient;
     }
 

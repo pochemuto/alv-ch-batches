@@ -108,7 +108,7 @@ public class VacanciesToJobdeskConfiguration extends AnyMasterEntityToJobdeskCon
                 }
 
                 @Override
-                public void onFailure(Throwable e) {
+                public void onFailure(Exception e) {
                     log.error("An error raised while adding jobs to the jobdesk index.", e);
                 }
             });

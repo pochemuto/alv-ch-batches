@@ -32,7 +32,8 @@
     <properties>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
-        <elasticsearch.version>1.7.1</elasticsearch.version>
+        <elasticsearch.version>5.2.0</elasticsearch.version>
+        <log4j.version>2.7</log4j.version>
         <h2.version>1.4.187</h2.version>
         <hibernate.validator.version>5.2.1.Final</hibernate.validator.version>
         <jackson.version>2.6.1</jackson.version>
@@ -210,9 +211,19 @@
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>transport</artifactId>
                 <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>

@@ -4,7 +4,7 @@ import ch.alv.batches.commons.config.MasterDatabaseSettings;
 import ch.alv.batches.commons.test.TestApplicationWithEmbeddedElasticsearchNode;
 import ch.alv.batches.commons.test.elasticsearch.EmbeddedElasticsearchNode;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
-import org.elasticsearch.action.count.CountResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.jooq.DSLContext;
 import org.junit.After;
@@ -58,12 +58,12 @@ public abstract class MasterToJobdeskIntegrationTest {
         int waited = 0;
         int waitTime = 10_000;
         do {
-            CountResponse countResponse = elasticsearchClient.prepareCount()
+            SearchResponse searchResponse = elasticsearchClient.prepareSearch()
                     .setIndices(elasticsearchIndexName)
                     .setTypes(elasticsearchType)
                     .execute()
                     .actionGet();
-            count = countResponse.getCount();
+            count = searchResponse.getHits().getTotalHits();
             Thread.sleep(waitTime);
             waited += waitTime;
             System.out.println(count + " items stored (running for " + waited/1000 + "s)");
@@ -80,7 +80,7 @@ public abstract class MasterToJobdeskIntegrationTest {
     }
 
     @After
-    public void cleanup() {
+    public void cleanup() throws IOException {
         elasticsearchNode.shutdown();
     }
 

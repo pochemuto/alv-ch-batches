@@ -109,7 +109,7 @@ public class LocationsToJobdeskConfiguration extends AnyMasterEntityToJobdeskCon
                 }
 
                 @Override
-                public void onFailure(Throwable e) {
+                public void onFailure(Exception e) {
                     log.error("An error raised while adding locations to the jobdesk index.", e);
                 }
             });
