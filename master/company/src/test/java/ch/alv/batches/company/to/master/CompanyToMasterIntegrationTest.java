@@ -8,7 +8,12 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
 import org.jooq.DSLContext;
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockftpserver.fake.FakeFtpServer;
 import org.mockftpserver.fake.UserAccount;
@@ -64,6 +69,8 @@ public class CompanyToMasterIntegrationTest {
         fakeFtpServer = new FakeFtpServer();
         fakeFtpServer.setServerControlPort(8002);  // use any free port
 
+        // In IntelliJ IDEA add 'master/company/' to the file path,
+        // to be able to run these specific unit tests...
         FileSystem fileSystem = new UnixFakeFileSystem();
         String content1 = FileUtils.readFileToString(
                 new File("src/test/resources" + IMPORT_1));
@@ -97,7 +104,8 @@ public class CompanyToMasterIntegrationTest {
 
     private AvgFirmenRecord initAvgFirmenRecord1() {
         AvgFirmenRecord company = new AvgFirmenRecord();
-        company.setId(5);
+        company.setId(5L);
+        company.setTodelete(false);
         company.setEmail("info@aplan.ch");
         company.setName("A-Plan GmbH");
         company.setOrt("Bad Zurzach");
@@ -109,7 +117,8 @@ public class CompanyToMasterIntegrationTest {
 
     private AvgFirmenRecord initAvgFirmenRecord2() {
         AvgFirmenRecord company = new AvgFirmenRecord();
-        company.setId(6);
+        company.setId(6L);
+        company.setTodelete(false);
         company.setEmail("info@afpersonal.ch");
         company.setName("AF Personal AG");
         company.setOrt("Bremgarten AG");
@@ -121,7 +130,8 @@ public class CompanyToMasterIntegrationTest {
 
     private AvgFirmenRecord initAvgFirmenRecord3() {
         AvgFirmenRecord company = new AvgFirmenRecord();
-        company.setId(8);
+        company.setId(8L);
+        company.setTodelete(false);
         company.setEmail("andreas.somogyi@aspmarketing.ch");
         company.setName("ASP Marketing");
         company.setOrt("Seengen");
@@ -132,7 +142,8 @@ public class CompanyToMasterIntegrationTest {
 
     private AvgFirmenRecord updatedAvgFirmenRecord3() {
         AvgFirmenRecord company = new AvgFirmenRecord();
-        company.setId(8);
+        company.setId(8L);
+        company.setTodelete(false);
         company.setEmail("andreas.somogyi@aspmarketing.ch");
         company.setName("ASP Marketing AG");
         company.setOrt("Seengen");
@@ -144,7 +155,8 @@ public class CompanyToMasterIntegrationTest {
 
     private AvgFirmenRecord initAvgFirmenRecord4() {
         AvgFirmenRecord company = new AvgFirmenRecord();
-        company.setId(10);
+        company.setId(10L);
+        company.setTodelete(false);
         company.setEmail("aarau@adecco.ch");
         company.setName("Adecco human resources AG");
         company.setOrt("Aarau 1 Fächer");
@@ -156,7 +168,8 @@ public class CompanyToMasterIntegrationTest {
 
     private AvgFirmenRecord initAvgFirmenRecord5() {
         AvgFirmenRecord company = new AvgFirmenRecord();
-        company.setId(11);
+        company.setId(11L);
+        company.setTodelete(false);
         company.setEmail("baden@adecco.ch");
         company.setName("Adecco human resources AG");
         company.setOrt("Baden");
@@ -206,27 +219,38 @@ public class CompanyToMasterIntegrationTest {
 
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
-        Map<Integer, AvgFirmenRecord> fetchedUpdatedCompanies = jooq.fetch(AVG_FIRMEN).intoMap(AVG_FIRMEN.ID);
+        Map<Long, AvgFirmenRecord> fetchedUpdatedCompanies = jooq.fetch(AVG_FIRMEN).intoMap(AVG_FIRMEN.ID);
 
-        Assert.assertEquals(LocalDate.now().toDate(), fetchedUpdatedCompanies.get(5).getTodelete());
-        Assert.assertEquals(LocalDate.now().toDate(), fetchedUpdatedCompanies.get(6).getTodelete());
-        Assert.assertEquals(0, fetchedUpdatedCompanies.get(8).compareTo(updatedAvgFirmenRecord3()));
-        Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82188));
-        Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82191));
-        Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82193));
+        Date now = SqlDataTypesHelper.now();
+        Date today = SqlDataTypesHelper.today();
+        Date yesterday = SqlDataTypesHelper.fromJodaLocalDate(LocalDate.now().minusDays(1));
+
+        Assert.assertTrue(fetchedUpdatedCompanies.get(5L).getTodelete());
+        Assert.assertTrue(today.getTime() < fetchedUpdatedCompanies.get(5L).getTodeleteSince().getTime());
+        Assert.assertTrue(now.getTime() > fetchedUpdatedCompanies.get(5L).getTodeleteSince().getTime());
+
+        Assert.assertTrue(fetchedUpdatedCompanies.get(6L).getTodelete());
+        Assert.assertTrue(today.getTime() < fetchedUpdatedCompanies.get(6L).getTodeleteSince().getTime());
+        Assert.assertTrue(now.getTime() > fetchedUpdatedCompanies.get(6L).getTodeleteSince().getTime());
+
+        Assert.assertEquals(0, fetchedUpdatedCompanies.get(8L).compareTo(updatedAvgFirmenRecord3()));
+        Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82188L));
+        Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82191L));
+        Assert.assertTrue(fetchedUpdatedCompanies.containsKey(82193L));
 
         Assert.assertEquals(69, fetchedUpdatedCompanies.size());
+
+        // Simulate that previous import was executed yesterday
+        fetchedUpdatedCompanies.get(5L).setTodeleteSince(yesterday);
+        fetchedUpdatedCompanies.get(5L).setTodelete(true);
+        fetchedUpdatedCompanies.get(5L).store();
+        fetchedUpdatedCompanies.get(6L).setTodeleteSince(yesterday);
+        fetchedUpdatedCompanies.get(6L).setTodelete(true);
+        fetchedUpdatedCompanies.get(6L).store();
 
         //
         // Third Import
         //
-
-        // Simulate that previous import was executed yesterday
-        Date yesterday = SqlDataTypesHelper.fromJavaUtilDate(LocalDate.now().minusDays(1).toDate());
-        fetchedUpdatedCompanies.get(5).setTodelete(yesterday);
-        fetchedUpdatedCompanies.get(5).store();
-        fetchedUpdatedCompanies.get(6).setTodelete(yesterday);
-        fetchedUpdatedCompanies.get(6).store();
 
         fakeFtpServer.getFileSystem().rename(DOWNLOAD_FILENAME, IMPORT_2);
         fakeFtpServer.getFileSystem().rename(IMPORT_3, DOWNLOAD_FILENAME);
@@ -234,12 +258,14 @@ public class CompanyToMasterIntegrationTest {
         Assert.assertEquals(ExitStatus.COMPLETED, springBatchHelper.runJob(importAvgCompaniesJob));
 
         // Ensure that todelete timestamp is not changed over time
-        AvgFirmenRecord r5 = jooq.selectFrom(AVG_FIRMEN).where(AVG_FIRMEN.ID.equal(5)).fetchOne();
-        Assert.assertEquals(yesterday, r5.getTodelete());
+        AvgFirmenRecord r5 = jooq.selectFrom(AVG_FIRMEN).where(AVG_FIRMEN.ID.equal(5L)).fetchOne();
+        Assert.assertEquals(yesterday, r5.getTodeleteSince());
+        Assert.assertTrue(r5.getTodelete());
 
         // Ensure that deleted companies cannot be revived, nor updated
-        AvgFirmenRecord r6 = jooq.selectFrom(AVG_FIRMEN).where(AVG_FIRMEN.ID.equal(6)).fetchOne();
-        Assert.assertEquals(yesterday, r6.getTodelete());
+        AvgFirmenRecord r6 = jooq.selectFrom(AVG_FIRMEN).where(AVG_FIRMEN.ID.equal(6L)).fetchOne();
+        Assert.assertEquals(yesterday, r6.getTodeleteSince());
+        Assert.assertTrue(r6.getTodelete());
         Assert.assertEquals("0566317491", r6.getTelefonnummer());
         Assert.assertEquals("AF Personal AG", r6.getName());
         Assert.assertEquals("Bremgarten AG", r6.getOrt());
@@ -247,7 +273,7 @@ public class CompanyToMasterIntegrationTest {
 
     @After
     public void cleanDatabase() {
-        jooq.truncate(AVG_FIRMEN).execute();
+        // jooq.truncate(AVG_FIRMEN).execute();
     }
 
     @AfterClass

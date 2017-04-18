@@ -30,6 +30,7 @@
     </parent>
 
     <properties>
+        <commons-collections.version>3.2.2</commons-collections.version>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
         <elasticsearch.version>1.7.1</elasticsearch.version>
@@ -58,18 +59,15 @@
 
     <modules>
         <module>commons/config</module>
+        <module>commons/spring-integration</module>
         <module>commons/sql</module>
         <module>commons/test</module>
         <module>commons/web</module>
 
         <module>integration/jobroom-data</module>
 
-        <!--<module>jobdesk/master</module>-->
-
-        <!--<module>master/cadastre</module>-->
-        <!--<module>master/company</module>-->
+        <module>master/company</module>
         <!--<module>master/lamda</module>-->
-        <!--<module>master/legacy</module>-->
         <module>master/partnerjob</module>
     </modules>
 
@@ -128,6 +126,11 @@
             <dependency>
                 <groupId>ch.alv.batches</groupId>
                 <artifactId>commons-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.alv.batches</groupId>
+                <artifactId>commons-spring-integration</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

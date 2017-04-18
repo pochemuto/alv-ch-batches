@@ -25,4 +25,7 @@ public final class SqlDataTypesHelper {
         return fromJavaUtilDate(new java.util.Date());
     }
 
+    public static java.sql.Date today() {
+        return (fromJodaLocalDate(LocalDate.now()));
+    }
 }

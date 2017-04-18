@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static ch.alv.batches.company.to.master.config.CompanyToMasterConfiguration.IMPORT_COMPANIES_JOB;
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_PROSPECTIVEJOBS_JOB;
 import static ch.alv.batches.partnerjob.to.master.config.PartnerJobToMasterConfiguration.IMPORT_UBSJOBS_JOB;
 import static org.junit.Assert.assertEquals;
@@ -29,8 +30,8 @@ public class JobRoomDataIntegrationTest {
     @Test
     public void testFindAndExecuteJobs() throws InterruptedException {
         List jobNames = restTemplate.getForObject("http://localhost:" + port + "/batch/monitoring/jobs", List.class);
-        assertEquals(2, jobNames.size());
-//        assertTrue(jobNames.contains(IMPORT_COMPANIES_JOB));
+        assertEquals(3, jobNames.size());
+        assertTrue(jobNames.contains(IMPORT_COMPANIES_JOB));
         assertTrue(jobNames.contains(IMPORT_PROSPECTIVEJOBS_JOB));
         assertTrue(jobNames.contains(IMPORT_UBSJOBS_JOB));
 

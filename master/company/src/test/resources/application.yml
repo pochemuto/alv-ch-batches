@@ -9,8 +9,15 @@ ch:
 
     batches:
       chunkSizes:
-        avgfirmen: 25
+        company: 25
 
     company:
-      avgfirmen:
-        url: ftp://ftpdev:ftpdev@localhost:8002/AVAMPSTS.xml
+      download_dir: /tmp # c:/temp
+      ftp:
+        host: localhost
+        port: 8002
+        clientMode: 0 # 0=local_active 2=local_passive
+        remoteVerificationEnabled: true
+        username: ftpdev
+        password: ftpdev
+        filename: AVAMPSTS.xml

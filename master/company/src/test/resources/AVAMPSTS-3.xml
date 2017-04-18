@@ -2,19 +2,19 @@
 <avg xsi:noNamespaceSchemaLocation="avgbetriebe.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
  <Betrieb>
   <Id>6</Id>
-  <Bezeichnung>AF Personal AG is back!</Bezeichnung>
-  <Strasse>Zürcherstrasse 29</Strasse>
-  <PLZ>5620</PLZ>
-  <Ort>Bremgarten</Ort>
+  <Bezeichnung>The company is back!</Bezeichnung>
+  <Strasse>Teufelstrasse 666</Strasse>
+  <PLZ>6666</PLZ>
+  <Ort>Hell</Ort>
   <Telefonnummer>0666666666</Telefonnummer>
   <Email>info@afpersonal.ch</Email>
   <Leiter>
-   <Name>Furrer</Name>
-   <Vorname>Anton</Vorname>
+   <Name>Niemand</Name>
+   <Vorname>Du</Vorname>
   </Leiter>
   <Leiter>
-   <Name>Furrer</Name>
-   <Vorname>Pamela</Vorname>
+   <Name>Nobody</Name>
+   <Vorname>You</Vorname>
   </Leiter>
  </Betrieb>
  <Betrieb>

@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 @SpringBootApplication
 @ComponentScan("ch.alv.batches.commons.config, "
         + "ch.alv.batches.commons.web, "
-//        + "ch.alv.batches.company.to.master, "
+        + "ch.alv.batches.company.to.master, "
         + "ch.alv.batches.jobroom.data.jobroom_data, "
         + "ch.alv.batches.partnerjob.to.master"
 )

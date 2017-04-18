@@ -8,13 +8,18 @@
 
 package ch.alv.batches.company.to.master.jaxb;
 
-import javax.xml.bind.annotation.*;
 
 /**
  * This class is a java representation of the AVAMPSTS xml used to deliver
  * company master data. Originally it has been generated with
  * help of the maven-jaxb plugin.
  */
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * <p>Java-Klasse für avggstelle complex type.
  *

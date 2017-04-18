@@ -23,6 +23,10 @@
             <groupId>ch.alv.batches</groupId>
             <artifactId>commons-sql</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ch.alv.batches</groupId>
+            <artifactId>commons-spring-integration</artifactId>
+        </dependency>
 
         <!-- external dependencies -->
 
@@ -55,14 +59,23 @@
                 <artifactId>properties-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.jooq</groupId>
+                <groupId>org.jooq.pro</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <configuration>
                     <generator>
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
-                            <name>org.jooq.util.postgres.PostgresDatabase</name>
                             <includes>^AVG_FIRMEN.*</includes>
+                            <forcedTypes>
+                                <forcedType>
+                                    <name>BOOLEAN</name>
+                                    <expression>TODELETE</expression>
+                                </forcedType>
+                                <forcedType>
+                                    <name>BIGINT</name>
+                                    <expression>ID</expression>
+                                </forcedType>
+                            </forcedTypes>
                         </database>
                         <target>
                             <packageName>ch.alv.batches.company.to.master.jooq</packageName>
