@@ -100,9 +100,6 @@ public class UbsIntegrationTest {
 //            }
 //        }
 
-            }
-        }
-
         assertEquals(checkUbsJobs, new TreeSet<>(fetchedJobs.subList(0, 12)));
     }
 
