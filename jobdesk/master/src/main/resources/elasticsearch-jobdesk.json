@@ -106,6 +106,9 @@
                   "type": "string"
                 }
               }
+            },
+            "geoPoints": {
+              "type": "geo_point"
             }
           }
         },

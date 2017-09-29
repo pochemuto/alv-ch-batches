@@ -12,6 +12,8 @@ public class JobdeskJobLocation {
 
     private List<JobdeskLocationGeoPoint> locations = new ArrayList<>();
 
+    private List<JobdeskLocationCoordinate> geoPoints = new ArrayList<>();
+
     public JobdeskJobLocation() {
     }
 
@@ -39,7 +41,12 @@ public class JobdeskJobLocation {
         this.locations = locations;
     }
 
+    public List<JobdeskLocationCoordinate> getGeoPoints() { return geoPoints; }
+
+    public void setGeoPoints(List<JobdeskLocationCoordinate> geoPoints) { this.geoPoints = geoPoints; }
+
     public void addLocation(Integer zip, Double lat, Double lon) {
         this.locations.add(new JobdeskLocationGeoPoint(zip, lat, lon));
+        this.geoPoints.add(new JobdeskLocationCoordinate(lat, lon));
     }
 }
