@@ -119,6 +119,7 @@ public class JobRecordToJobdeskJobConverter implements ItemProcessor<JobRecord, 
         out.setLanguages(languages);
     }
 
+    //TODO fix to
     private void setApplication(JobRecord in, JobdeskJob out) {
         out.setApplication(new JobdeskJobApplication(
                 in.getApplicationWritten(),
