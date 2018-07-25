@@ -2,6 +2,7 @@ package ch.alv.batches.legacy.to.master;
 
 import static java.lang.String.format;
 import static java.util.stream.IntStream.range;
+import static java.util.stream.IntStream.rangeClosed;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import ch.alv.batches.legacy.to.master.jooq.tables.records.JobLanguageRecord;
 
 class JobRecordMapper {
 	static final String LANGUAGE_CODE_COLUMN_FORMAT = "SK%d_SPRACHE_CODE";
-	static final Integer JOB_RECORD_BEGIN_COLUMN = 0;
+	static final Integer JOB_RECORD_BEGIN_COLUMN = 1;
 	static final Integer JOB_RECORD_END_COLUMN = 5;
 
 	List<JobLanguageRecord> mapRecords(ResultSet rs) {
@@ -21,7 +22,7 @@ class JobRecordMapper {
 	}
 
 	List<JobLanguageRecord> mapRecords(ResultSet rs, int start, int end) {
-		return range(start, end)
+		return rangeClosed(start, end)
 				.mapToObj(no -> mapRecord(rs, no))
 				.filter(Objects::nonNull)
 				.filter(record -> record.getLanguageId() != null)
