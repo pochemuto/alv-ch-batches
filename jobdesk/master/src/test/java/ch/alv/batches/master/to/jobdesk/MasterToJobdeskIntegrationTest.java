@@ -16,6 +16,7 @@ import ch.alv.batches.commons.config.MasterDatabaseSettings;
 import ch.alv.batches.commons.test.TestApplicationWithEmbeddedElasticsearchNode;
 import ch.alv.batches.commons.test.elasticsearch.EmbeddedElasticsearchNode;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
+import org.apache.commons.io.IOUtils;
 import org.elasticsearch.action.count.CountResponse;
 import org.elasticsearch.client.Client;
 import org.jooq.DSLContext;
@@ -107,16 +108,6 @@ public abstract class MasterToJobdeskIntegrationTest {
 				"-a",
 				file.getAbsolutePath());
 
-		System.out.println("pg_restore" +
-				" -h " + masterDbSettings.getHost() +
-				" -p " + Integer.toString(masterDbSettings.getPort()) +
-				" -U " + masterDbSettings.getUsername() +
-				" -d " + masterDbSettings.getName() +
-				" -F " + "c " +
-				" -a " +
-				file.getAbsolutePath());
-		System.out.println("PGPASSWORD " + masterDbSettings.getPassword());
-		//processBuilder.directory(file.getParentFile());
 		processBuilder.environment().put("PGPASSWORD", masterDbSettings.getPassword());
 		processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 		processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
