@@ -16,7 +16,6 @@ import ch.alv.batches.commons.config.MasterDatabaseSettings;
 import ch.alv.batches.commons.test.TestApplicationWithEmbeddedElasticsearchNode;
 import ch.alv.batches.commons.test.elasticsearch.EmbeddedElasticsearchNode;
 import ch.alv.batches.commons.test.springbatch.SpringBatchTestHelper;
-import org.apache.commons.io.IOUtils;
 import org.elasticsearch.action.count.CountResponse;
 import org.elasticsearch.client.Client;
 import org.jooq.DSLContext;
@@ -33,63 +32,63 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @IntegrationTest
 public abstract class MasterToJobdeskIntegrationTest {
 
-	@Resource
-	protected MasterDatabaseSettings masterDbSettings;
+    @Resource
+    protected MasterDatabaseSettings masterDbSettings;
 
-	@Resource
-	protected MasterToJobdeskSettings masterToJobdeskSettings;
+    @Resource
+    protected MasterToJobdeskSettings masterToJobdeskSettings;
 
-	@Resource
-	protected SpringBatchTestHelper springBatchHelper;
+    @Resource
+    protected SpringBatchTestHelper springBatchHelper;
 
-	@Resource
-	protected DSLContext jooq;
+    @Resource
+    protected DSLContext jooq;
 
-	@Resource
-	protected Client elasticsearchClient;
+    @Resource
+    protected Client elasticsearchClient;
 
-	@Resource
-	protected EmbeddedElasticsearchNode elasticsearchNode;
+    @Resource
+    protected EmbeddedElasticsearchNode elasticsearchNode;
 
-	protected String elasticsearchIndexName = "undefined";
+    protected String elasticsearchIndexName = "undefined";
 
-	protected final ClassLoader classLoader = getClass().getClassLoader();
+    protected final ClassLoader classLoader = getClass().getClassLoader();
 
-	protected abstract void initJobdeskElasticsearch() throws IOException;
+    protected abstract void initJobdeskElasticsearch() throws IOException;
 
-	protected void waitUntilElasticSearchBulkIsFinished(String elasticsearchType, long documentTotal)
-			throws InterruptedException {
-		long count;
-		int waited = 0;
-		int waitTime = 10_000;
-		do {
-			CountResponse countResponse = elasticsearchClient.prepareCount()
-					.setIndices(elasticsearchIndexName)
-					.setTypes(elasticsearchType)
-					.execute()
-					.actionGet();
-			count = countResponse.getCount();
-			Thread.sleep(waitTime);
-			waited += waitTime;
-			System.out.println(count + " items stored (running for " + waited / 1000 + "s)");
-		} while (count < documentTotal && waited < 60_000);
+    protected void waitUntilElasticSearchBulkIsFinished(String elasticsearchType, long documentTotal)
+            throws InterruptedException {
+        long count;
+        int waited = 0;
+        int waitTime = 10_000;
+        do {
+            CountResponse countResponse = elasticsearchClient.prepareCount()
+                    .setIndices(elasticsearchIndexName)
+                    .setTypes(elasticsearchType)
+                    .execute()
+                    .actionGet();
+            count = countResponse.getCount();
+            Thread.sleep(waitTime);
+            waited += waitTime;
+            System.out.println(count + " items stored (running for " + waited/1000 + "s)");
+        } while (count < documentTotal && waited < 60_000);
 
-		// FIXME: a  misconfigured elasticsearch queue capacity problem with bulk insert can lead to lose entries...
-		assertEquals(documentTotal, count);
-	}
+        // FIXME: a  misconfigured elasticsearch queue capacity problem with bulk insert can lead to lose entries...
+        assertEquals(documentTotal, count);
+    }
 
-	@Before
-	public void setup() throws InterruptedException, IOException {
-		initJobdeskElasticsearch();
-		initMasterDatabase();
-	}
+    @Before
+    public void setup() throws InterruptedException, IOException {
+        initJobdeskElasticsearch();
+        initMasterDatabase();
+    }
 
-	@After
-	public void cleanup() {
-		elasticsearchNode.shutdown();
-	}
+    @After
+    public void cleanup() {
+        elasticsearchNode.shutdown();
+    }
 
-	private void initMasterDatabase() throws IOException, InterruptedException {
+    private void initMasterDatabase() throws IOException, InterruptedException {
 
 		jooq.truncate(JOB_LOCATION).restartIdentity().cascade().execute();
 		jooq.truncate(JOB_LANGUAGE).restartIdentity().cascade().execute();
@@ -97,30 +96,28 @@ public abstract class MasterToJobdeskIntegrationTest {
 		jooq.truncate(LOCATION).restartIdentity().cascade().execute();
 
 
-		File file = new File(classLoader.getResource("jobs.dump").getFile());
-		ProcessBuilder processBuilder = new ProcessBuilder(
-				"pg_restore",
-				"-h", masterDbSettings.getHost(),
-				"-p", Integer.toString(masterDbSettings.getPort()),
-				"-U", masterDbSettings.getUsername(),
-				"-d", masterDbSettings.getName(),
-				"-F", "c",
-				"-a",
-				file.getAbsolutePath());
+        File file = new File(classLoader.getResource("jobs.dump").getFile());
+        ProcessBuilder processBuilder = new ProcessBuilder(
+                "pg_restore",
+                "-h", masterDbSettings.getHost(),
+                "-p", Integer.toString(masterDbSettings.getPort()),
+                "-U", masterDbSettings.getUsername(),
+                "-d", masterDbSettings.getName(),
+                "-F", "c",
+                "-a",
+                file.getAbsolutePath());
 
-		processBuilder.environment().put("PGPASSWORD", masterDbSettings.getPassword());
-		processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-		processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
-		processBuilder.redirectErrorStream(true);
-		processBuilder.redirectInput(file);
+        //processBuilder.directory(file.getParentFile());
+        processBuilder.environment().put("PGPASSWORD", masterDbSettings.getPassword());
+        processBuilder.redirectErrorStream(true);
+        processBuilder.redirectInput(file);
 
-		Process psqlProcess = processBuilder.start();
-		boolean executed = psqlProcess.waitFor(30, TimeUnit.SECONDS);
-		assertEquals(true, executed);
-
-		int result = psqlProcess.exitValue();
-		assertEquals(0, result);
-		// TODO assert totals in DB: location=4168, job=24443, job_loc=13591
-	}
+        Process psqlProcess = processBuilder.start();
+        boolean executed = psqlProcess.waitFor(30, TimeUnit.SECONDS);
+        assertEquals(true, executed);
+        int result = psqlProcess.exitValue();
+        assertEquals(0, result);
+        // TODO assert totals in DB: location=4168, job=24443, job_loc=13591
+    }
 
 }
