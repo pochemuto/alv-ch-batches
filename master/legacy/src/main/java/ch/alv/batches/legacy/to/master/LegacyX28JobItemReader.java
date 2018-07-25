@@ -28,7 +28,7 @@ public class LegacyX28JobItemReader extends JdbcCursorItemReader<Collection<? ex
 	protected Collection<? extends UpdatableRecord<?>> readCursor(ResultSet rs, int currentRow) throws SQLException {
 		List<UpdatableRecord<?>> records = new LinkedList<>();
 		records.add(jobMapper.mapRow(rs, currentRow));
-		records.addAll(new JobRecordMapper().mapRecords(rs));
+		records.addAll(new JobLanguageRecordMapper().mapRecords(rs));
 		return records;
 	}
 }

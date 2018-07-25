@@ -1,7 +1,6 @@
 package ch.alv.batches.legacy.to.master;
 
 import static java.lang.String.format;
-import static java.util.stream.IntStream.range;
 import static java.util.stream.IntStream.rangeClosed;
 
 import java.sql.ResultSet;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 
 import ch.alv.batches.legacy.to.master.jooq.tables.records.JobLanguageRecord;
 
-class JobRecordMapper {
+class JobLanguageRecordMapper {
 	static final String LANGUAGE_CODE_COLUMN_FORMAT = "SK%d_SPRACHE_CODE";
 	static final Integer JOB_RECORD_BEGIN_COLUMN = 1;
 	static final Integer JOB_RECORD_END_COLUMN = 5;
