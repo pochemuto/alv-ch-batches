@@ -1,5 +1,17 @@
 package ch.alv.batches.master.to.jobdesk;
 
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB_LANGUAGE;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB_LOCATION;
+import static ch.alv.batches.master.to.jobdesk.jooq.Tables.LOCATION;
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+
 import ch.alv.batches.commons.config.MasterDatabaseSettings;
 import ch.alv.batches.commons.test.TestApplicationWithEmbeddedElasticsearchNode;
 import ch.alv.batches.commons.test.elasticsearch.EmbeddedElasticsearchNode;
@@ -10,18 +22,10 @@ import org.jooq.DSLContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import static ch.alv.batches.master.to.jobdesk.jooq.Tables.JOB;
-import static ch.alv.batches.master.to.jobdesk.jooq.Tables.LOCATION;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = TestApplicationWithEmbeddedElasticsearchNode.class)
@@ -86,8 +90,11 @@ public abstract class MasterToJobdeskIntegrationTest {
 
     private void initMasterDatabase() throws IOException, InterruptedException {
 
-        jooq.truncate(JOB).cascade().execute();
-        jooq.truncate(LOCATION).cascade().execute();
+		jooq.truncate(JOB_LOCATION).restartIdentity().cascade().execute();
+		jooq.truncate(JOB_LANGUAGE).restartIdentity().cascade().execute();
+		jooq.truncate(JOB).restartIdentity().cascade().execute();
+		jooq.truncate(LOCATION).restartIdentity().cascade().execute();
+
 
         File file = new File(classLoader.getResource("jobs.dump").getFile());
         ProcessBuilder processBuilder = new ProcessBuilder(

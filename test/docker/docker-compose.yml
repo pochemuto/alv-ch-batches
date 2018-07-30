@@ -14,7 +14,7 @@ master_db:
   ports:
     - 5432:5432
 
-  image: postgres:9.4
+  image: postgres:10.4
 
   volumes:
     - ./docker-compose-data/master_db/etc/postgresql:/etc/postgresql
