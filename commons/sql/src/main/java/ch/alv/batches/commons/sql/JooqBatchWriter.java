@@ -5,6 +5,9 @@ import org.jooq.UpdatableRecord;
 import org.jooq.exception.DataAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.item.ExecutionContext;
+import org.springframework.batch.item.ItemStream;
+import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ItemWriter;
 
 import java.sql.Connection;
@@ -12,20 +15,20 @@ import java.sql.SQLException;
 import java.util.List;
 
 // FIXME allow a mode without ANY COMMIT!!!??? 
-public class JooqBatchWriter implements ItemWriter<UpdatableRecord<?>> {
+public class JooqBatchWriter implements ItemWriter<UpdatableRecord<?>>, ItemStream {
 
     final static Logger logger = LoggerFactory.getLogger(JooqBatchWriter.class);
 
     protected Connection connection = null;
     protected DSLContext jooq = null;
+    private Boolean enableAutoCommit = null;
 
     public JooqBatchWriter(DSLContext jooq) {
         this.jooq = jooq;
-        this.connection = jooq.configuration().connectionProvider().acquire();
     }
 
     public void setAutoCommit(boolean enableAutoCommit) throws SQLException {
-        this.connection.setAutoCommit(enableAutoCommit);
+        this.enableAutoCommit = enableAutoCommit;
     }
 
     @Override
@@ -47,6 +50,29 @@ public class JooqBatchWriter implements ItemWriter<UpdatableRecord<?>> {
                 logger.error(nextExceptionMessage);
             }
             throw e;
+        }
+    }
+
+    @Override
+    public void open(ExecutionContext executionContext) throws ItemStreamException {
+        this.connection = jooq.configuration().connectionProvider().acquire();
+        try {
+            if (enableAutoCommit != null) {
+                this.connection.setAutoCommit(enableAutoCommit);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void update(ExecutionContext executionContext) throws ItemStreamException {
+    }
+
+    @Override
+    public void close() throws ItemStreamException {
+        if (this.connection != null) {
+            jooq.configuration().connectionProvider().release(this.connection);
         }
     }
 }
